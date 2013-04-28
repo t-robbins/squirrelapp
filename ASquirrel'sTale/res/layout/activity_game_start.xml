@@ -1,0 +1,91 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/RelativeLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:weightSum="1.0"
+    tools:context=".GameStartActivity" >
+
+    <TextView
+        android:id="@+id/tempTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/menuScreenBackground"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="52dp"
+        android:text="squirrel illustration + background here"
+        tools:ignore="HardcodedText" />
+
+    <ImageView
+        android:id="@+id/menuScreenBackground"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/ic_launcher"
+        tools:ignore="ContentDescription" />
+
+    <LinearLayout
+        android:id="@+id/LinearLayout1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/menuScreenBackground"
+        android:layout_centerHorizontal="true"
+        android:gravity="bottom|center_horizontal|center_vertical"
+        android:orientation="vertical"
+        android:weightSum="1.0" >
+
+        <ImageButton
+            android:id="@+id/newGame_button"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:onClick="intentLevelOne"
+            android:padding="0dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/newgame"
+            tools:ignore="ContentDescription" />
+
+        <ImageButton
+            android:id="@+id/cont_button"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:onClick="intentContinue"
+            android:padding="0dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/cont"
+            tools:ignore="ContentDescription" />
+
+        <ImageButton
+            android:id="@+id/options_button"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:cropToPadding="true"
+            android:onClick="intentOptions"
+            android:padding="0dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/options"
+            tools:ignore="ContentDescription" />
+
+        <ImageButton
+            android:id="@+id/highScores_button"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_weight=".10"
+            android:adjustViewBounds="true"
+            android:cropToPadding="true"
+            android:onClick="intentHighScores"
+            android:padding="0dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/highscores"
+            tools:ignore="InefficientWeight,ContentDescription" />
+    </LinearLayout>
+
+</RelativeLayout>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="edu.cs.elon.squirrelstale"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="15" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="edu.elon.cs.squirrelgame.GameStartActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="edu.elon.cs.squirrelgame.OptionsActivity"
+            android:label="@string/title_activity_options"
+            android:parentActivityName="edu.elon.cs.squirrelgame.GameStartActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="edu.cs.elon.squirrelstale.GameStartActivity" />
+        </activity>
+        <activity
+            android:name="edu.elon.cs.squirrelgame.HighScoresActivity"
+            android:label="@string/title_activity_high_scores"
+            android:parentActivityName="edu.elon.cs.squirrelgame.GameStartActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="edu.cs.elon.squirrelstale.GameStartActivity" />
+        </activity>
+        <activity
+            android:name="edu.elon.cs.squirrelgame.LevelSelectionActivity"
+            android:label="@string/title_activity_level_selection"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+        </activity>
+        <activity
+            android:name="edu.elon.cs.squirrelgame.LevelOne"
+            android:label="@string/title_activity_level_one" 
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+        </activity>
+    </application>
+
+</manifest>
