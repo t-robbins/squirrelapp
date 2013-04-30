@@ -67,23 +67,23 @@ public final class R {
         public static final int MenuLayout=0x7f080002;
         public static final int RelativeLayout1=0x7f080000;
         public static final int action_settings=0x7f08002b;
-        public static final int boardView1=0x7f080009;
+        public static final int boardView1=0x7f080007;
         public static final int button2=0x7f080020;
         public static final int button3=0x7f080021;
         public static final int button4=0x7f080022;
         public static final int cont_button=0x7f080004;
         public static final int highScores_button=0x7f080006;
-        public static final int imageView1=0x7f080008;
+        public static final int imageView1=0x7f080009;
         public static final int menuScreenBackground=0x7f080001;
         public static final int newGame_button=0x7f080003;
         public static final int options_button=0x7f080005;
         public static final int tempTextView=0x7f08000a;
-        public static final int textView1=0x7f080007;
+        public static final int textView1=0x7f080008;
     }
     public static final class layout {
         public static final int activity_game_start=0x7f030000;
-        public static final int activity_high_scores=0x7f030001;
-        public static final int activity_level_one=0x7f030002;
+        public static final int activity_gameplay=0x7f030001;
+        public static final int activity_high_scores=0x7f030002;
         public static final int activity_level_selection=0x7f030003;
         public static final int activity_options=0x7f030004;
     }

@@ -6,12 +6,17 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
-public class LevelOne extends Activity {
+public class GameplayActivity extends Activity{
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_level_one);
+		setContentView(R.layout.activity_gameplay);
+		
+		
+	}
+	
+	protected void onFinish(){
 		
 		
 	}

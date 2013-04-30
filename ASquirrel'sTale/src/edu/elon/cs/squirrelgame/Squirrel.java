@@ -7,7 +7,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 
-public class Ball {
+public class Squirrel {
 	protected float x;
 	protected float y;
 	private float currentX;
@@ -21,7 +21,7 @@ public class Ball {
 
 	private final float FACTOR = 3f;
 
-	public Ball(Context context) {
+	public Squirrel(Context context) {
 		ff = BitmapFactory.decodeResource(context.getResources(),
 				R.drawable.ball);
 
@@ -70,6 +70,5 @@ public class Ball {
 		} else if (y < radiusHeight-27) {
 			y = radiusHeight-27;
 		}
-
 	}
 }

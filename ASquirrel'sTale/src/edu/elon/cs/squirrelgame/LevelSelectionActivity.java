@@ -16,7 +16,7 @@ public class LevelSelectionActivity extends Activity {
 	}
 
 	public void intentLevelOne(View v){
-		Intent beginLevelOne = new Intent(LevelSelectionActivity.this, LevelOne.class);
+		Intent beginLevelOne = new Intent(LevelSelectionActivity.this, GameplayActivity.class);
 		/* Create bundle?  or put extra*/
 		/* Put things in it */
 		startActivity(beginLevelOne);

@@ -23,7 +23,7 @@ public class BoardView extends SurfaceView implements SurfaceHolder.Callback {
 	private SurfaceHolder surfaceHolder;
 	private BoardViewThread boardViewThread;
 	protected float xAccel, yAccel;
-	private Ball ball;
+	private Squirrel squirrel;
 	
 	public BoardView(Context context, AttributeSet attrs) {
 		super(context, attrs);
@@ -34,6 +34,18 @@ public class BoardView extends SurfaceView implements SurfaceHolder.Callback {
 		sensorManager.registerListener(accelListener, 
 				sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), 
 				SensorManager.SENSOR_DELAY_GAME);	
+		
+		
+		//create level class object
+		
+		
+		
+		
+		/*all this junk within a levelUpdate method
+			int level = level.getLevel();
+			String[] levelProperties = level.getProperties(); 
+		*/
+		
 	}
 	
 	private SensorEventListener accelListener = new SensorEventListener() {
@@ -79,17 +91,17 @@ public class BoardView extends SurfaceView implements SurfaceHolder.Callback {
 	
 	private class BoardViewThread extends Thread{
 		private boolean isRunning;
-		private Ball ball;
-		private Spot spot;
-		private Bitmap board;
+		private Squirrel ball;
+		private Pedestrian ped;
+		private Bitmap gMapBackground;
 		private long lastTime;
 		private float screenSizeX, screenSizeY; 
 
 		public BoardViewThread(Context context){
 			isRunning = false;
-			ball = new Ball(context);
-			spot = new Spot(context);
-			board = BitmapFactory.decodeResource(context.getResources(), R.drawable.levelone_background);
+			ball = new Squirrel(context);
+			ped = new Pedestrian(context);
+			gMapBackground = BitmapFactory.decodeResource(context.getResources(), R.drawable.levelone_background);
 			DisplayMetrics dm = context.getResources().getDisplayMetrics(); 
 			screenSizeX = dm.widthPixels;
 			screenSizeY = dm.heightPixels; 
@@ -104,17 +116,20 @@ public class BoardView extends SurfaceView implements SurfaceHolder.Callback {
 		private void doDraw(Canvas canvas){
 			if(canvas != null){
 				//canvas.drawBitmap(board, 0, 0, null);
-				canvas.drawBitmap(board, null,
+				canvas.drawBitmap(gMapBackground, null,
 						new Rect(0, 0, (int)screenSizeX, (int)screenSizeY),
 								null); 
-				spot.doDraw(canvas);
+				ped.doDraw(canvas);
 				ball.doDraw(canvas);
+				
+				//for each loop to draw 
+	
 			}
 		}
 		
 		private void update(double elapsed) {
 			ball.update(yAccel, xAccel);
-			spot.update(elapsed, ball.x, ball.y);
+			ped.update(elapsed, ball.x, ball.y);
 		}
 		
 		@Override

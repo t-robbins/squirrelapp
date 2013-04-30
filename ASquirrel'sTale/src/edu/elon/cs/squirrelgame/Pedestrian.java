@@ -9,7 +9,7 @@ import android.graphics.Rect;
 import android.view.Display;
 import android.view.WindowManager;
 
-public class Spot {
+public class Pedestrian {
 	protected float x;
 	protected float y;
 	private float width, height;
@@ -24,7 +24,7 @@ public class Spot {
 	private final float FACTOR = 2.7f;
 	private final int DIFFICULTY_LEVEL = 10;
 	
-	public Spot(Context context){
+	public Pedestrian(Context context /*, appearance, acornCost*/){
 		ss = BitmapFactory.decodeResource(context.getResources(), R.drawable.checkered);
 		width = ss.getWidth()/FACTOR;
 		height = ss.getHeight()/FACTOR;

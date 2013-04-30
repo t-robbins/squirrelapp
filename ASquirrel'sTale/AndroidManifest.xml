@@ -51,7 +51,7 @@
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
         </activity>
         <activity
-            android:name="edu.elon.cs.squirrelgame.LevelOne"
+            android:name="edu.elon.cs.squirrelgame.GameplayActivity"
             android:label="@string/title_activity_level_one" 
             android:screenOrientation="landscape"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >

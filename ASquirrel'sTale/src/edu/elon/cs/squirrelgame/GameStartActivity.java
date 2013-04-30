@@ -17,7 +17,7 @@ public class GameStartActivity extends Activity {
 	}
 	
 	public void intentLevelOne(View v){
-		Intent beginLevelOne = new Intent(GameStartActivity.this, LevelOne.class);
+		Intent beginLevelOne = new Intent(GameStartActivity.this, GameplayActivity.class);
 		/* Create bundle?  or put extra*/
 		/* Put things in it */
 		startActivity(beginLevelOne);
