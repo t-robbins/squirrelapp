@@ -2,13 +2,18 @@ package edu.elon.cs.squirrelgame;
 
 import java.util.ArrayList;
 
+import android.content.Context;
+
 public class LevelLibrary {
 
-	Level levelOne, levelTwo, levelThree;
+	private Level levelOne, levelTwo, levelThree;
 	
-	ArrayList<Level> library;
+	private ArrayList<Level> library;
+	private Context context;
 
-	public LevelLibrary(){
+	public LevelLibrary(Context context){
+		
+		this.context = context; 
 		
 		library = new ArrayList<Level>();
 		

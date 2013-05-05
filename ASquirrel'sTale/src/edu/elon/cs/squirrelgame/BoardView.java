@@ -100,7 +100,7 @@ public class BoardView extends SurfaceView implements SurfaceHolder.Callback {
 		public BoardViewThread(Context context){
 			isRunning = false;
 			ball = new Squirrel(context);
-			ped = new Pedestrian(context);
+			ped = new Pedestrian(context, R.drawable.freshman_ped, 10);
 			gMapBackground = BitmapFactory.decodeResource(context.getResources(), R.drawable.levelone_background);
 			DisplayMetrics dm = context.getResources().getDisplayMetrics(); 
 			screenSizeX = dm.widthPixels;
