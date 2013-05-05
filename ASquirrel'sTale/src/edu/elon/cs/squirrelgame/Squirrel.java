@@ -17,7 +17,7 @@ public class Squirrel {
 	private float currentY;
 	private float width, height;
 	private Bitmap spriteSheet;
-	private Bitmap board;
+	//private Bitmap board;
 	private int screenHeight, screenWidth;
 	private float radiusWidth, radiusHeight;
 	private static final int SPEED_VARIABLE = 5;
@@ -29,54 +29,41 @@ public class Squirrel {
 				R.drawable.elaine);
 		animatedSprite = new AnimatedSprite(spriteSheet, x, y, 30, 47, 5, 5);
 
-		width = animatedSprite.spriteWidth / FACTOR;
-		height = animatedSprite.spriteHeight / FACTOR;
+		width = animatedSprite.spriteWidth;
+		height = animatedSprite.spriteHeight;
 		
-		radiusWidth = (width / 2);
+		radiusWidth = (animatedSprite.spriteWidth / 2);
 		System.out.println(radiusWidth + " radiusWidth");
-		radiusHeight = (height / 2);
-		x = width / FACTOR;
-		y = height / FACTOR;
+		radiusHeight = (animatedSprite.spriteHeight / 2);
+		
+		x = animatedSprite.spriteWidth;
+		y = animatedSprite.spriteHeight;
+		
 	}
 
 	public void doDraw(Canvas canvas) {
-//		canvas.drawBitmap(bitmap, null, new Rect((int) (x - width / FACTOR),
-//				(int) (y - height / FACTOR), (int) (x + width / FACTOR),
-//				(int) (y + height / FACTOR)), null);
-		animatedSprite.draw(canvas, (int)x,(int)y); 
+		animatedSprite.draw(canvas); 
 		screenHeight = canvas.getHeight();
 		screenWidth = canvas.getWidth();
 	}
 
 	public void update(float rollX, float rollY) {
-		animatedSprite.update(System.currentTimeMillis()); 
 		
 		currentX += rollX * SPEED_VARIABLE;
 		currentY += rollY * SPEED_VARIABLE;
 
-		if (currentX > screenWidth) {
-			currentX = screenWidth;
+		if (currentX > screenWidth - width) {
+			currentX = screenWidth - width;
 		} else if (currentX < 0) {
 			currentX = 0;
 		}
-		x = currentX;
-		//System.out.println(x + " X");
-		if (x > screenWidth - radiusWidth+28) {
-			x = screenWidth - radiusWidth+28;
-		} else if (x < radiusWidth-27) {
-			x = radiusWidth-27;
-		}
-		if (currentY > screenHeight) {
-			currentY = screenHeight;
+		if (currentY > screenHeight - height) {
+			currentY = screenHeight - height;
 		} else if (currentY < 0) {
 			currentY = 0;
 		}
-		y = currentY;
-		//System.out.println(y + " Y");
-		if (y > screenHeight - radiusHeight+28) {
-			y = screenHeight - radiusHeight+28;
-		} else if (y < radiusHeight-27) {
-			y = radiusHeight-27;
-		}
+		animatedSprite.x = currentX;
+		animatedSprite.y = currentY; 
+		animatedSprite.update(System.currentTimeMillis()); 
 	}
 }

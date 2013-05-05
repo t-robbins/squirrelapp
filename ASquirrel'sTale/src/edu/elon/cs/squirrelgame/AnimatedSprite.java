@@ -27,7 +27,7 @@ public class AnimatedSprite {
 		frameNum = frameCount;
 		spriteWidth = spriteSheet.getWidth() / frameCount;
 		spriteHeight = spriteSheet.getHeight();
-		sourceRect = new Rect(0, 0, spriteWidth, spriteHeight);
+		sourceRect = new Rect(0, 0, (int)(spriteWidth), spriteHeight);
 		framePeriod = 1000 / fps; 
 		frameTicker = 01; 
 	}
@@ -46,9 +46,9 @@ public class AnimatedSprite {
 		this.sourceRect.right = this.sourceRect.left + spriteWidth; 
 	}
 	
-	public void draw(Canvas canvas, int x, int y){
+	public void draw(Canvas canvas /*, int x, int y*/){
 		//where to draw the sprite 
-		Rect destRect = new Rect(x,y,x + spriteWidth, y + spriteHeight); 
+		Rect destRect = new Rect((int)x,(int)y,(int)(x + spriteWidth),(int)( y + spriteHeight)); 
 		canvas.drawBitmap(spriteSheet, sourceRect, destRect, null);
 		}
 
