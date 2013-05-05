@@ -120,7 +120,7 @@ public class BoardView extends SurfaceView implements SurfaceHolder.Callback {
 						new Rect(0, 0, (int)screenSizeX, (int)screenSizeY),
 								null); 
 				ped.doDraw(canvas);
-				ball.doDraw(canvas);
+				ball.doDraw(canvas); 
 				
 				//for each loop to draw 
 	
@@ -129,7 +129,7 @@ public class BoardView extends SurfaceView implements SurfaceHolder.Callback {
 		
 		private void update(double elapsed) {
 			ball.update(yAccel, xAccel);
-			ped.update(elapsed, ball.x, ball.y);
+			ped.update(elapsed, ball.x, ball.y); 
 		}
 		
 		@Override

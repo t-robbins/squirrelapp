@@ -25,14 +25,15 @@ public final class R {
         public static final int board=0x7f020001;
         public static final int checkered=0x7f020002;
         public static final int cont=0x7f020003;
-        public static final int field=0x7f020004;
-        public static final int genericbackground=0x7f020005;
-        public static final int highscores=0x7f020006;
-        public static final int ic_launcher=0x7f020007;
-        public static final int levelone_background=0x7f020008;
-        public static final int menubackground=0x7f020009;
-        public static final int newgame=0x7f02000a;
-        public static final int options=0x7f02000b;
+        public static final int elaine=0x7f020004;
+        public static final int field=0x7f020005;
+        public static final int genericbackground=0x7f020006;
+        public static final int highscores=0x7f020007;
+        public static final int ic_launcher=0x7f020008;
+        public static final int levelone_background=0x7f020009;
+        public static final int menubackground=0x7f02000a;
+        public static final int newgame=0x7f02000b;
+        public static final int options=0x7f02000c;
     }
     public static final class id {
         public static final int Button01=0x7f08001f;

@@ -12,12 +12,12 @@ public class LevelLibrary {
 		
 		library = new ArrayList<Level>();
 		
-		levelOne = new Level(/*properties*/);
-		library.add(levelOne);
-		levelTwo = new Level(/*properties*/);
-		library.add(levelTwo);
-		levelThree = new Level(/*properties*/);
-		library.add(levelThree);
+//		levelOne = new Level(/*properties*/);
+//		library.add(levelOne);
+//		levelTwo = new Level(/*properties*/);
+//		library.add(levelTwo);
+//		levelThree = new Level(/*properties*/);
+//		library.add(levelThree);
 	}
 	
 	public ArrayList<Level> getLevelList(){
