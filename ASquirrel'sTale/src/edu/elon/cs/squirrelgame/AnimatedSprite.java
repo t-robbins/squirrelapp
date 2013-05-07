@@ -13,20 +13,23 @@ public class AnimatedSprite {
 	private long frameTicker; 
 	private int framePeriod;
 	
+	private float factor; 
+	
 	protected int spriteWidth; 
 	protected int spriteHeight; 
 	
 	protected float x;
 	protected float y; 
 	
-	public AnimatedSprite(Bitmap bitmap, float x, float y, int width, int height, int fps, int frameCount){
+	public AnimatedSprite(Bitmap bitmap, float x, float y, int width, int height, int fps, int frameCount, float factor){
 		this.spriteSheet = bitmap;
+		this.factor = factor;
 		this.x = x;
 		this.y = y;
 		currentFrame = 0;
 		frameNum = frameCount;
-		spriteWidth = spriteSheet.getWidth() / frameCount;
-		spriteHeight = spriteSheet.getHeight();
+		spriteWidth = (int) ((spriteSheet.getWidth() / frameCount) / factor);
+		spriteHeight = (int) ((spriteSheet.getHeight()) / factor);
 		sourceRect = new Rect(0, 0, (int)(spriteWidth), spriteHeight);
 		framePeriod = 1000 / fps; 
 		frameTicker = 01; 
@@ -48,7 +51,7 @@ public class AnimatedSprite {
 	
 	public void draw(Canvas canvas /*, int x, int y*/){
 		//where to draw the sprite 
-		Rect destRect = new Rect((int)x,(int)y,(int)(x + spriteWidth),(int)( y + spriteHeight)); 
+		Rect destRect = new Rect((int)x,(int)y,(int)(x + spriteWidth/factor),(int)( y + spriteHeight/factor)); 
 		canvas.drawBitmap(spriteSheet, sourceRect, destRect, null);
 		}
 

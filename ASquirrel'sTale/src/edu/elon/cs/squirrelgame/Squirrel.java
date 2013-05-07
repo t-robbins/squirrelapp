@@ -27,7 +27,7 @@ public class Squirrel {
 	public Squirrel(Context context) {
 		spriteSheet = BitmapFactory.decodeResource(context.getResources(),
 				R.drawable.elaine);
-		animatedSprite = new AnimatedSprite(spriteSheet, x, y, 30, 47, 5, 5);
+		animatedSprite = new AnimatedSprite(spriteSheet, x, y, 30, 47, 5, 5, 1f);
 
 		width = animatedSprite.spriteWidth;
 		height = animatedSprite.spriteHeight;
