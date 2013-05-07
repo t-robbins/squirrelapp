@@ -91,7 +91,7 @@ public class BoardView extends SurfaceView implements SurfaceHolder.Callback {
 	
 	private class BoardViewThread extends Thread{
 		private boolean isRunning;
-		private Squirrel ball;
+		private Squirrel sqrl;
 		private Pedestrian ped;
 		private Bitmap gMapBackground;
 		private long lastTime;
@@ -99,7 +99,7 @@ public class BoardView extends SurfaceView implements SurfaceHolder.Callback {
 
 		public BoardViewThread(Context context){
 			isRunning = false;
-			ball = new Squirrel(context);
+			sqrl = new Squirrel(context);
 			ped = new Pedestrian(context, R.drawable.freshman_ped, 10);
 			gMapBackground = BitmapFactory.decodeResource(context.getResources(), R.drawable.levelone_background);
 			DisplayMetrics dm = context.getResources().getDisplayMetrics(); 
@@ -120,7 +120,7 @@ public class BoardView extends SurfaceView implements SurfaceHolder.Callback {
 						new Rect(0, 0, (int)screenSizeX, (int)screenSizeY),
 								null); 
 				ped.doDraw(canvas);
-				ball.doDraw(canvas); 
+				sqrl.doDraw(canvas); 
 				
 				//for each loop to draw 
 	
@@ -128,8 +128,8 @@ public class BoardView extends SurfaceView implements SurfaceHolder.Callback {
 		}
 		
 		private void update(double elapsed) {
-			ball.update(yAccel, xAccel);
-			ped.update(elapsed, ball.x, ball.y); 
+			sqrl.update(yAccel, xAccel);
+			ped.update(elapsed, sqrl.x, sqrl.y); 
 		}
 		
 		@Override
