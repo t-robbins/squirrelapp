@@ -119,6 +119,7 @@ public class BoardView extends SurfaceView implements SurfaceHolder.Callback {
 				canvas.drawBitmap(gMapBackground, null,
 						new Rect(0, 0, (int)screenSizeX, (int)screenSizeY),
 								null); 
+				
 				ped.doDraw(canvas);
 				sqrl.doDraw(canvas); 
 				
