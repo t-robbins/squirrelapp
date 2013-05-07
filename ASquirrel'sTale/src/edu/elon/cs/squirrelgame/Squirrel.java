@@ -8,7 +8,12 @@ import android.graphics.Canvas;
 import android.graphics.Rect;
 
 public class Squirrel {
-	private AnimatedSprite animatedSprite; 
+	private AnimatedSprite animatedSpriteExample; 
+	private AnimatedSprite animatedSpriteShown;
+	private AnimatedSprite animatedUp;
+	private AnimatedSprite animatedDown;
+	private AnimatedSprite animatedLeft;
+	private AnimatedSprite animatedRight;
 		
 	protected float x;
 	protected float y;
@@ -16,7 +21,7 @@ public class Squirrel {
 	private float currentX;
 	private float currentY;
 	private float width, height;
-	private Bitmap spriteSheet;
+	private Bitmap spriteSheetExample;
 	//private Bitmap board;
 	private int screenHeight, screenWidth;
 	private float radiusWidth, radiusHeight;
@@ -25,29 +30,60 @@ public class Squirrel {
 	private final float FACTOR = 3f;
 
 	public Squirrel(Context context) {
-		spriteSheet = BitmapFactory.decodeResource(context.getResources(),
+		spriteSheetExample = BitmapFactory.decodeResource(context.getResources(),
 				R.drawable.elaine);
-		animatedSprite = new AnimatedSprite(spriteSheet, x, y, 30, 47, 5, 5, 1f);
+		Bitmap spriteSheetUp = BitmapFactory.decodeResource(context.getResources(), R.drawable.up);
+		Bitmap spriteSheetDown = BitmapFactory.decodeResource(context.getResources(), R.drawable.down);
+		Bitmap spriteSheetLeft = BitmapFactory.decodeResource(context.getResources(), R.drawable.left);
+		Bitmap spriteSheetRight = BitmapFactory.decodeResource(context.getResources(), R.drawable.right);
+		animatedSpriteExample = new AnimatedSprite(spriteSheetExample, x, y, 30, 47, 5, 5, 1f);
+		animatedUp = null; 
+		animatedDown = null;
+		animatedLeft = null;
+		animatedRight = null;
+		animatedSpriteShown = animatedSpriteExample; 
 
-		width = animatedSprite.spriteWidth;
-		height = animatedSprite.spriteHeight;
+		width = animatedSpriteShown.spriteWidth;
+		height = animatedSpriteShown.spriteHeight;
 		
-		radiusWidth = (animatedSprite.spriteWidth / 2);
+		radiusWidth = (animatedSpriteShown.spriteWidth / 2);
 		System.out.println(radiusWidth + " radiusWidth");
-		radiusHeight = (animatedSprite.spriteHeight / 2);
+		radiusHeight = (animatedSpriteShown.spriteHeight / 2);
 		
-		x = animatedSprite.spriteWidth;
-		y = animatedSprite.spriteHeight;
+		x = animatedSpriteShown.spriteWidth;
+		y = animatedSpriteShown.spriteHeight;
 		
+	}
+	
+	//Method to switch the sprite sheet looking at based on the direction the squirrel is supposed to be going in 
+	private void switchDirection(){
+		if(currentY < 0){
+			/*direction is up*/
+			animatedSpriteShown = animatedUp; 
+		}
+		else if(currentY > 0){
+			/*direction is down*/
+			animatedSpriteShown = animatedDown; 
+		}
+		else if(currentX > 0){
+			/*direction is left*/
+			animatedSpriteShown = animatedLeft; 
+		}
+		else if(currentX < 0){
+			/*direction is right*/
+			animatedSpriteShown = animatedRight; 
+		}
 	}
 
 	public void doDraw(Canvas canvas) {
-		animatedSprite.draw(canvas); 
+		animatedSpriteShown.draw(canvas); 
 		screenHeight = canvas.getHeight();
 		screenWidth = canvas.getWidth();
 	}
 
 	public void update(float rollX, float rollY) {
+		
+		switchDirection(); 
 		
 		currentX += rollX * SPEED_VARIABLE;
 		currentY += rollY * SPEED_VARIABLE;
@@ -62,8 +98,8 @@ public class Squirrel {
 		} else if (currentY < 0) {
 			currentY = 0;
 		}
-		animatedSprite.x = currentX;
-		animatedSprite.y = currentY; 
-		animatedSprite.update(System.currentTimeMillis()); 
+		animatedSpriteShown.x = currentX;
+		animatedSpriteShown.y = currentY; 
+		animatedSpriteShown.update(System.currentTimeMillis()); 
 	}
 }
