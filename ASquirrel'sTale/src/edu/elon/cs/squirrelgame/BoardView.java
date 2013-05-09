@@ -131,6 +131,7 @@ public class BoardView extends SurfaceView implements SurfaceHolder.Callback {
 		private void update(double elapsed) {
 			sqrl.update(yAccel, xAccel);
 			ped.update(elapsed, sqrl.x, sqrl.y); 
+			
 		}
 		
 		@Override
