@@ -28,15 +28,17 @@ public class Pedestrian {
 	
 	private final float FACTOR = 4f;
 	private final int DIFFICULTY_LEVEL = 10;
-	private static final float SPEED_VARIABLE = 1;
+	
+	//make speed dependent on resolution
+	private static final float SPEED_VARIABLE = 5;
 	
 	public Pedestrian(Context context, int imageID, int acornCost){
 		this.imageID = imageID;
 		image = BitmapFactory.decodeResource(context.getResources(), imageID);
 		width = image.getWidth()/FACTOR;
 		height = image.getHeight()/FACTOR;
-		centerX = width/FACTOR;
-		centerY = height/FACTOR;
+		centerX = width/2;
+		centerY = height/2;
 		this.context = context; 
 		this.acornCost = acornCost; 
 	}
@@ -91,38 +93,32 @@ public class Pedestrian {
 		 *|	   SCREEN BORDER	 |
 		 *~~~~~~~~~~~~~~~~~~~~~~~~
 		 */
-		if (centerX > screenWidth - width) {
-			System.out.println(centerX);
+		
+		
+		//done
+		if (centerX > screenWidth - width/FACTOR) {
 			
-			centerX = screenWidth - width;
+			
+			centerX = screenWidth - width/FACTOR;
 			randomRHatVector();
-			System.out.println("Adjusted for right side?");
-			System.out.println("(" + centerX + "," + centerY + ")");
+			
 		} else if (centerX < 0) {
-			System.out.println(centerX);
 			
-			centerX = 0;
+			System.out.println("LEFT");
+			System.out.println("cX: " + centerX);
+			centerX = 0 + (width/FACTOR)/8;
+			
 			randomRHatVector();
-
-			System.out.println("Adjusted for left side?");
-			System.out.println("(" + centerX + "," + centerY + ")");
 		}
-		if (centerY > screenHeight - height) {
-			
-			System.out.println(centerY);
-			
-			centerY = screenHeight - height;
+		if (centerY > screenHeight - (height/FACTOR)) {
 
-			System.out.println("Adjusted for top side?");
-			System.out.println("(" + centerX + "," + centerY + ")");
+			centerY = screenHeight - (height/FACTOR);
+
 			randomRHatVector();
 		} else if (centerY < 0) {
-			System.out.println(centerY);
-			
-			centerY = 0;
-
-			System.out.println("Adjusted for bottom side?");
-			System.out.println("(" + centerX + "," + centerY + ")");
+			System.out.println("cY: " + centerY);
+			centerY = 0 + (height/FACTOR)/8;
+			System.out.println("TOP");
 			randomRHatVector();
 		}
 		

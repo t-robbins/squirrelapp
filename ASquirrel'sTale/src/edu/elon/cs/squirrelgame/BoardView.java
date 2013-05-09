@@ -25,6 +25,9 @@ public class BoardView extends SurfaceView implements SurfaceHolder.Callback {
 	protected float xAccel, yAccel;
 	private Squirrel squirrel;
 	
+	private boolean objectivesMet = false;
+	private int levelCount = 0;
+	
 	public BoardView(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		surfaceHolder = getHolder();
@@ -38,7 +41,7 @@ public class BoardView extends SurfaceView implements SurfaceHolder.Callback {
 		
 		//create level class object
 		
-		
+		LevelLibrary levelIterator = new LevelLibrary(context);
 		
 		
 		/*all this junk within a levelUpdate method
@@ -129,8 +132,13 @@ public class BoardView extends SurfaceView implements SurfaceHolder.Callback {
 		}
 		
 		private void update(double elapsed) {
-			sqrl.update(yAccel, xAccel);
-			ped.update(elapsed, sqrl.x, sqrl.y); 
+			
+			if(!objectivesMet){
+				sqrl.update(yAccel, xAccel);
+				ped.update(elapsed, sqrl.x, sqrl.y); 
+			}
+			
+			
 			
 		}
 		

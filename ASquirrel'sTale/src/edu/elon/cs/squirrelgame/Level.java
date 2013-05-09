@@ -24,7 +24,7 @@ public class Level {
 	private Pedestrian senior;
 	
 	
-	public Level(int pedCount, double acornSpawnRate,
+	public Level(double acornSpawnRate,
 			int freshCount, int sophCount, int junCount, int senCount,
 			String mapSrc, ArrayList<Rect> obstacles, Context context){
 		
@@ -36,6 +36,8 @@ public class Level {
 		senior = new Pedestrian(context, R.drawable.senior_ped, 20);
 		
 		pedCount = freshCount + sophCount + junCount + senCount;
+		
+		this.mapSrc = mapSrc;
 	}
 	
 	//populating an array of instantated pedsetiran objects that will exist on the level 
@@ -55,5 +57,13 @@ public class Level {
 		for(int se = 0; se <= senCount; se++){
 			peds.add(senior.clone());
 		}
+	}
+	
+	public ArrayList<Pedestrian> getPedList(){
+		return peds;
+	}
+	
+	public String getMapSrc(){
+		return mapSrc;
 	}
 }
