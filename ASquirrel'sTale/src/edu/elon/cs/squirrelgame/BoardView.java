@@ -39,6 +39,11 @@ public class BoardView extends SurfaceView implements SurfaceHolder.Callback {
 		
 		levelIterator = new LevelLibrary(context);
 
+		//tutorial here
+		
+		
+		
+		
 		
 		//---------------------THREAD HERE------------------------------------------------
 		boardViewThread = new BoardViewThread(context);

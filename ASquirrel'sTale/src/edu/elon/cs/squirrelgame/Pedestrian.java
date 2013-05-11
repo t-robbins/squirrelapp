@@ -27,7 +27,6 @@ public class Pedestrian {
 	
 	
 	private final float FACTOR = 4f;
-	private final int DIFFICULTY_LEVEL = 10;
 	
 	//make speed dependent on resolution
 	private static final float SPEED_VARIABLE = 5;
@@ -83,8 +82,6 @@ public class Pedestrian {
 	}
 	
 	public void update(double elapsed, float sqlrX, float sqlrY){
-		currentHeroX = sqlrX;
-		currentHeroY = sqlrY;
 		
 		centerX += (float) (SPEED_VARIABLE * angleX);
 		centerY += (float) (SPEED_VARIABLE * angleY);
@@ -103,9 +100,6 @@ public class Pedestrian {
 			randomRHatVector();
 			
 		} else if (centerX < 0) {
-			
-			System.out.println("LEFT");
-			System.out.println("cX: " + centerX);
 			centerX = 0 + (width/FACTOR)/8;
 			
 			randomRHatVector();
@@ -116,9 +110,7 @@ public class Pedestrian {
 
 			randomRHatVector();
 		} else if (centerY < 0) {
-			System.out.println("cY: " + centerY);
 			centerY = 0 + (height/FACTOR)/8;
-			System.out.println("TOP");
 			randomRHatVector();
 		}
 		
@@ -135,8 +127,8 @@ public class Pedestrian {
 		 *|	      SQUIRREL       |
 		 *~~~~~~~~~~~~~~~~~~~~~~~~
 		 */
-		if((currentHeroX >= centerX-DIFFICULTY_LEVEL && currentHeroX <= centerX+DIFFICULTY_LEVEL) 
-				&& (currentHeroY >= centerY-DIFFICULTY_LEVEL && currentHeroY <= centerY+DIFFICULTY_LEVEL) ){
+		if((currentHeroX >= centerX && currentHeroX <= centerX) 
+				&& (currentHeroY >= centerY && currentHeroY <= centerY) ){
 					die();	 
 		}
 	}

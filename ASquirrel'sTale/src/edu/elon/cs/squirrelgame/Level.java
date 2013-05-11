@@ -2,15 +2,18 @@ package edu.elon.cs.squirrelgame;
 
 
 import java.util.ArrayList;
-
-import edu.cs.elon.squirrelstale.R;
+import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Rect;
+import android.os.Handler;
 import android.util.DisplayMetrics;
+import edu.cs.elon.squirrelstale.R;
 
 public class Level {
 
@@ -21,7 +24,7 @@ public class Level {
 	String mapSrc;
 	ArrayList<Rect> obstacles;
 	ArrayList<Pedestrian> peds;
-	
+	ArrayList<Acorn> acorns;
 	private float screenSizeX, screenSizeY; 
 	
 	private Bitmap gMapBackground;
@@ -32,19 +35,28 @@ public class Level {
 	private Pedestrian senior;
 	
 	private Squirrel squirrel; 
+	private Acorn acorn;
 	
 	private Context context; 
 	
+	private Handler handler = new Handler();
+	private double startTime = 0;
+	private TimerTask task;
+	private Timer myTimer;
+	
+	private boolean acornSpawnAvailable;
+	
+	private int min,sec;
 	public Level(double acornSpawnRate,
 			int freshCount, int sophCount, int junCount, int senCount, ArrayList<Rect> obstacles, Context context){
 		
 		this.obstacles = obstacles;
-		
 		this.context = context; 
 		
-		this.squirrel = new Squirrel(context);
-		
 		gMapBackground = BitmapFactory.decodeResource(context.getResources(), R.drawable.levelone_background);
+		
+		squirrel = new Squirrel(context);
+		acorn = new Acorn(context);
 		
 		freshman = new Pedestrian(context, R.drawable.freshman_ped, 5); 
 		sophomore = new Pedestrian(context, R.drawable.sophomore_ped, 10);
@@ -65,6 +77,23 @@ public class Level {
 		DisplayMetrics dm = context.getResources().getDisplayMetrics(); 
 		screenSizeX = dm.widthPixels;
 		screenSizeY = dm.heightPixels; 
+		
+	
+		myTimer = new Timer();
+		//myTimer.cancel();
+		task = new TimerTask(){
+			@Override
+			public void run(){
+				updateTimer();
+			}
+		};
+		
+		myTimer.schedule(task, 0, 1000);
+		
+		
+		
+		acorns = new ArrayList<Acorn>();
+		acorns.add(acorn);
 	}
 	
 	//populating an array of instantated pedsetiran objects that will exist on the level 
@@ -109,16 +138,74 @@ public class Level {
 			for(Pedestrian ped : peds){
 				ped.doDraw(canvas);  
 			}
-			//draw obsacles
+			
+			for(Acorn corn : acorns){
+				corn.doDraw(canvas);
+			}
+			
+			//draw obstacles
+
 			squirrel.doDraw(canvas); 
 		}
 	}
 	
 	protected void update(double elapsed, float yAccel, float xAccel) {
-		squirrel.update(yAccel, xAccel); 
+	
+		
+		if(acornSpawnAvailable && (startTime) % 10 == 0){
+			System.out.println((System.currentTimeMillis()/1000));
+			Random generator = new Random();
+			
+			
+			float randY = generator.nextFloat()*(acorn.screenHeight - acorn.height);
+			float randX = generator.nextFloat()*((acorn.screenWidth) - acorn.width);
+			System.out.println("rX: " + randX + "  rY: " + randY);
+			System.out.println("sH: " + acorn.screenHeight + " sW: " + acorn.screenWidth);
+			
+			
+			Acorn clone = acorn.clone(randX, randY);
+			acorns.add(clone);
+			acornSpawnAvailable = false;
+		}
+		
+		for(Acorn corn : acorns){
+			corn.update(squirrel.currentX, squirrel.currentY);			
+		}
 		for(Pedestrian ped : peds){
 			ped.update(elapsed, squirrel.currentX, squirrel.currentY); 
 		}
 		
+		squirrel.update(yAccel, xAccel); 
+		
+		
+		
 	}
+	
+	
+	//Move timer to BoardView, and remove "elapsed" from boardView, replace with startTime
+	 private void updateTimer() {
+		  /* Updates timer*/
+	      startTime++;
+	      acornSpawnAvailable = true;
+	      handler.post(timeRunner);
+	   }
+	 final Runnable timeRunner = new Runnable() {
+		  /*Creates runnable for the start timer */
+	      public void run() {
+	    	  /*executes the start timer */
+	    	   min = (int) startTime / 60;
+	    	   sec = (int) startTime - (min * 60);
+	    	  
+	    	  System.out.println(min + ":" + modifyDigits(sec));
+	      }
+	   };
+	   
+	   private String modifyDigits(int number) {
+			
+			String num = "" + number;
+			if (num.length() == 1) {
+				num = "0" + num;
+			}
+			return num;
+		}
 }
