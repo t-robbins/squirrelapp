@@ -57,19 +57,19 @@ public class Squirrel {
 	
 	//Method to switch the sprite sheet looking at based on the direction the squirrel is supposed to be going in 
 	private void switchDirection(float accelX, float accelY){
-//		if(accelY < 0){
-//			/*direction is up*/
-//			animatedSpriteShown = animatedUp; 
-//		}
-//		if(accelY > 0){
-//			/*direction is down*/
-//			animatedSpriteShown = animatedDown; 
-//		}
-		if(accelX > 0){
+		if(accelY < 0 && accelY < accelX){
+			/*direction is up*/
+			animatedSpriteShown = animatedUp; 
+		}
+		if(accelY > 0 && accelY > accelX){
+			/*direction is down*/
+			animatedSpriteShown = animatedDown; 
+		}
+		if(accelX > 0 && accelX > accelY){
 			/*direction is left*/
 			animatedSpriteShown = animatedRight; 
 		}
-		if(accelX < 0){
+		if(accelX < 0 && accelX < accelY){
 			/*direction is right*/
 			animatedSpriteShown = animatedLeft; 
 		}
