@@ -1,6 +1,8 @@
 package edu.elon.cs.squirrelgame;
 
 
+import java.util.ArrayList;
+
 import edu.cs.elon.squirrelstale.R;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -24,27 +26,26 @@ public class BoardView extends SurfaceView implements SurfaceHolder.Callback {
 	private BoardViewThread boardViewThread;
 	protected float xAccel, yAccel;
 	private Squirrel squirrel;
+	LevelLibrary levelIterator; 
+	
+	
+	private boolean objectivesMet = false;
+	//private int levelCount = 0;
 	
 	public BoardView(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		surfaceHolder = getHolder();
 		surfaceHolder.addCallback(this);
+		
+		levelIterator = new LevelLibrary(context);
+
+		
+		//---------------------THREAD HERE------------------------------------------------
 		boardViewThread = new BoardViewThread(context);
 		sensorManager = (SensorManager) context.getSystemService(context.SENSOR_SERVICE);
 		sensorManager.registerListener(accelListener, 
 				sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER), 
 				SensorManager.SENSOR_DELAY_GAME);	
-		
-		
-		//create level class object
-		
-		
-		
-		
-		/*all this junk within a levelUpdate method
-			int level = level.getLevel();
-			String[] levelProperties = level.getProperties(); 
-		*/
 		
 	}
 	
@@ -91,20 +92,25 @@ public class BoardView extends SurfaceView implements SurfaceHolder.Callback {
 	
 	private class BoardViewThread extends Thread{
 		private boolean isRunning;
-		private Squirrel sqrl;
-		private Pedestrian ped;
-		private Bitmap gMapBackground;
+//		private Squirrel sqrl;
+//		private Pedestrian ped;
+//		private Bitmap gMapBackground;
 		private long lastTime;
-		private float screenSizeX, screenSizeY; 
+//		private float screenSizeX, screenSizeY; 
+		private ArrayList<Level> levels; 
+		private int currentLevel = 0; 
+//		private ArrayList<Pedestrian> currentPeds;  
 
 		public BoardViewThread(Context context){
 			isRunning = false;
-			sqrl = new Squirrel(context);
-			ped = new Pedestrian(context, R.drawable.freshman_ped, 10);
-			gMapBackground = BitmapFactory.decodeResource(context.getResources(), R.drawable.levelone_background);
-			DisplayMetrics dm = context.getResources().getDisplayMetrics(); 
-			screenSizeX = dm.widthPixels;
-			screenSizeY = dm.heightPixels; 
+//			sqrl = new Squirrel(context);
+//			ped = new Pedestrian(context, R.drawable.freshman_ped, 10);
+			levels = levelIterator.getLevelList(); 
+			System.out.println("current level" + levels.get(currentLevel).name); 
+//			gMapBackground = BitmapFactory.decodeResource(context.getResources(), R.drawable.levelone_background);
+//			DisplayMetrics dm = context.getResources().getDisplayMetrics(); 
+//			screenSizeX = dm.widthPixels;
+//			screenSizeY = dm.heightPixels; 
 		}
 		
 		
@@ -113,24 +119,24 @@ public class BoardView extends SurfaceView implements SurfaceHolder.Callback {
 			this.isRunning = isRunning;
 		}
 
-		private void doDraw(Canvas canvas){
+		private void doDraw(Canvas canvas){ 
 			if(canvas != null){
 				//canvas.drawBitmap(board, 0, 0, null);
-				canvas.drawBitmap(gMapBackground, null,
-						new Rect(0, 0, (int)screenSizeX, (int)screenSizeY),
-								null); 
-				
-				ped.doDraw(canvas);
-				sqrl.doDraw(canvas); 
-				
-				//for each loop to draw 
-	
+//				canvas.drawBitmap(gMapBackground, null,
+//						new Rect(0, 0, (int)screenSizeX, (int)screenSizeY),
+//								null);
+				levels.get(currentLevel).doDraw(canvas); 
+//				sqrl.doDraw(canvas);  
 			}
 		}
 		
 		private void update(double elapsed) {
-			sqrl.update(yAccel, xAccel);
-			ped.update(elapsed, sqrl.x, sqrl.y); 
+			if(!objectivesMet){
+//				sqrl.update(yAccel, xAccel);
+				levels.get(currentLevel).update(elapsed, yAccel, xAccel);
+			}
+			
+			
 		}
 		
 		@Override
@@ -144,7 +150,7 @@ public class BoardView extends SurfaceView implements SurfaceHolder.Callback {
 						isRunning = false;
 						continue;
 					}
-					synchronized (surfaceHolder) {
+					synchronized (surfaceHolder) { 
 						long now = System.currentTimeMillis();
 						double elapsed = (now - lastTime)/1000.0;
 						lastTime = now;

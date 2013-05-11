@@ -3,6 +3,7 @@ package edu.elon.cs.squirrelgame;
 import java.util.ArrayList;
 
 import android.content.Context;
+import android.graphics.Rect;
 
 public class LevelLibrary {
 
@@ -17,8 +18,14 @@ public class LevelLibrary {
 		
 		library = new ArrayList<Level>();
 		
-//		levelOne = new Level(/*properties*/);
-//		library.add(levelOne);
+		
+		
+		levelOne = new Level(2, 2, 0, 0, 0, null, context);
+		library.add(levelOne);
+		System.out.println("levelOne added!"); 
+		System.out.println("at index 0: "+library.get(0).name); 
+		
+		
 //		levelTwo = new Level(/*properties*/);
 //		library.add(levelTwo);
 //		levelThree = new Level(/*properties*/);
@@ -26,8 +33,9 @@ public class LevelLibrary {
 	}
 	
 	public ArrayList<Level> getLevelList(){
-				
+		System.out.println("level list gotten"); 	
 		return library;
 		
 	}
+
 }
