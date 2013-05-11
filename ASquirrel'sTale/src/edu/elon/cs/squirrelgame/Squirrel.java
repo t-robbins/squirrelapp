@@ -13,8 +13,8 @@ public class Squirrel {
 	protected float x;
 	protected float y;
 	
-	private float currentX;
-	private float currentY;
+	protected float currentX;
+	protected float currentY;
 	private float width, height;
 	private Bitmap spriteSheet;
 	//private Bitmap board;
