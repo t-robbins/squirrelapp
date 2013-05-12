@@ -24,7 +24,7 @@ public class Pedestrian {
 	private int imageID; 
 	boolean called = true;
 	private double angleX, angleY;
-	
+	protected boolean dead = false;
 	
 	private final float FACTOR = 4f;
 	
@@ -58,6 +58,8 @@ public class Pedestrian {
 	public void die(){
 		currentX = screenWidth * -2;
 		currentY = screenHeight * -2;  
+		dead = true;
+		
 	}
 	
 	public void doDraw(Canvas canvas){
