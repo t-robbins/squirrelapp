@@ -2,6 +2,8 @@ package edu.elon.cs.squirrelgame;
 
 
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import edu.cs.elon.squirrelstale.R;
 import android.content.Context;
@@ -14,6 +16,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.os.Handler;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.MotionEvent;
@@ -26,6 +29,13 @@ public class BoardView extends SurfaceView implements SurfaceHolder.Callback {
 	private BoardViewThread boardViewThread;
 	protected float xAccel, yAccel;
 	private Squirrel squirrel;
+	
+	
+	private int seconds;
+	private Handler handler = new Handler();
+	private TimerTask task;
+	private Timer myTimer;
+	
 	LevelLibrary levelIterator; 
 	
 	
@@ -161,6 +171,12 @@ public class BoardView extends SurfaceView implements SurfaceHolder.Callback {
 						lastTime = now;
 						update(elapsed);
 						doDraw(canvas);
+					
+						
+						
+						
+						
+						
 						}
 					} finally {
 						if(canvas != null){

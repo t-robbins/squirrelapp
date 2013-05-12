@@ -18,13 +18,14 @@ import edu.cs.elon.squirrelstale.R;
 public class Level {
 
 	protected String name = "one"; 
-	int pedCount;
-	double acornSpawnRate;
-	int freshCount= 0, sophCount = 0, junCount = 0, senCount = 0;
-	String mapSrc;
-	ArrayList<Rect> obstacles;
-	ArrayList<Pedestrian> peds;
-	ArrayList<Acorn> acorns;
+	private int pedCount;
+	private double acornSpawnRate;
+	private int acornCount = 0; 
+	private int freshCount= 0, sophCount = 0, junCount = 0, senCount = 0;
+	private String mapSrc;
+	private ArrayList<Rect> obstacles;
+	private ArrayList<Pedestrian> peds;
+	private ArrayList<Acorn> acorns;
 	private float screenSizeX, screenSizeY; 
 	
 	private Bitmap gMapBackground;
@@ -39,12 +40,8 @@ public class Level {
 	
 	private Context context; 
 	
-	private Handler handler = new Handler();
-	private double startTime = 0;
-	private TimerTask task;
-	private Timer myTimer;
-	
-	private boolean acornSpawnAvailable;
+	protected double levelTime = 0;
+	private double timeSinceSpawn = 0;
 	
 	private int min,sec;
 	public Level(double acornSpawnRate,
@@ -52,6 +49,7 @@ public class Level {
 		
 		this.obstacles = obstacles;
 		this.context = context; 
+		this.acornSpawnRate = acornSpawnRate; 
 		
 		gMapBackground = BitmapFactory.decodeResource(context.getResources(), R.drawable.levelone_background);
 		
@@ -79,16 +77,7 @@ public class Level {
 		screenSizeY = dm.heightPixels; 
 		
 	
-		myTimer = new Timer();
-		//myTimer.cancel();
-		task = new TimerTask(){
-			@Override
-			public void run(){
-				updateTimer();
-			}
-		};
 		
-		myTimer.schedule(task, 0, 1000);
 		
 		
 		
@@ -151,21 +140,21 @@ public class Level {
 	
 	protected void update(double elapsed, float yAccel, float xAccel) {
 	
-		
-		if(acornSpawnAvailable && (startTime) % 10 == 0){
-			System.out.println((System.currentTimeMillis()/1000));
+		levelTime += elapsed; 
+		timeSinceSpawn += elapsed; 
+	
+		if(timeSinceSpawn > acornSpawnRate){
+			//System.out.println((System.currentTimeMillis()/1000));
 			Random generator = new Random();
 			
 			
 			float randY = generator.nextFloat()*(acorn.screenHeight - acorn.height);
 			float randX = generator.nextFloat()*((acorn.screenWidth) - acorn.width);
-			System.out.println("rX: " + randX + "  rY: " + randY);
-			System.out.println("sH: " + acorn.screenHeight + " sW: " + acorn.screenWidth);
 			
 			
 			Acorn clone = acorn.clone(randX, randY);
 			acorns.add(clone);
-			acornSpawnAvailable = false;
+			timeSinceSpawn = 0; 
 		}
 		
 		for(Acorn corn : acorns){
@@ -181,31 +170,5 @@ public class Level {
 		
 	}
 	
-	
-	//Move timer to BoardView, and remove "elapsed" from boardView, replace with startTime
-	 private void updateTimer() {
-		  /* Updates timer*/
-	      startTime++;
-	      acornSpawnAvailable = true;
-	      handler.post(timeRunner);
-	   }
-	 final Runnable timeRunner = new Runnable() {
-		  /*Creates runnable for the start timer */
-	      public void run() {
-	    	  /*executes the start timer */
-	    	   min = (int) startTime / 60;
-	    	   sec = (int) startTime - (min * 60);
-	    	  
-	    	  System.out.println(min + ":" + modifyDigits(sec));
-	      }
-	   };
-	   
-	   private String modifyDigits(int number) {
-			
-			String num = "" + number;
-			if (num.length() == 1) {
-				num = "0" + num;
-			}
-			return num;
-		}
+
 }
