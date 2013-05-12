@@ -20,7 +20,7 @@ public class Level {
 	protected String name = "one"; 
 	private int pedCount;
 	private double acornSpawnRate;
-	private int acornCount = 0; 
+	protected int acornCount = 0; 
 	private int freshCount= 0, sophCount = 0, junCount = 0, senCount = 0;
 	private String mapSrc;
 	private ArrayList<Rect> obstacles;
@@ -126,6 +126,10 @@ public class Level {
 							null);
 			for(Pedestrian ped : peds){
 				ped.doDraw(canvas);  
+				
+				if(ped.dead){
+					peds.remove(ped);
+				}
 			}
 			
 			for(Acorn corn : acorns){

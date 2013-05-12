@@ -25,6 +25,7 @@ public class Pedestrian {
 	boolean called = true;
 	private double angleX, angleY;
 	protected boolean dead = false;
+	private Level levels;
 	
 	private final float FACTOR = 4f;
 	
@@ -130,7 +131,8 @@ public class Pedestrian {
 		 *~~~~~~~~~~~~~~~~~~~~~~~~
 		 */
 		if((currentHeroX >= centerX && currentHeroX <= centerX) 
-				&& (currentHeroY >= centerY && currentHeroY <= centerY) ){
+				&& (currentHeroY >= centerY && currentHeroY <= centerY && acornCost < levels.acornCount ) ){
+			
 					die();	 
 		}
 	}
