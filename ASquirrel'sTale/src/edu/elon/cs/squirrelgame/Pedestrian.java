@@ -36,8 +36,10 @@ public class Pedestrian {
 		image = BitmapFactory.decodeResource(context.getResources(), imageID);
 		width = image.getWidth()/FACTOR;
 		height = image.getHeight()/FACTOR;
-		centerX = width/2;
-		centerY = height/2;
+		
+		centerX = 150;
+		centerY = 150;
+		
 		this.context = context; 
 		this.acornCost = acornCost; 
 	}
@@ -81,16 +83,23 @@ public class Pedestrian {
 		angleY = Math.sin(angle);
 	}
 	
-	public void update(double elapsed, float sqlrX, float sqlrY){
+	public void update(double elapsed, float sqrlX, float sqrlY){
 		
-		centerX += (float) (SPEED_VARIABLE * angleX);
-		centerY += (float) (SPEED_VARIABLE * angleY);
+		//centerX += (float) (SPEED_VARIABLE * angleX);
+		//centerY += (float) (SPEED_VARIABLE * angleY);
+		
+		sqrlX += 30;
+		sqrlY += 30;
+		
+		
+		centerX = 150;
+		centerY = 150;
 		
 		/*~~~~~~~~~~~~~~~~~~~~~~~~
 		 *|	   SCREEN BORDER	 |
 		 *~~~~~~~~~~~~~~~~~~~~~~~~
 		 */
-		
+		System.out.println("S: (" + (int)sqrlX + ","+(int)sqrlY+") and P: (" + (int)centerX + ","+ (int)centerY + ")");
 		
 		//done
 		if (centerX > screenWidth - width/FACTOR) {

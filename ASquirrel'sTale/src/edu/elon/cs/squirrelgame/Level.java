@@ -130,6 +130,12 @@ public class Level {
 			
 			for(Acorn corn : acorns){
 				corn.doDraw(canvas);
+				
+				if(corn.eaten){
+					acornCount++;
+					acorns.remove(corn);
+				}
+				
 			}
 			
 			//draw obstacles
@@ -152,23 +158,19 @@ public class Level {
 			float randX = generator.nextFloat()*((acorn.screenWidth) - acorn.width);
 			
 			
-			Acorn clone = acorn.clone(randX, randY);
-			acorns.add(clone);
+//			Acorn clone = acorn.clone(randX, randY);
+//			acorns.add(clone);
 			timeSinceSpawn = 0; 
-		}
-		
+		}		
 		for(Acorn corn : acorns){
-			corn.update(squirrel.currentX, squirrel.currentY);			
+			corn.update(squirrel.currentX, squirrel.currentY);	
+		
 		}
 		for(Pedestrian ped : peds){
 			ped.update(elapsed, squirrel.currentX, squirrel.currentY); 
-		}
-		
+		}		
 		squirrel.update(yAccel, xAccel); 
-		
-		
+	
 		
 	}
-	
-
 }
