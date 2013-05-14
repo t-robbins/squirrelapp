@@ -18,9 +18,8 @@ import edu.cs.elon.squirrelstale.R;
 public class Level {
 
 	protected String name = "one"; 
-	private int pedCount;
+	private int pedCount; 
 	private double acornSpawnRate;
-	private int acornCount = 0; 
 	private int freshCount= 0, sophCount = 0, junCount = 0, senCount = 0;
 	private String mapSrc;
 	private ArrayList<Rect> obstacles;
@@ -41,7 +40,11 @@ public class Level {
 	private Context context; 
 	
 	protected double levelTime = 0;
+	private int pedKilledCount = 0;
+	private int acornCount = 0; 
 	private double timeSinceSpawn = 0;
+	protected float randX, randY;
+	protected Random generator;
 	
 	private int min,sec;
 	public Level(double acornSpawnRate,
@@ -78,9 +81,6 @@ public class Level {
 		
 	
 		
-		
-		
-		
 		acorns = new ArrayList<Acorn>();
 		acorns.add(acorn);
 	}
@@ -88,25 +88,36 @@ public class Level {
 	//populating an array of instantated pedsetiran objects that will exist on the level 
 	private void createPedList(){
 		
-		System.out.println("create ped list"); 
-		
 		peds = new ArrayList<Pedestrian>();
+
+		generator = new Random();
 		
-		System.out.println("f is "+0+", count is: "+freshCount);
+		
 		
 		for(int f = 0; f < freshCount; f++){
-			System.out.println("f is "+f+", count is: "+freshCount); 
-			peds.add(freshman.clone());
+			randY = generator.nextFloat()*(screenSizeY - freshman.height);
+			randX = generator.nextFloat()*(screenSizeX - freshman.width);
+
+			peds.add(freshman.clone(randX, randY));
 		}
 		
 		for(int so = 0; so < sophCount; so++){
-			peds.add(sophomore.clone()); 
+			randY = generator.nextFloat()*(screenSizeY -sophomore.height);
+			randX = generator.nextFloat()*(screenSizeX - sophomore.width);
+
+			peds.add(sophomore.clone(randX, randY)); 
 		}
 		for(int j = 0; j < junCount; j++){
-			peds.add(junior.clone());
+			randY = generator.nextFloat()*(screenSizeY - junior.height);
+			randX = generator.nextFloat()*(screenSizeX - junior.width);
+
+			peds.add(junior.clone(randX, randY));
 		}
 		for(int se = 0; se < senCount; se++){
-			peds.add(senior.clone());
+			randY = generator.nextFloat()*(screenSizeY - senior.height);
+			randX = generator.nextFloat()*(screenSizeX - senior.width);
+
+			peds.add(senior.clone(randX, randY));
 		}
 	}
 	
@@ -124,19 +135,43 @@ public class Level {
 			canvas.drawBitmap(gMapBackground, null,
 					new Rect(0, 0, (int)screenSizeX, (int)screenSizeY),
 							null);
+			
+			ArrayList<Pedestrian> pedsToRemove = new ArrayList<Pedestrian>();
+			ArrayList<Acorn> cornsToRemove = new ArrayList<Acorn>();
+			
 			for(Pedestrian ped : peds){
-				ped.doDraw(canvas);  
+				//here will also happen the logic for if
+				//player doesn't have enough acorns to kill,
+				//peds will not die, but squirrel's health will decrease. 
+				if(ped.dead){
+					pedKilledCount++; 
+					pedsToRemove.add(ped);
+				}
+				else
+					ped.doDraw(canvas);  
 			}
 			
+			for (Pedestrian rmP : pedsToRemove){
+				peds.remove(rmP);
+			}
+			pedsToRemove = null;
+			
 			for(Acorn corn : acorns){
-				corn.doDraw(canvas);
-				
 				if(corn.eaten){
 					acornCount++;
-					acorns.remove(corn);
+					cornsToRemove.add(corn);
 				}
-				
+				else
+					corn.doDraw(canvas);
 			}
+			
+			
+			for (Acorn rmA : cornsToRemove){
+				acorns.remove(rmA);
+			}
+			cornsToRemove = null;
+			
+	
 			
 			//draw obstacles
 
@@ -151,23 +186,37 @@ public class Level {
 	
 		if(timeSinceSpawn > acornSpawnRate){
 			//System.out.println((System.currentTimeMillis()/1000));
-			Random generator = new Random();
 			
 			
-			float randY = generator.nextFloat()*(acorn.screenHeight - acorn.height);
-			float randX = generator.nextFloat()*((acorn.screenWidth) - acorn.width);
+			
+			float randY = generator.nextFloat()*(screenSizeY - acorn.height);
+			float randX = generator.nextFloat()*(screenSizeX - acorn.width);
 			
 			
-//			Acorn clone = acorn.clone(randX, randY);
-//			acorns.add(clone);
+			Acorn clone = acorn.clone(randX, randY);
+			acorns.add(clone);
 			timeSinceSpawn = 0; 
 		}		
+		
+		float squirrelHeight = squirrel.height;
+		float squirrelWidth = squirrel.width;
+		
+		//top left of the squirrel
+		float squirrelLocationX = squirrel.currentX;  
+		float squirrelLocationY = squirrel.currentY;
+		
+		
+		float sX = squirrelLocationX + (squirrelWidth/2);
+		float sY = squirrelLocationY + (squirrelHeight/2);
+		
+		
+		
 		for(Acorn corn : acorns){
-			corn.update(squirrel.currentX, squirrel.currentY);	
+			corn.update(sX, sY);	
 		
 		}
 		for(Pedestrian ped : peds){
-			ped.update(elapsed, squirrel.currentX, squirrel.currentY); 
+			ped.update(sX, sY); 
 		}		
 		squirrel.update(yAccel, xAccel); 
 	

@@ -33,8 +33,7 @@ public class Acorn {
 		height = image.getHeight()/FACTOR;
 		
 		centerX = 150;
-		centerY = 150;
-		
+		centerY = 150;	
 		
 	}
 	public Acorn clone(float xPos, float yPos){
@@ -62,11 +61,7 @@ public class Acorn {
 		screenWidth = canvas.getWidth();
 	}
 
-	public void update(float sqrlX, float sqrlY) {
-		
-
-
-
+	public void update(float sX, float sY) {	
 		
 		/*
 		 * ==================================
@@ -74,9 +69,11 @@ public class Acorn {
 		 * ==================================
 		 */
 		
-		//System.out.println("S: (" + (int)sqrlX + ","+(int)sqrlY+") and A: (" + (int)centerX + ","+ (int)centerY + ")");
-		
-		
+		if((sX >= centerX-20 && sX <= centerX+20) 
+				&& (sY >= centerY-20 && sY <= centerY+20))
+			eaten();
+			
+	
 		
 	}
 }

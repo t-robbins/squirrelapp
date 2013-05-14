@@ -20,7 +20,7 @@ public class Squirrel {
 	
 	protected float currentX;
 	protected float currentY;
-	private float width, height;
+	protected float width, height;
 	private Bitmap spriteSheetExample;
 	//private Bitmap board;
 	private int screenHeight, screenWidth;

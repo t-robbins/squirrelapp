@@ -11,20 +11,20 @@ import android.graphics.Rect;
 public class Pedestrian {
 	protected float centerX;
 	protected float centerY;
-	private float width, height;
+	protected float width, height;
 	private Bitmap image;
 	private float currentX;
 	private float currentY;
 	private float currentHeroX;
 	private float currentHeroY;
-	private int screenWidth;
-	private int screenHeight;
+	protected int screenWidth;
+	protected int screenHeight;
 	private Context context; 
 	private int acornCost; 
 	private int imageID; 
 	boolean called = true;
 	private double angleX, angleY;
-	
+	protected boolean dead = false;
 	
 	private final float FACTOR = 4f;
 	
@@ -60,6 +60,7 @@ public class Pedestrian {
 	public void die(){
 		currentX = screenWidth * -2;
 		currentY = screenHeight * -2;  
+		dead = true;
 	}
 	
 	public void doDraw(Canvas canvas){
@@ -83,24 +84,17 @@ public class Pedestrian {
 		angleY = Math.sin(angle);
 	}
 	
-	public void update(double elapsed, float sqrlX, float sqrlY){
+	public void update(float sX, float sY){
 		
-		//centerX += (float) (SPEED_VARIABLE * angleX);
-		//centerY += (float) (SPEED_VARIABLE * angleY);
+		centerX += (float) (SPEED_VARIABLE * angleX);
+		centerY += (float) (SPEED_VARIABLE * angleY);
+
 		
-		sqrlX += 30;
-		sqrlY += 30;
-		
-		
-		centerX = 150;
-		centerY = 150;
 		
 		/*~~~~~~~~~~~~~~~~~~~~~~~~
 		 *|	   SCREEN BORDER	 |
 		 *~~~~~~~~~~~~~~~~~~~~~~~~
 		 */
-		System.out.println("S: (" + (int)sqrlX + ","+(int)sqrlY+") and P: (" + (int)centerX + ","+ (int)centerY + ")");
-		
 		//done
 		if (centerX > screenWidth - width/FACTOR) {
 			
@@ -136,9 +130,11 @@ public class Pedestrian {
 		 *|	      SQUIRREL       |
 		 *~~~~~~~~~~~~~~~~~~~~~~~~
 		 */
-		if((currentHeroX >= centerX && currentHeroX <= centerX) 
-				&& (currentHeroY >= centerY && currentHeroY <= centerY) ){
-					die();	 
-		}
+		
+		if((sX >= centerX-20 && sX <= centerX+20) 
+				&& (sY >= centerY-20 && sY <= centerY+20))
+			die();
+			
+	
 	}
 }
