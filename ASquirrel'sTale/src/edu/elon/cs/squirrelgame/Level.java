@@ -36,7 +36,7 @@ public class Level {
 	
 	private Squirrel squirrel; 
 	private Acorn acorn;
-	private HealthBar healthBar; 
+//	private HealthBar healthBar; 
 	
 	private Context context; 
 	
@@ -54,7 +54,7 @@ public class Level {
 		this.obstacles = obstacles;
 		this.context = context; 
 		this.acornSpawnRate = acornSpawnRate; 
-		this.healthBar = new HealthBar(0, 0, 10); 
+//		this.healthBar = new HealthBar(0, 0, 10); 
 		
 		gMapBackground = BitmapFactory.decodeResource(context.getResources(), R.drawable.levelone_background);
 		
@@ -179,7 +179,7 @@ public class Level {
 
 			squirrel.doDraw(canvas); 
 			
-			healthBar.doDraw(canvas); 
+//			healthBar.doDraw(canvas); 
 		}
 	}
 	
@@ -223,14 +223,9 @@ public class Level {
 			ped.update(sX, sY); 
 		}		
 		squirrel.update(yAccel, xAccel); 
-<<<<<<< HEAD
 		
-		healthBar.update(elapsed); 
-		
-		
-=======
-	
->>>>>>> origin/Acorn-Spawn-and-Effects
+//		healthBar.update(elapsed); 
+
 		
 	}
 }
