@@ -20,7 +20,7 @@ public class LevelLibrary {
 		
 		
 		
-		levelOne = new Level(10, 2, 0, 0, 0, null, context);
+		levelOne = new Level(10, 2, 2, 2, 2, null, context);
 		library.add(levelOne);
 		System.out.println("levelOne added!"); 
 		System.out.println("at index 0: "+library.get(0).name); 

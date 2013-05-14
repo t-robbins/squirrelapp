@@ -13,7 +13,6 @@ import edu.cs.elon.squirrelstale.R;
 
 public class Acorn {
 	private Context context; 
-	private float currentX, currentY;
 	private float centerX, centerY;
 	private Bitmap image;
 	
@@ -22,11 +21,8 @@ public class Acorn {
 	protected float width, height;
 	private final float FACTOR = 4f;
 	
-	private float randX, randY;
 	
-	private long timeNow, timeBefore;
-	
-	private ArrayList<Acorn> acornsOnScreen;
+	protected boolean eaten = false;
 	
 	Random generator;
 	public Acorn(Context context){
@@ -36,26 +32,26 @@ public class Acorn {
 		width = image.getWidth()/FACTOR;
 		height = image.getHeight()/FACTOR;
 		
-		centerX = width/2;
-		centerY = height/2;
-		
+		centerX = 150;
+		centerY = 150;	
 		
 	}
-	
 	public Acorn clone(float xPos, float yPos){
 		 Acorn cloned = new Acorn(context); 
 		 cloned.centerX = xPos;
 		 cloned.centerY = yPos; 
 		 return cloned; 
 	}
-	
 	public Acorn clone(){
 		 Acorn cloned = new Acorn(context); 
 		 return cloned; 
 		
 	}
-	
-	
+	private void eaten(){
+		centerX = screenWidth * -2;
+		centerY = screenHeight * -2;  
+		eaten = true;
+	}
 	public void doDraw(Canvas canvas) {
 		canvas.drawBitmap(image, null, 
 				new Rect((int)(centerX-width/FACTOR),(int)(centerY-height/FACTOR),
@@ -65,8 +61,19 @@ public class Acorn {
 		screenWidth = canvas.getWidth();
 	}
 
-	public void update(float sqlrX, float sqrlY) {
-		currentX = 100;
-		currentY = 100;
+	public void update(float sX, float sY) {	
+		
+		/*
+		 * ==================================
+		 *      Collision with Squirrel
+		 * ==================================
+		 */
+		
+		if((sX >= centerX-20 && sX <= centerX+20) 
+				&& (sY >= centerY-20 && sY <= centerY+20))
+			eaten();
+			
+	
+		
 	}
 }

@@ -20,7 +20,7 @@ public class Squirrel {
 	
 	protected float currentX;
 	protected float currentY;
-	private float width, height;
+	protected float width, height;
 	private Bitmap spriteSheetExample;
 	//private Bitmap board;
 	private int screenHeight, screenWidth;
@@ -37,10 +37,10 @@ public class Squirrel {
 		Bitmap spriteSheetLeft = BitmapFactory.decodeResource(context.getResources(), R.drawable.left);
 		Bitmap spriteSheetRight = BitmapFactory.decodeResource(context.getResources(), R.drawable.right);
 		animatedSpriteExample = new AnimatedSprite(spriteSheetExample, x, y, 30, 47, 5, 5);
-		animatedUp = new AnimatedSprite(spriteSheetUp, x, y, 30, 47, 5, 5);
-		animatedDown = new AnimatedSprite(spriteSheetDown, x, y, 30, 47, 5, 5);
-		animatedLeft = new AnimatedSprite(spriteSheetLeft, x, y, 30, 47, 5, 5);
-		animatedRight = new AnimatedSprite(spriteSheetRight, x, y, 30, 47, 5, 5);
+		animatedUp = new AnimatedSprite(spriteSheetUp, x, y, 30, 16, 5, 5);
+		animatedDown = new AnimatedSprite(spriteSheetDown, x, y, 30, 18, 5, 5);
+		animatedLeft = new AnimatedSprite(spriteSheetLeft, x, y, 30, 14, 5, 5);
+		animatedRight = new AnimatedSprite(spriteSheetRight, x, y, 30, 14, 5, 5);
 		animatedSpriteShown = animatedDown; 
 
 		width = animatedSpriteShown.spriteWidth / FACTOR;
