@@ -65,8 +65,6 @@ public class HighScoresActivity extends Activity {
 		fifthScore = (TextView) findViewById(R.id.fifthScore);
 
 		new GetHighScores().execute(queryScoresURL);
-
-		//uploadScore();
 	}
 
 	@Override
@@ -79,17 +77,20 @@ public class HighScoresActivity extends Activity {
 
 			@Override
 			protected String doInBackground(String... queryScoresURL) {
-
+				System.out.println(queryScoresURL);
 				StringBuilder nameStringBuilder = new StringBuilder();
 				HttpClient queryClient = new DefaultHttpClient();
 
 				for (String getQuery : queryScoresURL) {
 					HttpGet queryGet = new HttpGet(getQuery);
 					try {
+						System.out.println("in 1st try");
 						HttpResponse resultResponse = queryClient.execute(queryGet);
 						StatusLine webStatus = resultResponse.getStatusLine();
-
+						
+						System.out.println(webStatus.getStatusCode());
 						if (webStatus.getStatusCode() == 200) {
+							System.out.println("status code was 200");
 							HttpEntity arrayEntity = resultResponse.getEntity();
 							InputStream arrayContent = arrayEntity.getContent();
 							InputStreamReader resultInput = new InputStreamReader(arrayContent);
@@ -98,11 +99,14 @@ public class HighScoresActivity extends Activity {
 
 
 							while ((lineIn = scoreReader.readLine()) != null) {
+								
+								System.out.println(lineIn);
 								// add to the string builder
 								nameStringBuilder.append(lineIn);
 							}
 						}
 					} catch (IOException ex) {
+						System.out.println("Server down");
 					}
 				}
 
@@ -115,6 +119,8 @@ public class HighScoresActivity extends Activity {
 
 					JSONArray resultArray = new JSONArray(result);;
 
+					System.out.println(result);
+					
 					for(int i = 0; i < resultArray.length(); i+=2){
 
 						System.out.println(resultArray.getString(i) + " " +  resultArray.getInt(i+1));
@@ -138,7 +144,15 @@ public class HighScoresActivity extends Activity {
 					fifthScore.setText("\t\t" + scores.get(4).score);
 
 				} catch (JSONException e) {
-					System.out.println("didn't work");
+					firstName.setText(" ");
+
+					secondName.setText(" ");
+
+					thirdName.setText("Uh oh. Server side error.");
+
+					fourthName.setText(" ");
+
+					fifthName.setText(" ");
 				}
 			}
 

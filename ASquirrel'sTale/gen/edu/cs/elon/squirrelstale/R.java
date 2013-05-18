@@ -35,7 +35,7 @@ public final class R {
         public static final int ic_launcher=0x7f02000b;
         public static final int junior_ped=0x7f02000c;
         public static final int left=0x7f02000d;
-        public static final int levelone_background=0x7f02000e;
+        public static final int levelone=0x7f02000e;
         public static final int menubackground=0x7f02000f;
         public static final int newgame=0x7f020010;
         public static final int options=0x7f020011;

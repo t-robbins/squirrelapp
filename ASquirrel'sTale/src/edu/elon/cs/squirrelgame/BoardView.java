@@ -107,25 +107,14 @@ public class BoardView extends SurfaceView implements SurfaceHolder.Callback {
 	
 	private class BoardViewThread extends Thread{
 		private boolean isRunning;
-//		private Squirrel sqrl;
-//		private Pedestrian ped;
-//		private Bitmap gMapBackground;
 		private long lastTime;
-//		private float screenSizeX, screenSizeY; 
 		private ArrayList<Level> levels; 
-		private int currentLevel = 0; 
-//		private ArrayList<Pedestrian> currentPeds;  
+		private int currentLevel = 0;  
 
 		public BoardViewThread(Context context){
 			isRunning = false;
-//			sqrl = new Squirrel(context);
-//			ped = new Pedestrian(context, R.drawable.freshman_ped, 10);
 			levels = levelIterator.getLevelList(); 
 			System.out.println("current level" + levels.get(currentLevel).name); 
-//			gMapBackground = BitmapFactory.decodeResource(context.getResources(), R.drawable.levelone_background);
-//			DisplayMetrics dm = context.getResources().getDisplayMetrics(); 
-//			screenSizeX = dm.widthPixels;
-//			screenSizeY = dm.heightPixels; 
 		}
 		
 		
@@ -136,18 +125,12 @@ public class BoardView extends SurfaceView implements SurfaceHolder.Callback {
 
 		private void doDraw(Canvas canvas){ 
 			if(canvas != null){
-				//canvas.drawBitmap(board, 0, 0, null);
-//				canvas.drawBitmap(gMapBackground, null,
-//						new Rect(0, 0, (int)screenSizeX, (int)screenSizeY),
-//								null);
 				levels.get(currentLevel).doDraw(canvas); 
-//				sqrl.doDraw(canvas);  
 			}
 		}
 		
 		private void update(double elapsed) {
 			if(!objectivesMet){
-//				sqrl.update(yAccel, xAccel);
 				levels.get(currentLevel).update(elapsed, yAccel, xAccel);
 			}
 			

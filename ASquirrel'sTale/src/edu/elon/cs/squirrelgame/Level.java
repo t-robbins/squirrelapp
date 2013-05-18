@@ -10,6 +10,8 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.Paint.Style;
 import android.graphics.Rect;
 import android.os.Handler;
 import android.util.DisplayMetrics;
@@ -49,14 +51,14 @@ public class Level {
 	
 	private int min,sec;
 	public Level(double acornSpawnRate,
-			int freshCount, int sophCount, int junCount, int senCount, ArrayList<Rect> obstacles, Context context){
+			int freshCount, int sophCount, int junCount, int senCount, ArrayList<Rect> obstacles, Context context, int background){
 		
 		this.obstacles = obstacles;
 		this.context = context; 
 		this.acornSpawnRate = acornSpawnRate; 
 //		this.healthBar = new HealthBar(0, 0, 10); 
 		
-		gMapBackground = BitmapFactory.decodeResource(context.getResources(), R.drawable.levelone_background);
+		gMapBackground = BitmapFactory.decodeResource(context.getResources(), background);
 		
 		squirrel = new Squirrel(context);
 		acorn = new Acorn(context);
@@ -75,8 +77,6 @@ public class Level {
 		
 		createPedList(); 
 		
-		this.mapSrc = mapSrc;
-		
 		DisplayMetrics dm = context.getResources().getDisplayMetrics(); 
 		screenSizeX = dm.widthPixels;
 		screenSizeY = dm.heightPixels; 
@@ -87,7 +87,7 @@ public class Level {
 		acorns.add(acorn);
 	}
 	
-	//populating an array of instantated pedsetiran objects that will exist on the level 
+	//populating an array of instantiated pedestrian objects that will exist on the level 
 	private void createPedList(){
 		
 		peds = new ArrayList<Pedestrian>();
@@ -175,8 +175,19 @@ public class Level {
 			
 	
 			
+			Paint paint = new Paint();
+			paint.setStyle(Style.FILL);
+			paint.setAlpha(255);
 			//draw obstacles
+			
 
+			
+			System.out.println(obstacles.get(0).flattenToString());
+			for(Rect obs : obstacles){
+				canvas.drawRect(obs, paint);
+			}
+			
+			
 			squirrel.doDraw(canvas); 
 			
 //			healthBar.doDraw(canvas); 
