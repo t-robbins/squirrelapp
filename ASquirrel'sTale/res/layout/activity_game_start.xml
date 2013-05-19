@@ -33,7 +33,7 @@
             android:onClick="intentLevelOne"
             android:padding="0dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/newgame"
+            android:src="@drawable/new_game"
             tools:ignore="ContentDescription" />
 
         <ImageButton
@@ -44,7 +44,7 @@
             android:onClick="intentContinue"
             android:padding="0dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/cont"
+            android:src="@drawable/continue_1"
             tools:ignore="ContentDescription" />
 
         <ImageButton
@@ -56,7 +56,7 @@
             android:onClick="intentOptions"
             android:padding="0dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/options"
+            android:src="@drawable/options_final"
             tools:ignore="ContentDescription" />
 
         <ImageButton
@@ -69,7 +69,7 @@
             android:onClick="intentHighScores"
             android:padding="0dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/highscores"
+            android:src="@drawable/high_scores"
             tools:ignore="InefficientWeight,ContentDescription" />
     </LinearLayout>
 
