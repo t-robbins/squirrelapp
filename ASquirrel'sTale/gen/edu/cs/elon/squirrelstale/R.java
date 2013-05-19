@@ -24,7 +24,7 @@ public final class R {
         public static final int acorn=0x7f020000;
         public static final int ball=0x7f020001;
         public static final int board=0x7f020002;
-        public static final int bronze=0x7f020003;
+        public static final int bronze2=0x7f020003;
         public static final int checkered=0x7f020004;
         public static final int cont=0x7f020005;
         public static final int continue_1=0x7f020006;
@@ -34,7 +34,7 @@ public final class R {
         public static final int freshman_ped=0x7f02000a;
         public static final int gameover=0x7f02000b;
         public static final int genericbackground=0x7f02000c;
-        public static final int gold=0x7f02000d;
+        public static final int gold2=0x7f02000d;
         public static final int high_scores=0x7f02000e;
         public static final int highscores=0x7f02000f;
         public static final int ic_launcher=0x7f020010;
@@ -50,7 +50,7 @@ public final class R {
         public static final int options_final=0x7f02001a;
         public static final int right=0x7f02001b;
         public static final int senior_ped=0x7f02001c;
-        public static final int silver=0x7f02001d;
+        public static final int silver2=0x7f02001d;
         public static final int sophomore_ped=0x7f02001e;
         public static final int up=0x7f02001f;
         public static final int win=0x7f020020;
