@@ -24,7 +24,7 @@ public class Pedestrian {
 	boolean called = true;
 	private double angleX, angleY;
 	protected boolean dead = false;
-	private final float FACTOR = 6f;
+	private final float FACTOR = 4.5f;
 	private Random generator;
 	
 	//make speed dependent on resolution

@@ -10,6 +10,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
 import android.graphics.Point;
@@ -46,12 +47,15 @@ public class Level {
 	private double timeSinceHit = 0; 
 	protected float randX, randY;
 	protected Random generator;
-	protected String score = ""; 
+	protected int score = 0; 
+	
 	private ScoreScreen scoreScreen; 
 	private GameOverScreen gameOverScreen; 
 	
 	private boolean alreadyDisplayed = false; 
 
+	private Paint paint;
+	private int textX, textY;
 	
 	public Level(double acornSpawnRate,
 			int freshCount, int sophCount, int junCount, int senCount, ArrayList<Rect> obstacles, Context context, int background){
@@ -65,7 +69,7 @@ public class Level {
 		this.obstacles = obstacles;
 		this.context = context; 
 		this.acornSpawnRate = acornSpawnRate; 
-		this.healthBar = new HealthBar(0, 0, 100); 
+		this.healthBar = new HealthBar(0, 0, 100, context); 
 		
 		gMapBackground = BitmapFactory.decodeResource(context.getResources(), background);
 		
@@ -88,6 +92,17 @@ public class Level {
 		acorns = new ArrayList<Acorn>();
 		
 		acorns.add(acorn);
+		
+		paint = new Paint();
+		paint.setAlpha(255);
+		paint.setStyle(Paint.Style.FILL_AND_STROKE);
+		paint.setStrokeWidth(1);
+		paint.setColor(Color.CYAN);
+		
+		paint.setTextSize(context.getResources().getDimensionPixelSize(R.dimen.myFontSize));
+		
+		textX = (int) (screenSizeX - context.getResources().getDimensionPixelSize(R.dimen.scoreDistFromRight));
+		textY = context.getResources().getDimensionPixelSize(R.dimen.scoreDistFromTop); 
 	}
 	
 	public int getCorns(){
@@ -145,23 +160,6 @@ public class Level {
 		return scoreStr; 
 	}
 	
-//	private void registerHit(Pedestrian ped, Canvas canvas){
-//		if(ped.dead && acornCount < ped.acornCost){
-//			//squirrel gets hit instead of killing ped
-//			//health gets decreased
-//			healthBar.Hit(1); 
-//			//hit count incremented 
-//			hitCount++; 
-//			ped.dead = false; 
-//			ped.doDraw(canvas); 
-//		} else if (ped.dead && acornCount >= ped.acornCost){
-//			pedKilledCount++;
-//			pedsToRemove.add(ped); 
-//			acornCount = acornCount - ped.acornCost; 
-//		}
-//	}
-//	
-	
 	protected void doDraw(Canvas canvas){
 		if(canvas != null){
 			//canvas.drawBitmap(board, 0, 0, null);
@@ -205,20 +203,19 @@ public class Level {
 			
 			
 			squirrel.doDraw(canvas);
-			
 			healthBar.doDraw(canvas); 
+			
+			canvas.drawText(String.valueOf(score), textX, textY, paint);
+			
 			
 			if(scoreScreen.display){
 				scoreScreen.doDraw(canvas);  
 			}
-			
+			  
 			if(gameOverScreen.display)
 				gameOverScreen.doDraw(canvas); 
 			
 	
-			
-
-//			healthBar.doDraw(canvas); 
 
 //			Paint paint = new Paint();
 //			paint.setStyle(Style.FILL);
@@ -274,26 +271,14 @@ public class Level {
 			if(ped.dead){
 				acornCount = acornCount - ped.acornCost;
 				pedKilledCount++;
-				System.out.println("DEAD");
+				score+=100;
 			}else if(hit > acornCount){
 				healthBar.Hit(1);
 				hitCount++;
-				System.out.println("HURT");
+				if(score>0)
+					score-=2;
+				
 			}
-			
-			
-//			if(ped.dead && acornCount < ped.acornCost){
-//				//squirrel gets hit instead of killing ped
-//				//health gets decreased
-//				healthBar.Hit(1); 
-//				//hit count incremented 
-//				hitCount++; 
-//				//ped is not marked as dead, since not enough acorns 
-//				ped.dead = false;  
-//			} else if (ped.dead && acornCount >= ped.acornCost){
-//				pedKilledCount++; 
-//				acornCount = acornCount - ped.acornCost; 
-//			}
 		}
 		
 		squirrel.update(yAccel, xAccel); 
@@ -332,16 +317,16 @@ public class Level {
 			//when they click okay. 
 //			System.out.println("There are no peds left! Finish the level!\n Count is: "+peds.size());
  
-			score = calculateScore(levelTime); 
-			scoreScreen.setScore(score); 
-			if (!alreadyDisplayed) {
-				scoreScreen.displayScreen();
-				alreadyDisplayed = true; 
-			}
-			if(alreadyDisplayed && !scoreScreen.display){
-				//alreadyDisplayed = false; 
-				finishLevel(); 
-			}
+//			score = calculateScore(levelTime); 
+//			scoreScreen.setScore(String.valueOf(score)); 
+//			if (!alreadyDisplayed) {
+//				scoreScreen.displayScreen();
+//				alreadyDisplayed = true; 
+//			}
+//			if(alreadyDisplayed && !scoreScreen.display){
+//				//alreadyDisplayed = false; 
+//				finishLevel(); 
+//			}
 			 
 		}
 		

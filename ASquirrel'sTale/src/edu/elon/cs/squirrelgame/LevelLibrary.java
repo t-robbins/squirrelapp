@@ -72,7 +72,7 @@ public class LevelLibrary {
 				/*BOTTOM*/(int)(screenSizeY / 1.0));
 		obstacles1.add(lakesideMainDiningRight);
 
-		levelOne = new Level(1, 10,0, 0, 0, obstacles1, context, background1);
+		levelOne = new Level(5, 5,0, 0, 0, obstacles1, context, background1);
 		library.add(levelOne);
 		
 
