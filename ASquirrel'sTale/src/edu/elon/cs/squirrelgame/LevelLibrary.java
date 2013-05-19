@@ -83,7 +83,7 @@ public class LevelLibrary {
 				/*RIGHT*/(int)(screenSizeX / 1.5), 
 				/*BOTTOM*/(int)(screenSizeY / 1.0));
 		obstacles1.add(lakesideMainDiningRight);
-		levelOne = new Level(10, 2, 2, 2, 2, obstacles1, context, background1);
+		levelOne = new Level(10, 0, 2, 0, 0, obstacles1, context, background1);
 		library.add(levelOne);
 		System.out.println("levelOne added!"); 
 		System.out.println("at index 0: "+library.get(0).name); 

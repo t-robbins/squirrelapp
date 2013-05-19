@@ -20,7 +20,7 @@ public class Pedestrian {
 	protected int screenWidth;
 	protected int screenHeight;
 	private Context context; 
-	private int acornCost; 
+	protected int acornCost; 
 	private int imageID; 
 	boolean called = true;
 	private double angleX, angleY;

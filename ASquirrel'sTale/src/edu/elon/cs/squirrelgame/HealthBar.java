@@ -10,6 +10,7 @@ public class HealthBar {
 	private float locationX, locationY;
 	private double healthScale; 
 	private double healthBarWidth = 300; 
+	protected boolean empty = false; 
 	
 	public HealthBar(float x, float y, int maximum){
 		this.maxHealth = maximum;
@@ -19,12 +20,16 @@ public class HealthBar {
 		this.locationY = y; 
 	}
 	
-	public void Hit(int decreaseBy){
+	public void Hit(double decreaseBy){
 		currentHealth = currentHealth - decreaseBy; 
 	}
 	
-	public void regainHealth(int increaseBy){
+	public void regainHealth(double increaseBy){
 		currentHealth += increaseBy; 
+	}
+	
+	public double getHealth(){
+		return  currentHealth; 
 	}
 	
 	public void doDraw(Canvas canvas){
@@ -45,6 +50,9 @@ public class HealthBar {
 	
 	public void update(double elapsed){
 		healthScale = currentHealth / maxHealth; 
-		System.out.println("health scale - update: "+healthScale);
+		
+		if(currentHealth == 0.0){
+			empty = true; 
+		}
 	}
 }

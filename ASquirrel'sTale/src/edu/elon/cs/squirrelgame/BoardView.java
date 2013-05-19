@@ -110,6 +110,7 @@ public class BoardView extends SurfaceView implements SurfaceHolder.Callback {
 		private boolean isRunning;
 		private long lastTime;
 		private ArrayList<Level> levels; 
+		private WinScreen winScreen; 
 
 		private int currentLevel = 0;  
 
@@ -117,6 +118,7 @@ public class BoardView extends SurfaceView implements SurfaceHolder.Callback {
 		
 
 		public BoardViewThread(Context context){
+			this.winScreen = new WinScreen(context); 
 			isRunning = false;
 			levels = levelIterator.getLevelList(); 
 			System.out.println("current level" + levels.get(currentLevel).name); 
@@ -129,7 +131,11 @@ public class BoardView extends SurfaceView implements SurfaceHolder.Callback {
 
 		private void doDraw(Canvas canvas){ 
 			if(canvas != null){
-				levels.get(currentLevel).doDraw(canvas); 
+				levels.get(currentLevel).doDraw(canvas);
+				
+				if(winScreen.display){
+					winScreen.doDraw(canvas); 
+				}
 			}
 		}
 		
@@ -147,6 +153,9 @@ public class BoardView extends SurfaceView implements SurfaceHolder.Callback {
 				} else {
 					//Game is finished
 					System.out.println("Game is FINSIHED!!");
+					if(winScreen.display){
+						winScreen.update(elapsed);  
+					}
 				}
 			}
 		}
