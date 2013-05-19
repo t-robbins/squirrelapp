@@ -35,18 +35,20 @@ public class Level {
 
 	private Squirrel squirrel; 
 	private Acorn acorn;
-//	private HealthBar healthBar; 
+	private HealthBar healthBar; 
 	
 	private Context context; 
 	
 	protected double levelTime = 0;
 	private int pedKilledCount = 0;
-	private int acornCount = 0; 
+	public int acornCount = 0; 
 	private double timeSinceSpawn = 0;
+	private double timeSinceHit = 0; 
 	protected float randX, randY;
 	protected Random generator;
 	protected String score = ""; 
 	private ScoreScreen scoreScreen; 
+	private GameOverScreen gameOverScreen; 
 	
 	private boolean alreadyDisplayed = false; 
 
@@ -59,19 +61,21 @@ public class Level {
 		screenSizeY = dm.heightPixels; 
 		
 		this.scoreScreen = new ScoreScreen(context); 
+		this.gameOverScreen = new GameOverScreen(context); 
 		this.obstacles = obstacles;
 		this.context = context; 
 		this.acornSpawnRate = acornSpawnRate; 
-//		this.healthBar = new HealthBar(0, 0, 10); 
+		this.healthBar = new HealthBar(0, 0, 100); 
 		
 		gMapBackground = BitmapFactory.decodeResource(context.getResources(), background);
 		
 
 		generator = new Random();
 		
+
 		acorn = new Acorn(context, obstacles);
 		squirrel = new Squirrel(context, obstacles);
-		
+
 		this.freshCount = freshCount; 
 		this.sophCount = sophCount; 
 		this.junCount = junCount;
@@ -86,7 +90,9 @@ public class Level {
 		acorns.add(acorn);
 	}
 	
-	
+	public int getCorns(){
+		return acornCount;
+	}
 	
 	//populating an array of instantiated pedestrian objects that will exist on the level 
 	private void createPedList(){
@@ -139,6 +145,22 @@ public class Level {
 		return scoreStr; 
 	}
 	
+//	private void registerHit(Pedestrian ped, Canvas canvas){
+//		if(ped.dead && acornCount < ped.acornCost){
+//			//squirrel gets hit instead of killing ped
+//			//health gets decreased
+//			healthBar.Hit(1); 
+//			//hit count incremented 
+//			hitCount++; 
+//			ped.dead = false; 
+//			ped.doDraw(canvas); 
+//		} else if (ped.dead && acornCount >= ped.acornCost){
+//			pedKilledCount++;
+//			pedsToRemove.add(ped); 
+//			acornCount = acornCount - ped.acornCost; 
+//		}
+//	}
+//	
 	
 	protected void doDraw(Canvas canvas){
 		if(canvas != null){
@@ -166,38 +188,58 @@ public class Level {
 			cornsToRemove = null;
 			
 			for(Pedestrian ped : peds){
-				//here will also happen the logic for if
-				//player doesn't have enough acorns to kill,
-				//peds will not die, but squirrel's health will decrease. 
+
 				if(ped.dead){
-					pedKilledCount++; 
-					pedsToRemove.add(ped);
+					System.out.println("draw - ped should be removed");
+					pedsToRemove.add(ped); 
+				} else {
+					ped.doDraw(canvas); 
 				}
-				else
-					ped.doDraw(canvas);  
 			}
 			
 			for (Pedestrian rmP : pedsToRemove){
 				peds.remove(rmP);
+				System.out.println("size of peds is : " + peds.size());
 			}
 			pedsToRemove = null;
 			
 			
 			squirrel.doDraw(canvas);
 			
+			healthBar.doDraw(canvas); 
+			
 			if(scoreScreen.display){
 				scoreScreen.doDraw(canvas);  
 			}
+			
+			if(gameOverScreen.display)
+				gameOverScreen.doDraw(canvas); 
+			
 	
 			
+
 //			healthBar.doDraw(canvas); 
+
+//			Paint paint = new Paint();
+//			paint.setStyle(Style.FILL);
+//			paint.setAlpha(255);
+//			//draw obstacles
+//			
+//			System.out.println(obstacles.get(0).flattenToString());
+//			for(Rect obs : obstacles){
+//				canvas.drawRect(obs, paint);
+//			}
+			
+
 		}
 	}
 	
 	protected void update(double elapsed, float yAccel, float xAccel) {
+		//System.out.println("acorns: "+acornCount);
 	
 		levelTime += elapsed; 
 		timeSinceSpawn += elapsed; 
+		timeSinceHit += elapsed; 
 	
 		if(timeSinceSpawn > acornSpawnRate){
 			//System.out.println((System.currentTimeMillis()/1000));
@@ -224,19 +266,51 @@ public class Level {
 			corn.update(sX, sY);	
 		
 		}
+		
+//		ArrayList<Pedestrian> pedsToRemove = new ArrayList<Pedestrian>();
 		for(Pedestrian ped : peds){
-			ped.update(sX, sY); 
-		}		
+			int hit = ped.update(sX, sY, acornCount); 
+			
+			if(ped.dead){
+				acornCount = acornCount - ped.acornCost;
+				pedKilledCount++;
+				System.out.println("DEAD");
+			}else if(hit > acornCount){
+				healthBar.Hit(1);
+				hitCount++;
+				System.out.println("HURT");
+			}
+			
+			
+//			if(ped.dead && acornCount < ped.acornCost){
+//				//squirrel gets hit instead of killing ped
+//				//health gets decreased
+//				healthBar.Hit(1); 
+//				//hit count incremented 
+//				hitCount++; 
+//				//ped is not marked as dead, since not enough acorns 
+//				ped.dead = false;  
+//			} else if (ped.dead && acornCount >= ped.acornCost){
+//				pedKilledCount++; 
+//				acornCount = acornCount - ped.acornCost; 
+//			}
+		}
+		
 		squirrel.update(yAccel, xAccel); 
+		
+		healthBar.update(elapsed); 
 		
 		if(scoreScreen.display){
 			scoreScreen.update(elapsed); 
 		}
 		
-//		healthBar.update(elapsed); 
+		if(gameOverScreen.display){
+			gameOverScreen.update(elapsed); 
+		}
 		
 		//checking to see if the level has been won...
 		//our objective is: Peds have been all killed 
+
 		
 //		if(peds.size() == 0){
 // 
@@ -252,6 +326,30 @@ public class Level {
 //			}
 //			 
 //		}
+
+		if(peds.size() == 0){
+			//could put some sort of dialog or screen that pops up with the score of this level. Then set the boolean
+			//when they click okay. 
+//			System.out.println("There are no peds left! Finish the level!\n Count is: "+peds.size());
+ 
+			score = calculateScore(levelTime); 
+			scoreScreen.setScore(score); 
+			if (!alreadyDisplayed) {
+				scoreScreen.displayScreen();
+				alreadyDisplayed = true; 
+			}
+			if(alreadyDisplayed && !scoreScreen.display){
+				//alreadyDisplayed = false; 
+				finishLevel(); 
+			}
+			 
+		}
+		
+		if(healthBar.empty){
+			//also end the level with game over screen 
+			//user ends game with back button 
+			gameOverScreen.displayScreen(); 
+		}
 
 		
 	}

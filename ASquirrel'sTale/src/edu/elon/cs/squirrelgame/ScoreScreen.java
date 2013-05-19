@@ -12,7 +12,7 @@ public class ScoreScreen {
 	private Bitmap chosen; 
 	private double time = 0; 
 	protected boolean display = false; 
-	private final int DISPLAY_TIME = 10; 
+	private final int DISPLAY_TIME = 5; 
 	private Context context; 
 	
 	public ScoreScreen(Context context){
@@ -29,15 +29,15 @@ public class ScoreScreen {
 	
 	public void setScore(String score){
 		if(score.trim().equals("Gold")){
-			Bitmap goldTime = BitmapFactory.decodeResource(context.getResources(), R.drawable.gold); 
+			Bitmap goldTime = BitmapFactory.decodeResource(context.getResources(), R.drawable.gold2); 
 			chosen = goldTime; 
 		}
 		if(score.trim().equals("Silver")){
-			Bitmap silverTime = BitmapFactory.decodeResource(context.getResources(), R.drawable.silver);
+			Bitmap silverTime = BitmapFactory.decodeResource(context.getResources(), R.drawable.silver2);
 			chosen = silverTime; 
 		}
 		if(score.trim().equals("Bronze")){
-			Bitmap bronzeTime = BitmapFactory.decodeResource(context.getResources(), R.drawable.bronze); 
+			Bitmap bronzeTime = BitmapFactory.decodeResource(context.getResources(), R.drawable.bronze2); 
 			chosen = bronzeTime; 
 		}
 	}

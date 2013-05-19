@@ -17,7 +17,10 @@ public class Pedestrian {
 	protected int screenWidth;
 	protected int screenHeight;
 	private Context context; 
-	private int acornCost; 
+
+	protected int acornCost; 
+	private int imageID; 
+
 	boolean called = true;
 	private double angleX, angleY;
 	protected boolean dead = false;
@@ -27,7 +30,6 @@ public class Pedestrian {
 	//make speed dependent on resolution
 	private static final float SPEED_VARIABLE = 5;
 	private ArrayList<Rect> obs;
-	
 	public Pedestrian(Context context, int imageID, int acornCost, ArrayList<Rect> obstacles){
 		
 		image = BitmapFactory.decodeResource(context.getResources(), imageID);
@@ -76,7 +78,7 @@ public class Pedestrian {
 		if (!x && y) angleY = -angleY;
 	}
 
-	public void update(float sX, float sY){
+	public int update(float sX, float sY, int acornCount){
 		
 		centerX += (float) (SPEED_VARIABLE * angleX);
 		centerY += (float) (SPEED_VARIABLE * angleY);
@@ -136,17 +138,24 @@ public class Pedestrian {
 		}
 		
 		
-		
-		
 		/*~~~~~~~~~~~~~~~~~~~~~~~~
 		 *|	      SQUIRREL       |
 		 *~~~~~~~~~~~~~~~~~~~~~~~~
 		 */
-		
 		if((sX >= centerX-20 && sX <= centerX+20) 
-				&& (sY >= centerY-20 && sY <= centerY+20))
-			die();
+				&& (sY >= centerY-20 && sY <= centerY+20)){
 			
+			if(acornCount >= acornCost){
+				die();
+			}
+			else{
+				acornCount++;
+			}
+		
+		}
+			
+		
+		return acornCount;
 	
 	}
 }
