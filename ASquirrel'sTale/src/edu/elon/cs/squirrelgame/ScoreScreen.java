@@ -9,9 +9,6 @@ import android.graphics.drawable.BitmapDrawable;
 
 
 public class ScoreScreen {
-	private Bitmap goldTime;
-	private Bitmap silverTime;
-	private Bitmap bronzeTime;
 	private Bitmap chosen; 
 	private double time = 0; 
 	protected boolean display = false; 
@@ -31,16 +28,16 @@ public class ScoreScreen {
 	}
 	
 	public void setScore(String score){
-		this.goldTime = BitmapFactory.decodeResource(context.getResources(), R.drawable.gold); 
-		this.silverTime = BitmapFactory.decodeResource(context.getResources(), R.drawable.silver); 
-		this.bronzeTime = BitmapFactory.decodeResource(context.getResources(), R.drawable.bronze); 
 		if(score.trim().equals("Gold")){
+			Bitmap goldTime = BitmapFactory.decodeResource(context.getResources(), R.drawable.gold); 
 			chosen = goldTime; 
 		}
 		if(score.trim().equals("Silver")){
+			Bitmap silverTime = BitmapFactory.decodeResource(context.getResources(), R.drawable.silver);
 			chosen = silverTime; 
 		}
 		if(score.trim().equals("Bronze")){
+			Bitmap bronzeTime = BitmapFactory.decodeResource(context.getResources(), R.drawable.bronze); 
 			chosen = bronzeTime; 
 		}
 	}
