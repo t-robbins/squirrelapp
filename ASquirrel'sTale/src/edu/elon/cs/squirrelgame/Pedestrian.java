@@ -93,16 +93,17 @@ public class Pedestrian {
 			centerX = screenWidth - width/FACTOR;
 			billiardsBounce(true, false);
 			
-		} else if (centerX < 0) {
-			centerX = 0 + (width/FACTOR)/8;
+		} else if (centerX < 0+(width/FACTOR)) {
+			centerX = 0 + (width/FACTOR);
 			billiardsBounce(true, false);
 		}
 		if (centerY > screenHeight - (height/FACTOR)) {
 
 			centerY = screenHeight - (height/FACTOR);
 			billiardsBounce(false, true);
-		} else if (centerY < 0) {
-			centerY = 0 + (height/FACTOR)/8;
+			
+		} else if (centerY < 0+(height/FACTOR)) {
+			centerY = 0 + (height/FACTOR);
 			billiardsBounce(false, true);
 		}
 		
@@ -113,26 +114,26 @@ public class Pedestrian {
 		
 		for(Rect r : obs){
 			//left side of the building
-			if(centerX > r.left - width && centerX < r.centerX() && centerY > r.top && centerY < r.bottom){
-				centerX = r.left - width;
+			if(centerX > r.left - (width/FACTOR) && centerX < r.centerX() && centerY > r.top && centerY < r.bottom){
+				centerX = r.left - (width/FACTOR);
 				billiardsBounce(true, false);
 				}
 			
 			//right side of the building
-			if(centerX < r.right + width && centerX > r.centerX() && centerY > r.top && centerY < r.bottom){
+			if(centerX < r.right + (width/FACTOR) && centerX > r.centerX() && centerY > r.top && centerY < r.bottom){
 				//System.out.println("centerX: " + centerX  + "r.right: " + r.right);
-				centerX = r.right + width;
+				centerX = r.right + (width/FACTOR);
 				billiardsBounce(true, false);
 				}
 			
 			//top side of the building
-			if(centerY > r.top - height && centerY < r.centerY() && centerX > r.left && centerX < r.right){
-				centerY = r.top - height;
+			if(centerY > r.top-(height/FACTOR) && centerY < r.centerY() && centerX > r.left && centerX < r.right){
+				centerY = r.top - (height/FACTOR);
 				billiardsBounce(false, true);
 				}
-			
-			if(centerY < r.bottom + height && centerY > r.centerY() && centerX > r.left && centerX < r.right){
-				centerY = r.bottom + height;
+			//bottom of building
+			if(centerY < r.bottom + (height/FACTOR) && centerY > r.centerY() && centerX > r.left && centerX < r.right){
+				centerY = r.bottom + (height/FACTOR);
 				billiardsBounce(false, true);
 				}
 		}

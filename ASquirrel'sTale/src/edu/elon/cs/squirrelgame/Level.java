@@ -54,8 +54,8 @@ public class Level {
 	
 	private boolean alreadyDisplayed = false; 
 
-	private Paint paint;
-	private int textX, textY;
+	private Paint paint, menuBar;
+	private int acornTextX, acornTextY, scoreTextX, scoreTextY;
 	
 	public Level(double acornSpawnRate,
 			int freshCount, int sophCount, int junCount, int senCount, ArrayList<Rect> obstacles, Context context, int background){
@@ -68,8 +68,14 @@ public class Level {
 		this.gameOverScreen = new GameOverScreen(context); 
 		this.obstacles = obstacles;
 		this.context = context; 
-		this.acornSpawnRate = acornSpawnRate; 
-		this.healthBar = new HealthBar(0, 0, 100, context); 
+		this.acornSpawnRate = acornSpawnRate;
+		
+		
+		
+		this.healthBar = new HealthBar(0, 
+				(float) ((screenSizeY / 1.085)), 
+				100,
+				context); 
 		
 		gMapBackground = BitmapFactory.decodeResource(context.getResources(), background);
 		
@@ -101,8 +107,16 @@ public class Level {
 		
 		paint.setTextSize(context.getResources().getDimensionPixelSize(R.dimen.myFontSize));
 		
-		textX = (int) (screenSizeX - context.getResources().getDimensionPixelSize(R.dimen.scoreDistFromRight));
-		textY = context.getResources().getDimensionPixelSize(R.dimen.scoreDistFromTop); 
+		scoreTextX = (int) (screenSizeX - context.getResources().getDimensionPixelSize(R.dimen.scoreDistFromRight));
+		scoreTextY = (int) ((screenSizeY / 1.085) + (context.getResources().getDimensionPixelSize(R.dimen.myFontSize)/1.072026801)); 
+		acornTextX = (int) (screenSizeX - context.getResources().getDimensionPixelSize(R.dimen.acornDistFromRight));
+		acornTextY = (int) ((screenSizeY / 1.085) + (context.getResources().getDimensionPixelSize(R.dimen.myFontSize)/1.072026801));
+
+		menuBar = new Paint();
+		menuBar.setColor(Color.DKGRAY);
+		menuBar.setStyle(Style.FILL);
+		menuBar.setAlpha(255);
+		
 	}
 	
 	public int getCorns(){
@@ -185,6 +199,13 @@ public class Level {
 			}
 			cornsToRemove = null;
 			
+			
+			canvas.drawRect(obstacles.get(0), menuBar);
+			canvas.drawText("Score: " + String.valueOf(score), scoreTextX, scoreTextY, paint);
+			canvas.drawText("Acorns: " + String.valueOf(acornCount), acornTextX, acornTextY, paint);
+			
+			
+			
 			for(Pedestrian ped : peds){
 
 				if(ped.dead){
@@ -205,8 +226,6 @@ public class Level {
 			squirrel.doDraw(canvas);
 			healthBar.doDraw(canvas); 
 			
-			canvas.drawText(String.valueOf(score), textX, textY, paint);
-			
 			
 			if(scoreScreen.display){
 				scoreScreen.doDraw(canvas);  
@@ -214,18 +233,6 @@ public class Level {
 			  
 			if(gameOverScreen.display)
 				gameOverScreen.doDraw(canvas); 
-			
-	
-
-//			Paint paint = new Paint();
-//			paint.setStyle(Style.FILL);
-//			paint.setAlpha(255);
-//			//draw obstacles
-//			
-//			System.out.println(obstacles.get(0).flattenToString());
-//			for(Rect obs : obstacles){
-//				canvas.drawRect(obs, paint);
-//			}
 			
 
 		}
@@ -238,10 +245,8 @@ public class Level {
 		timeSinceSpawn += elapsed; 
 		timeSinceHit += elapsed; 
 	
-		if(timeSinceSpawn > acornSpawnRate){
+		if(timeSinceSpawn > acornSpawnRate && acorns.size()<6){
 			//System.out.println((System.currentTimeMillis()/1000));
-			
-			
 			acorns.add(new Acorn(context, obstacles));
 			timeSinceSpawn = 0; 
 		}		
@@ -271,12 +276,13 @@ public class Level {
 			if(ped.dead){
 				acornCount = acornCount - ped.acornCost;
 				pedKilledCount++;
-				score+=100;
+				score+=100*ped.acornCost;
 			}else if(hit > acornCount){
 				healthBar.Hit(1);
 				hitCount++;
+				
 				if(score>0)
-					score-=2;
+					score-=2*ped.acornCost;
 				
 			}
 		}
@@ -295,28 +301,13 @@ public class Level {
 		
 		//checking to see if the level has been won...
 		//our objective is: Peds have been all killed 
-
-		
-//		if(peds.size() == 0){
-// 
-//			score = calculateScore(levelTime); 
-//			scoreScreen.setScore(score); 
-//			if (!alreadyDisplayed) {
-//				scoreScreen.displayScreen();
-//				alreadyDisplayed = true; 
-//			}
-//			if(alreadyDisplayed && !scoreScreen.display){
-//				//alreadyDisplayed = false; 
-//				finishLevel(); 
-//			}
-//			 
-//		}
-
 		if(peds.size() == 0){
 			//could put some sort of dialog or screen that pops up with the score of this level. Then set the boolean
 			//when they click okay. 
 //			System.out.println("There are no peds left! Finish the level!\n Count is: "+peds.size());
  
+			finishLevel();
+			
 //			score = calculateScore(levelTime); 
 //			scoreScreen.setScore(String.valueOf(score)); 
 //			if (!alreadyDisplayed) {

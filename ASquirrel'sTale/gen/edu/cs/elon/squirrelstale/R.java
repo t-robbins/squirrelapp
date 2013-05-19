@@ -11,6 +11,7 @@ public final class R {
     public static final class attr {
     }
     public static final class dimen {
+        public static final int acornDistFromRight=0x7f040006;
         /**  Default screen margins, per the Android Design guidelines. 
 
          Customize dimensions originally defined in res/values/dimens.xml (such as
@@ -23,7 +24,6 @@ public final class R {
         public static final int barWidth=0x7f040003;
         public static final int myFontSize=0x7f040002;
         public static final int scoreDistFromRight=0x7f040005;
-        public static final int scoreDistFromTop=0x7f040006;
     }
     public static final class drawable {
         public static final int acorn=0x7f020000;

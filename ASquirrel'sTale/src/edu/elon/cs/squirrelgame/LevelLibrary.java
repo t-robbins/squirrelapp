@@ -47,6 +47,13 @@ public class LevelLibrary {
 		 * =======================================
 		 */
 		//sX = 480 sY = 320
+		Rect menuBar = new Rect(
+				/*LEFT*/(int)(0), 
+				/*TOP*/(int)(screenSizeY / 1.072026801), 
+				/*RIGHT*/(int)(screenSizeX), 
+				/*BOTTOM*/(int)(screenSizeY));
+		obstacles1.add(menuBar);
+				
 		Rect lakesideBottom = new Rect(
 				/*LEFT*/(int)(screenSizeX / 3.310344828), 
 				/*TOP*/(int)(screenSizeY / 2.935779817), 
@@ -83,6 +90,13 @@ public class LevelLibrary {
 		 * =======================================
 		 */
 		//sX = 480 sY = 320
+		Rect menuBar2 = new Rect(
+				/*LEFT*/(int)(0), 
+				/*TOP*/(int)(screenSizeY / 1.072026801), 
+				/*RIGHT*/(int)(screenSizeX), 
+				/*BOTTOM*/(int)(screenSizeY));
+		obstacles2.add(menuBar2);
+				
 		Rect oaksC = new Rect(
 				/*LEFT*/(int)(screenSizeX / 9.320388350), 
 				/*TOP*/(int)(screenSizeY / 3.832335329), 
@@ -111,6 +125,12 @@ public class LevelLibrary {
 		 * =======================================
 		 */
 		//sX = 480 sY = 320
+		Rect menuBar3 = new Rect(
+				/*LEFT*/(int)(0), 
+				/*TOP*/(int)(screenSizeY / 1.072026801), 
+				/*RIGHT*/(int)(screenSizeX), 
+				/*BOTTOM*/(int)(screenSizeY));
+		obstacles3.add(menuBar3);
 		Rect belkPavLeft = new Rect(
 				/*LEFT*/(int)(screenSizeX / 5.245901639), 
 				/*TOP*/(int)(screenSizeY / 5.470085470), 
