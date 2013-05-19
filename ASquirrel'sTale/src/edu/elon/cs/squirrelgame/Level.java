@@ -12,6 +12,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
+import android.graphics.Point;
 import android.graphics.Rect;
 import android.util.DisplayMetrics;
 import edu.cs.elon.squirrelstale.R;
@@ -31,12 +32,7 @@ public class Level {
 	protected boolean levelFinished = false; 
 	
 	private Bitmap gMapBackground;
-	
-	private Pedestrian freshman; 
-	private Pedestrian sophomore;
-	private Pedestrian junior;
-	private Pedestrian senior;
-	
+
 	private Squirrel squirrel; 
 	private Acorn acorn;
 //	private HealthBar healthBar; 
@@ -53,10 +49,14 @@ public class Level {
 	private ScoreScreen scoreScreen; 
 	
 	private boolean alreadyDisplayed = false; 
+
 	
-	private int min,sec;
 	public Level(double acornSpawnRate,
 			int freshCount, int sophCount, int junCount, int senCount, ArrayList<Rect> obstacles, Context context, int background){
+		
+		DisplayMetrics dm = context.getResources().getDisplayMetrics(); 
+		screenSizeX = dm.widthPixels;
+		screenSizeY = dm.heightPixels; 
 		
 		this.scoreScreen = new ScoreScreen(context); 
 		this.obstacles = obstacles;
@@ -66,13 +66,11 @@ public class Level {
 		
 		gMapBackground = BitmapFactory.decodeResource(context.getResources(), background);
 		
-		squirrel = new Squirrel(context);
-		acorn = new Acorn(context);
+
+		generator = new Random();
 		
-		freshman = new Pedestrian(context, R.drawable.freshman_ped, 5); 
-		sophomore = new Pedestrian(context, R.drawable.sophomore_ped, 10);
-		junior = new Pedestrian(context, R.drawable.junior_ped, 15);
-		senior = new Pedestrian(context, R.drawable.senior_ped, 20);
+		acorn = new Acorn(context, obstacles);
+		squirrel = new Squirrel(context, obstacles);
 		
 		this.freshCount = freshCount; 
 		this.sophCount = sophCount; 
@@ -80,52 +78,34 @@ public class Level {
 		this.senCount = senCount; 
 		
 		pedCount = freshCount + sophCount + junCount + senCount;
-		
 		createPedList(); 
-		
-		DisplayMetrics dm = context.getResources().getDisplayMetrics(); 
-		screenSizeX = dm.widthPixels;
-		screenSizeY = dm.heightPixels; 
-		
 	
 		
 		acorns = new ArrayList<Acorn>();
+		
 		acorns.add(acorn);
 	}
+	
+	
 	
 	//populating an array of instantiated pedestrian objects that will exist on the level 
 	private void createPedList(){
 		
 		peds = new ArrayList<Pedestrian>();
-
-		generator = new Random();
-		
-		
-		
+	
 		for(int f = 0; f < freshCount; f++){
-			randY = generator.nextFloat()*(screenSizeY - freshman.height);
-			randX = generator.nextFloat()*(screenSizeX - freshman.width);
-
-			peds.add(freshman.clone(randX, randY));
+			System.out.println("Creating freshman number :" + f);
+			peds.add(new Pedestrian(context, R.drawable.freshman_ped, 1, obstacles));
 		}
 		
-		for(int so = 0; so < sophCount; so++){
-			randY = generator.nextFloat()*(screenSizeY -sophomore.height);
-			randX = generator.nextFloat()*(screenSizeX - sophomore.width);
-
-			peds.add(sophomore.clone(randX, randY)); 
+		for(int so = 0; so < sophCount; so++){ 
+			peds.add(new Pedestrian(context, R.drawable.sophomore_ped, 1, obstacles));
 		}
 		for(int j = 0; j < junCount; j++){
-			randY = generator.nextFloat()*(screenSizeY - junior.height);
-			randX = generator.nextFloat()*(screenSizeX - junior.width);
-
-			peds.add(junior.clone(randX, randY));
+			peds.add(new Pedestrian(context, R.drawable.junior_ped, 1, obstacles));
 		}
 		for(int se = 0; se < senCount; se++){
-			randY = generator.nextFloat()*(screenSizeY - senior.height);
-			randX = generator.nextFloat()*(screenSizeX - senior.width);
-
-			peds.add(senior.clone(randX, randY));
+			peds.add(new Pedestrian(context, R.drawable.senior_ped, 1, obstacles));
 		}
 	}
 	
@@ -170,6 +150,21 @@ public class Level {
 			ArrayList<Pedestrian> pedsToRemove = new ArrayList<Pedestrian>();
 			ArrayList<Acorn> cornsToRemove = new ArrayList<Acorn>();
 			
+			for(Acorn corn : acorns){
+				if(corn.eaten){
+					acornCount++;
+					cornsToRemove.add(corn);
+				}
+				else
+					corn.doDraw(canvas);
+			}
+			
+			
+			for (Acorn rmA : cornsToRemove){
+				acorns.remove(rmA);
+			}
+			cornsToRemove = null;
+			
 			for(Pedestrian ped : peds){
 				//here will also happen the logic for if
 				//player doesn't have enough acorns to kill,
@@ -187,20 +182,6 @@ public class Level {
 			}
 			pedsToRemove = null;
 			
-			for(Acorn corn : acorns){
-				if(corn.eaten){
-					acornCount++;
-					cornsToRemove.add(corn);
-				}
-				else
-					corn.doDraw(canvas);
-			}
-			
-			
-			for (Acorn rmA : cornsToRemove){
-				acorns.remove(rmA);
-			}
-			cornsToRemove = null;
 			
 			squirrel.doDraw(canvas);
 			
@@ -208,17 +189,6 @@ public class Level {
 				scoreScreen.doDraw(canvas);  
 			}
 	
-			
-//			Paint paint = new Paint();
-//			paint.setStyle(Style.FILL);
-//			paint.setAlpha(255);
-//			//draw obstacles
-//			
-//			System.out.println(obstacles.get(0).flattenToString());
-//			for(Rect obs : obstacles){
-//				canvas.drawRect(obs, paint);
-//			}
-			
 			
 //			healthBar.doDraw(canvas); 
 		}
@@ -233,13 +203,7 @@ public class Level {
 			//System.out.println((System.currentTimeMillis()/1000));
 			
 			
-			
-			float randY = generator.nextFloat()*(screenSizeY - acorn.height);
-			float randX = generator.nextFloat()*(screenSizeX - acorn.width);
-			
-			
-			Acorn clone = acorn.clone(randX, randY);
-			acorns.add(clone);
+			acorns.add(new Acorn(context, obstacles));
 			timeSinceSpawn = 0; 
 		}		
 		
@@ -273,24 +237,23 @@ public class Level {
 		
 		//checking to see if the level has been won...
 		//our objective is: Peds have been all killed 
-		if(peds.size() == 0){
-			//could put some sort of dialog or screen that pops up with the score of this level. Then set the boolean
-			//when they click okay. 
-//			System.out.println("There are no peds left! Finish the level!\n Count is: "+peds.size());
- 
-			score = calculateScore(levelTime); 
-			scoreScreen.setScore(score); 
-			if (!alreadyDisplayed) {
-				scoreScreen.displayScreen();
-				alreadyDisplayed = true; 
-			}
-			if(alreadyDisplayed && !scoreScreen.display){
-				//alreadyDisplayed = false; 
-				finishLevel(); 
-			}
-			 
-		}
+		
+//		if(peds.size() == 0){
+// 
+//			score = calculateScore(levelTime); 
+//			scoreScreen.setScore(score); 
+//			if (!alreadyDisplayed) {
+//				scoreScreen.displayScreen();
+//				alreadyDisplayed = true; 
+//			}
+//			if(alreadyDisplayed && !scoreScreen.display){
+//				//alreadyDisplayed = false; 
+//				finishLevel(); 
+//			}
+//			 
+//		}
 
 		
 	}
+	
 }

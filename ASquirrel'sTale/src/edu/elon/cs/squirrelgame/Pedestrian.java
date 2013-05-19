@@ -1,5 +1,6 @@
 package edu.elon.cs.squirrelgame;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import android.content.Context;
@@ -13,82 +14,72 @@ public class Pedestrian {
 	protected float centerY;
 	protected float width, height;
 	private Bitmap image;
-	private float currentX;
-	private float currentY;
-	private float currentHeroX;
-	private float currentHeroY;
 	protected int screenWidth;
 	protected int screenHeight;
 	private Context context; 
 	private int acornCost; 
-	private int imageID; 
 	boolean called = true;
 	private double angleX, angleY;
 	protected boolean dead = false;
-	
-	private final float FACTOR = 4f;
+	private final float FACTOR = 6f;
+	private Random generator;
 	
 	//make speed dependent on resolution
 	private static final float SPEED_VARIABLE = 5;
+	private ArrayList<Rect> obs;
 	
-	public Pedestrian(Context context, int imageID, int acornCost){
-		this.imageID = imageID;
+	public Pedestrian(Context context, int imageID, int acornCost, ArrayList<Rect> obstacles){
+		
 		image = BitmapFactory.decodeResource(context.getResources(), imageID);
 		width = image.getWidth()/FACTOR;
 		height = image.getHeight()/FACTOR;
 		
-		centerX = 150;
-		centerY = 150;
+		generator = new Random();
+		centerX = generator.nextFloat()*(Math.abs(screenWidth - width))+ 50;
+		centerY = generator.nextFloat()*(Math.abs(screenHeight - height))+ 50;
+		System.out.println("START X:" + centerX + " and Y: " + centerY);
 		
+		obs = obstacles;
 		this.context = context; 
 		this.acornCost = acornCost; 
-	}
-	
-	public Pedestrian clone(float xPos, float yPos){
-		 Pedestrian cloned = new Pedestrian(context, imageID, acornCost); 
-		 cloned.currentX = xPos;
-		 cloned.currentY = yPos; 
-		 return cloned; 
-	}
-	
-	public Pedestrian clone(){
-		 Pedestrian cloned = new Pedestrian(context, imageID, acornCost); 
-		 return cloned; 
 		
-	}
+		angleX = Math.cos((generator.nextInt()*360)*(Math.PI/180.0));
+		angleY = Math.sin((generator.nextInt()*360)*(Math.PI/180.0));
+		
+		
+	} 
 	
 	public void die(){
-		currentX = screenWidth * -2;
-		currentY = screenHeight * -2;  
+		centerX = screenWidth * -2;
+		centerY = screenHeight * -2;  
 		dead = true;
 	}
 	
 	public void doDraw(Canvas canvas){
+		screenHeight = canvas.getHeight();
+		screenWidth = canvas.getWidth();
+		
+		//initiates starting position
+		if(centerX < 0.0 && centerY < 0.0){
+			generator = new Random();
+			centerX = generator.nextFloat()*(Math.abs(screenWidth - width));
+			centerY = generator.nextFloat()*(Math.abs(screenHeight - height));
+		}
+		
 		canvas.drawBitmap(image, null, 
 				new Rect((int)(centerX-width/FACTOR),(int)(centerY-height/FACTOR),
 				(int)(centerX+width/FACTOR),(int)(centerY+height/FACTOR)),null);
-		
-		screenHeight = canvas.getHeight();
-		screenWidth = canvas.getWidth();
 	}
 	
-	
-	//computes random angle for pedestrian to 'face'
-	private void randomRHatVector(){
-		
-		Random generator = new Random();
-		
-		double angle = generator.nextDouble() * 360;
-		
-		angleX = Math.cos(angle);
-		angleY = Math.sin(angle);
+	private void billiardsBounce(boolean x, boolean y){
+		if (x && !y) angleX = -angleX;
+		if (!x && y) angleY = -angleY;
 	}
-	
+
 	public void update(float sX, float sY){
 		
 		centerX += (float) (SPEED_VARIABLE * angleX);
 		centerY += (float) (SPEED_VARIABLE * angleY);
-
 		
 		
 		/*~~~~~~~~~~~~~~~~~~~~~~~~
@@ -97,24 +88,20 @@ public class Pedestrian {
 		 */
 		//done
 		if (centerX > screenWidth - width/FACTOR) {
-			
-			
 			centerX = screenWidth - width/FACTOR;
-			randomRHatVector();
+			billiardsBounce(true, false);
 			
 		} else if (centerX < 0) {
 			centerX = 0 + (width/FACTOR)/8;
-			
-			randomRHatVector();
+			billiardsBounce(true, false);
 		}
 		if (centerY > screenHeight - (height/FACTOR)) {
 
 			centerY = screenHeight - (height/FACTOR);
-
-			randomRHatVector();
+			billiardsBounce(false, true);
 		} else if (centerY < 0) {
 			centerY = 0 + (height/FACTOR)/8;
-			randomRHatVector();
+			billiardsBounce(false, true);
 		}
 		
 		/*~~~~~~~~~~~~~~~~~~~~~~~~
@@ -122,6 +109,31 @@ public class Pedestrian {
 		 *~~~~~~~~~~~~~~~~~~~~~~~~
 		 */
 		
+		for(Rect r : obs){
+			//left side of the building
+			if(centerX > r.left - width && centerX < r.centerX() && centerY > r.top && centerY < r.bottom){
+				centerX = r.left - width;
+				billiardsBounce(true, false);
+				}
+			
+			//right side of the building
+			if(centerX < r.right + width && centerX > r.centerX() && centerY > r.top && centerY < r.bottom){
+				//System.out.println("centerX: " + centerX  + "r.right: " + r.right);
+				centerX = r.right + width;
+				billiardsBounce(true, false);
+				}
+			
+			//top side of the building
+			if(centerY > r.top - height && centerY < r.centerY() && centerX > r.left && centerX < r.right){
+				centerY = r.top - height;
+				billiardsBounce(false, true);
+				}
+			
+			if(centerY < r.bottom + height && centerY > r.centerY() && centerX > r.left && centerX < r.right){
+				centerY = r.bottom + height;
+				billiardsBounce(false, true);
+				}
+		}
 		
 		
 		

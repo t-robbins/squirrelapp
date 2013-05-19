@@ -170,11 +170,6 @@ public class BoardView extends SurfaceView implements SurfaceHolder.Callback {
 						update(elapsed);
 						doDraw(canvas);
 					
-						
-						
-						
-						
-						
 						}
 					} finally {
 						if(canvas != null){

@@ -17,8 +17,6 @@ public class LevelLibrary {
 	private ArrayList<Level> library;
 	private Context context;
 	
-	private Bitmap bmp1, bmp2, bmp3;
-	private float w1, h1, w2, h2, w3, w4;
 	private ArrayList<Rect> obstacles1, obstacles2, obstacles3;
 	
 	private float screenSizeX, screenSizeY;
@@ -42,22 +40,12 @@ public class LevelLibrary {
 		screenSizeY = dm.heightPixels; 
 		
 		
-		Bitmap bmp1 = BitmapFactory.decodeResource(context.getResources(), background1);
-		w1 = bmp1.getWidth();
-		h1 = bmp1.getHeight();
-		
-		float resize_factorW = w1/screenSizeX;
-		
-		System.out.println(resize_factorW);
-		float resize_factorH = h1/screenSizeY;
-		System.out.println(resize_factorH);
-//		
-//		/*
-//		 * =======================================
-//		 * |									 |
-//		 * |	         Level One     		 	 |
-//		 * =======================================
-//		 */
+		/*
+		 * =======================================
+		 * |									 |
+		 * |	         Level One     		 	 |
+		 * =======================================
+		 */
 		//sX = 480 sY = 320
 		Rect lakesideBottom = new Rect(
 				/*LEFT*/(int)(screenSizeX / 3.310344828), 
@@ -83,11 +71,8 @@ public class LevelLibrary {
 				/*RIGHT*/(int)(screenSizeX / 1.5), 
 				/*BOTTOM*/(int)(screenSizeY / 1.0));
 		obstacles1.add(lakesideMainDiningRight);
-		levelOne = new Level(10, 2, 2, 2, 2, obstacles1, context, background1);
+		levelOne = new Level(2, 8,5, 2, 1, obstacles1, context, background1);
 		library.add(levelOne);
-		System.out.println("levelOne added!"); 
-		System.out.println("at index 0: "+library.get(0).name); 
-		
 		
 
 		/*
@@ -115,13 +100,13 @@ public class LevelLibrary {
 				/*RIGHT*/(int)(screenSizeX / 1.145584726), 
 				/*BOTTOM*/(int)(screenSizeY /2.539682540));
 		obstacles2.add(oaksE);
-		levelTwo = new Level(10, 2, 2, 2, 2, obstacles2, context, background2);
-		library.add(levelTwo);
+		//levelTwo = new Level(10, 2, 2, 2, 2, obstacles2, context, background2);
+		//library.add(levelTwo);
 		
 		/*
 		 * =======================================
 		 * |									 |
-		 * |	         Level Three    		 	 |
+		 * |	         Level Three    		 |
 		 * =======================================
 		 */
 		//sX = 480 sY = 320
@@ -131,6 +116,7 @@ public class LevelLibrary {
 				/*RIGHT*/(int)(screenSizeX / 3.950617284), 
 				/*BOTTOM*/(int)(screenSizeY / 3.232323232));
 		obstacles3.add(belkPavLeft);
+		
 		Rect belkPavRight = new Rect(
 				/*LEFT*/(int)(screenSizeX / 3.950617284), 
 				/*TOP*/(int)(screenSizeY / 5.663716814), 
@@ -138,13 +124,13 @@ public class LevelLibrary {
 				/*BOTTOM*/(int)(screenSizeY / 3.047619048));
 		obstacles3.add(belkPavRight);
 		
-		
 		Rect spencePavLeft = new Rect(
 				/*LEFT*/(int)(screenSizeX / 2.696629213), 
 				/*TOP*/(int)(screenSizeY / 5.565217391), 
 				/*RIGHT*/(int)(screenSizeX / 2.302158273), 
 				/*BOTTOM*/(int)(screenSizeY /3.265306122));
 		obstacles3.add(spencePavLeft);
+		
 		Rect spencePavRight = new Rect(
 				/*LEFT*/(int)(screenSizeX / 2.302158273), 
 				/*TOP*/(int)(screenSizeY / 5.765765766), 
@@ -152,13 +138,13 @@ public class LevelLibrary {
 				/*BOTTOM*/(int)(screenSizeY / 3.047619048));
 		obstacles3.add(spencePavRight);
 		
-		
 		Rect kenanPavLeft = new Rect(
 				/*LEFT*/(int)(screenSizeX / 1.801125704), 
 				/*TOP*/(int)(screenSizeY / 5.765765766), 
 				/*RIGHT*/(int)(screenSizeX / 1.613445378), 
 				/*BOTTOM*/(int)(screenSizeY / 3.137254902));
 		obstacles3.add(kenanPavLeft);
+		
 		Rect kenanPavRight = new Rect(
 				/*LEFT*/(int)(screenSizeX / 1.613445378), 
 				/*TOP*/(int)(screenSizeY / 5.765765766), 
@@ -166,27 +152,26 @@ public class LevelLibrary {
 				/*BOTTOM*/(int)(screenSizeY /3.333333333));
 		obstacles3.add(kenanPavRight);
 		
-		
-		Rect linderWalkway = new Rect(
+		Rect lindnerWalkway = new Rect(
 				/*LEFT*/(int)(screenSizeX / 1.401459854), 
 				/*TOP*/(int)(screenSizeY / 3.878787879), 
-				/*RIGHT*/(int)(screenSizeX / 1.333333333
-), 
+				/*RIGHT*/(int)(screenSizeX / 1.333333333), 
 				/*BOTTOM*/(int)(screenSizeY / 1.382289417));
-		obstacles3.add(linderWalkway);
-		Rect linderBuilding = new Rect(
+		obstacles3.add(lindnerWalkway);
+		
+		Rect lindnerBuilding = new Rect(
 				/*LEFT*/(int)(screenSizeX / 1.346423562), 
 				/*TOP*/(int)(screenSizeY / 3.368421053), 
 				/*RIGHT*/(int)(screenSizeX / 1.170731707), 
 				/*BOTTOM*/(int)(screenSizeY / 1.415929204));
-		obstacles3.add(linderBuilding);
-		Rect linderBack = new Rect(
+		obstacles3.add(lindnerBuilding);
+		
+		Rect lindnerBack = new Rect(
 				/*LEFT*/(int)(screenSizeX / 1.170731707), 
 				/*TOP*/(int)(screenSizeY / 2.253521127), 
 				/*RIGHT*/(int)(screenSizeX / 1.153846154), 
 				/*BOTTOM*/(int)(screenSizeY /1.802816901));
-		obstacles3.add(linderBack);
-		
+		obstacles3.add(lindnerBack);
 		
 		Rect isabellaPavLeft = new Rect(
 				/*LEFT*/(int)(screenSizeX / 1.777777778), 
@@ -194,6 +179,7 @@ public class LevelLibrary {
 				/*RIGHT*/(int)(screenSizeX / 1.600000000), 
 				/*BOTTOM*/(int)(screenSizeY / 1.185185185));
 		obstacles3.add(isabellaPavLeft);
+		
 		Rect isabellaPavRight = new Rect(
 				/*LEFT*/(int)(screenSizeX / 1.600000000), 
 				/*TOP*/(int)(screenSizeY / 1.403508772), 
@@ -201,24 +187,21 @@ public class LevelLibrary {
 				/*BOTTOM*/(int)(screenSizeY / 1.207547170));
 		obstacles3.add(isabellaPavRight);
 		
-		
 		Rect grayPavRight = new Rect(
 				/*LEFT*/(int)(screenSizeX / 2.269503546), 
 				/*TOP*/(int)(screenSizeY / 1.438202247), 
 				/*RIGHT*/(int)(screenSizeX / 1.979381443), 
 				/*BOTTOM*/(int)(screenSizeY /1.182994455));
 		obstacles3.add(grayPavRight);
+		
 		Rect grayPavLeft = new Rect(
 				/*LEFT*/(int)(screenSizeX / 2.644628099), 
 				/*TOP*/(int)(screenSizeY / 1.391304348), 
 				/*RIGHT*/(int)(screenSizeX / 2.269503546), 
 				/*BOTTOM*/(int)(screenSizeY / 1.203007519));
-		obstacles3.add(grayPavLeft);
-		
-		
-		levelThree = new Level(10, 2, 2, 2, 2, obstacles3, context, background3);
-		library.add(levelThree);
-		
+		obstacles3.add(grayPavLeft);		
+		//levelThree = new Level(10, 2, 2, 2, 2, obstacles3, context, background3);
+		//library.add(levelThree);
 	}
 	
 	public ArrayList<Level> getLevelList(){
