@@ -53,6 +53,7 @@ public class Level {
 	private GameOverScreen gameOverScreen; 
 	
 	private boolean alreadyDisplayed = false; 
+	private boolean alreadySet = false; 
 
 	private Paint paint;
 	private int textX, textY;
@@ -142,23 +143,23 @@ public class Level {
 		this.levelFinished = true; 
 	}
 	
-	public String calculateScore(double time){
-		//score is based on time taken to complete the level
-		//if the squirrel gets "hit" (didn't have enough acorns to kill a ped)
-		//it counts as 5 secs 
-		double score = time + (hitCount*5); 
-		String scoreStr = "";
-		if(score <= 60){
-			scoreStr = "Gold"; 
-		}
-		if(score > 60 && score <=120){
-			scoreStr = "Silver";
-		}
-		if(score > 120){
-			scoreStr = "Bronze";
-		}
-		return scoreStr; 
-	}
+//	public String calculateScore(double time){
+//		//score is based on time taken to complete the level
+//		//if the squirrel gets "hit" (didn't have enough acorns to kill a ped)
+//		//it counts as 5 secs 
+//		double score = time + (hitCount*5); 
+//		String scoreStr = "";
+//		if(score <= 60){
+//			scoreStr = "Gold"; 
+//		}
+//		if(score > 60 && score <=120){
+//			scoreStr = "Silver";
+//		}
+//		if(score > 120){
+//			scoreStr = "Bronze";
+//		}
+//		return scoreStr; 
+//	}
 	
 	protected void doDraw(Canvas canvas){
 		if(canvas != null){
@@ -296,37 +297,21 @@ public class Level {
 		//checking to see if the level has been won...
 		//our objective is: Peds have been all killed 
 
-		
-//		if(peds.size() == 0){
-// 
-//			score = calculateScore(levelTime); 
-//			scoreScreen.setScore(score); 
-//			if (!alreadyDisplayed) {
-//				scoreScreen.displayScreen();
-//				alreadyDisplayed = true; 
-//			}
-//			if(alreadyDisplayed && !scoreScreen.display){
-//				//alreadyDisplayed = false; 
-//				finishLevel(); 
-//			}
-//			 
-//		}
-
 		if(peds.size() == 0){
-			//could put some sort of dialog or screen that pops up with the score of this level. Then set the boolean
-			//when they click okay. 
-//			System.out.println("There are no peds left! Finish the level!\n Count is: "+peds.size());
- 
-//			score = calculateScore(levelTime); 
-//			scoreScreen.setScore(String.valueOf(score)); 
-//			if (!alreadyDisplayed) {
-//				scoreScreen.displayScreen();
-//				alreadyDisplayed = true; 
-//			}
-//			if(alreadyDisplayed && !scoreScreen.display){
-//				//alreadyDisplayed = false; 
-//				finishLevel(); 
-//			}
+			//displaying the scoring screen 
+			if(!alreadySet){
+				scoreScreen.setProperties(score, (int) levelTime); 
+				alreadySet = true; 
+			}
+
+			if (!alreadyDisplayed) {
+				scoreScreen.displayScreen();
+				alreadyDisplayed = true; 
+			}
+			if(alreadyDisplayed && !scoreScreen.display){
+				//finish the level when scoring screen is done
+				finishLevel(); 
+			}
 			 
 		}
 		

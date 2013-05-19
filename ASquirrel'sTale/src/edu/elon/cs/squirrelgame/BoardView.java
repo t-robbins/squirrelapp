@@ -142,6 +142,10 @@ public class BoardView extends SurfaceView implements SurfaceHolder.Callback {
 		}
 		
 		private void update(double elapsed) {
+			
+			if(winScreen.display){
+				winScreen.update(elapsed);  
+			}
 
 			if (!levels.get(currentLevel).levelFinished) {
 				levels.get(currentLevel).update(elapsed, yAccel, xAccel);
@@ -154,10 +158,7 @@ public class BoardView extends SurfaceView implements SurfaceHolder.Callback {
 					currentLevel++;
 				} else {
 					//Game is finished
-					System.out.println("Game is FINSIHED!!");
-					if(winScreen.display){
-						winScreen.update(elapsed);  
-					}
+					winScreen.displayScreen(); 
 				}
 			}
 		}

@@ -8,4 +8,13 @@
 	<dimen name="barHeight">30sp</dimen>
 	<dimen name="scoreDistFromRight">100sp</dimen>
 	<dimen name="scoreDistFromTop">100sp</dimen>
+	<dimen name="scoreFontSize">20sp</dimen>
+	<dimen name="scoreScreenMainDistFromLeft">200sp</dimen>
+	<dimen name="scoreScreenMainDistTop">50sp</dimen>
+	<dimen name="scoreScreenOutputDistFromLeft">100sp</dimen>
+	<dimen name="scoreScreenOutputDistTop">150sp</dimen>
+	<dimen name="scoreScreenOutput2DistFromLeft">100sp</dimen>
+	<dimen name="scoreScreenOutput2DistTop">180sp</dimen>
+	<dimen name="scoreScreenWaitDistFromLeft">50sp</dimen>
+	<dimen name="scoreScreenWaitDistTop">250sp</dimen>
 </resources>
