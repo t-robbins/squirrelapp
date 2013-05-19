@@ -28,6 +28,7 @@ public class BoardView extends SurfaceView implements SurfaceHolder.Callback {
 	private SensorManager sensorManager;
 	private SurfaceHolder surfaceHolder;
 	private BoardViewThread boardViewThread;
+	private Context context; 
 	protected float xAccel, yAccel;
 	private Squirrel squirrel;
 	
@@ -45,6 +46,7 @@ public class BoardView extends SurfaceView implements SurfaceHolder.Callback {
 	
 	public BoardView(Context context, AttributeSet attrs) {
 		super(context, attrs);
+		this.context = context; 
 		surfaceHolder = getHolder();
 		surfaceHolder.addCallback(this);
 		
@@ -77,7 +79,6 @@ public class BoardView extends SurfaceView implements SurfaceHolder.Callback {
 		@Override
 		public void onSensorChanged(SensorEvent event) {
 			xAccel= event.values[0];
-			//System.out.println(xAccel);
 			yAccel =  event.values[1];
 		}
 	};
@@ -90,6 +91,10 @@ public class BoardView extends SurfaceView implements SurfaceHolder.Callback {
 
 	@Override
 	public void surfaceCreated(SurfaceHolder holder) {
+		if(boardViewThread.getState() == Thread.State.TERMINATED) {
+			boardViewThread = new BoardViewThread(context); 
+		}
+		//start the thread 
 		boardViewThread.setIsRunning(true);
 		boardViewThread.start();
 		
