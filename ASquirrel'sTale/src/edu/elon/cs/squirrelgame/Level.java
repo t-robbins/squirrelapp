@@ -13,7 +13,6 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
 import android.graphics.Rect;
-import android.os.Handler;
 import android.util.DisplayMetrics;
 import edu.cs.elon.squirrelstale.R;
 
@@ -21,6 +20,7 @@ public class Level {
 
 	protected String name = "one"; 
 	private int pedCount; 
+	private int hitCount = 0; 
 	private double acornSpawnRate;
 	private int freshCount= 0, sophCount = 0, junCount = 0, senCount = 0;
 	private String mapSrc;
@@ -28,6 +28,7 @@ public class Level {
 	private ArrayList<Pedestrian> peds;
 	private ArrayList<Acorn> acorns;
 	private float screenSizeX, screenSizeY; 
+	protected boolean levelFinished = false; 
 	
 	private Bitmap gMapBackground;
 	
@@ -48,11 +49,16 @@ public class Level {
 	private double timeSinceSpawn = 0;
 	protected float randX, randY;
 	protected Random generator;
+	protected String score = ""; 
+	private ScoreScreen scoreScreen; 
+	
+	private boolean alreadyDisplayed = false; 
 	
 	private int min,sec;
 	public Level(double acornSpawnRate,
 			int freshCount, int sophCount, int junCount, int senCount, ArrayList<Rect> obstacles, Context context, int background){
 		
+		this.scoreScreen = new ScoreScreen(context); 
 		this.obstacles = obstacles;
 		this.context = context; 
 		this.acornSpawnRate = acornSpawnRate; 
@@ -131,6 +137,29 @@ public class Level {
 		return mapSrc;
 	}
 	
+	public void finishLevel(){
+		this.levelFinished = true; 
+	}
+	
+	public String calculateScore(double time){
+		//score is based on time taken to complete the level
+		//if the squirrel gets "hit" (didn't have enough acorns to kill a ped)
+		//it counts as 5 secs 
+		double score = time + (hitCount*5); 
+		String scoreStr = "";
+		if(score <= 60){
+			scoreStr = "Gold"; 
+		}
+		if(score > 60 && score <=120){
+			scoreStr = "Silver";
+		}
+		if(score > 120){
+			scoreStr = "Bronze";
+		}
+		return scoreStr; 
+	}
+	
+	
 	protected void doDraw(Canvas canvas){
 		if(canvas != null){
 			//canvas.drawBitmap(board, 0, 0, null);
@@ -173,22 +202,23 @@ public class Level {
 			}
 			cornsToRemove = null;
 			
+			squirrel.doDraw(canvas);
+			
+			if(scoreScreen.display){
+				scoreScreen.doDraw(canvas);  
+			}
 	
 			
-			Paint paint = new Paint();
-			paint.setStyle(Style.FILL);
-			paint.setAlpha(255);
-			//draw obstacles
+//			Paint paint = new Paint();
+//			paint.setStyle(Style.FILL);
+//			paint.setAlpha(255);
+//			//draw obstacles
+//			
+//			System.out.println(obstacles.get(0).flattenToString());
+//			for(Rect obs : obstacles){
+//				canvas.drawRect(obs, paint);
+//			}
 			
-
-			
-			System.out.println(obstacles.get(0).flattenToString());
-			for(Rect obs : obstacles){
-				canvas.drawRect(obs, paint);
-			}
-			
-			
-			squirrel.doDraw(canvas); 
 			
 //			healthBar.doDraw(canvas); 
 		}
@@ -235,7 +265,31 @@ public class Level {
 		}		
 		squirrel.update(yAccel, xAccel); 
 		
+		if(scoreScreen.display){
+			scoreScreen.update(elapsed); 
+		}
+		
 //		healthBar.update(elapsed); 
+		
+		//checking to see if the level has been won...
+		//our objective is: Peds have been all killed 
+		if(peds.size() == 0){
+			//could put some sort of dialog or screen that pops up with the score of this level. Then set the boolean
+			//when they click okay. 
+//			System.out.println("There are no peds left! Finish the level!\n Count is: "+peds.size());
+ 
+			score = calculateScore(levelTime); 
+			scoreScreen.setScore(score); 
+			if (!alreadyDisplayed) {
+				scoreScreen.displayScreen();
+				alreadyDisplayed = true; 
+			}
+			if(alreadyDisplayed && !scoreScreen.display){
+				//alreadyDisplayed = false; 
+				finishLevel(); 
+			}
+			 
+		}
 
 		
 	}

@@ -6,6 +6,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import edu.cs.elon.squirrelstale.R;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -109,7 +110,11 @@ public class BoardView extends SurfaceView implements SurfaceHolder.Callback {
 		private boolean isRunning;
 		private long lastTime;
 		private ArrayList<Level> levels; 
+
 		private int currentLevel = 0;  
+
+//		private ArrayList<Pedestrian> currentPeds;  
+		
 
 		public BoardViewThread(Context context){
 			isRunning = false;
@@ -118,7 +123,6 @@ public class BoardView extends SurfaceView implements SurfaceHolder.Callback {
 		}
 		
 		
-
 		public void setIsRunning(boolean isRunning) {
 			this.isRunning = isRunning;
 		}
@@ -130,12 +134,23 @@ public class BoardView extends SurfaceView implements SurfaceHolder.Callback {
 		}
 		
 		private void update(double elapsed) {
-			if(!objectivesMet){
+
+			if (!levels.get(currentLevel).levelFinished) {
 				levels.get(currentLevel).update(elapsed, yAccel, xAccel);
+				
+			} else {
+				if (currentLevel < levels.size() - 1) {
+					// the level has ended
+					// increment what level looking at
+					System.out.println("progress to the next level ---->");
+					currentLevel++;
+				} else {
+					//Game is finished
+					System.out.println("Game is FINSIHED!!");
+				}
 			}
-			
-			
 		}
+		
 		
 		@Override
 		public void run(){
