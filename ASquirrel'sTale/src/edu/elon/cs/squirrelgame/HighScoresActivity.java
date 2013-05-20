@@ -1,3 +1,7 @@
+/* 
+To get the highscores working Thomas created this class
+but we never incorperated it. 
+ 
 package edu.elon.cs.squirrelgame;
 
 import java.io.BufferedReader;
@@ -176,3 +180,4 @@ public class HighScoresActivity extends Activity {
 		}
 
 	}
+	*/

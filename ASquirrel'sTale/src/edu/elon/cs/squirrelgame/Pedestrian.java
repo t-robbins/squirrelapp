@@ -1,3 +1,11 @@
+/**
+ * @author Schuyler Goodwin
+ * @author Thomas Robbins 
+ * @author Matthew McKenzie
+ * 
+ * Models a Pedestrian 
+ *  
+ */
 package edu.elon.cs.squirrelgame;
 
 import java.util.ArrayList;

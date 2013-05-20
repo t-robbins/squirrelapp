@@ -1,3 +1,8 @@
+/**
+ * @author Schuyler Goodwin
+ * 
+ * A class that displays a score to the screen
+ */
 package edu.elon.cs.squirrelgame;
 import edu.cs.elon.squirrelstale.R;
 import android.content.Context;
@@ -68,11 +73,9 @@ public class ScoreScreen {
 		String sucess = "Success!!"; 
 		String scoreStr = "Your Score is: "+score; 
 		String timeStr = "Time for level: "+ levelTime+" seconds"; 
-		//String output = "Your Score is: "+score+"\nThe time it took to complete the level: "+ levelTime;
 		String wait = "Please wait "+DISPLAY_TIME+" seconds for the next level to load"; 
 		
 		canvas.drawText(sucess, textMainX, textMainY, mainPaint); 
-		//canvas.drawText(output, textOutputX, textOutputY, outputPaint);
 		canvas.drawText(scoreStr, textOutputX, textOutputY, outputPaint); 
 		canvas.drawText(timeStr, textOutput2X, textOutput2Y, outputPaint); 
 		canvas.drawText(wait, textWaitX, textWaitY, waitPaint); 

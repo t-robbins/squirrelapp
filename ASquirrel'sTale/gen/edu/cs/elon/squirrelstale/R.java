@@ -61,73 +61,22 @@ public final class R {
         public static final int win=0x7f020016;
     }
     public static final class id {
-        public static final int Button01=0x7f08002e;
-        public static final int Button02=0x7f080034;
-        public static final int Button03=0x7f080035;
-        public static final int Button04=0x7f080033;
-        public static final int Button05=0x7f080032;
-        public static final int Button06=0x7f080038;
-        public static final int Button07=0x7f080039;
-        public static final int Button08=0x7f080037;
-        public static final int Button09=0x7f080036;
-        public static final int Button14=0x7f08002d;
-        public static final int Button15=0x7f08002a;
-        public static final int Button16=0x7f08002b;
-        public static final int Button17=0x7f08002c;
-        public static final int Button18=0x7f080029;
-        public static final int Button19=0x7f080026;
-        public static final int Button20=0x7f080027;
-        public static final int Button21=0x7f080028;
-        public static final int Button22=0x7f080025;
-        public static final int Button23=0x7f080022;
-        public static final int Button24=0x7f080023;
-        public static final int Button25=0x7f080024;
-        public static final int Button26=0x7f080021;
-        public static final int Button27=0x7f08001e;
-        public static final int Button28=0x7f08001f;
-        public static final int Button29=0x7f080020;
-        public static final int Button30=0x7f08001d;
-        public static final int Button31=0x7f08001a;
-        public static final int Button32=0x7f08001b;
-        public static final int Button33=0x7f08001c;
         public static final int MenuLayout=0x7f080002;
         public static final int RelativeLayout1=0x7f080000;
-        public static final int action_settings=0x7f08003b;
+        public static final int action_settings=0x7f08000a;
         public static final int boardView1=0x7f080007;
-        public static final int button2=0x7f08002f;
-        public static final int button3=0x7f080030;
-        public static final int button4=0x7f080031;
         public static final int cont_button=0x7f080004;
-        public static final int fifthName=0x7f080016;
-        public static final int fifthScore=0x7f080017;
-        public static final int firstName=0x7f08000a;
-        public static final int firstScore=0x7f08000b;
-        public static final int fourthName=0x7f080013;
-        public static final int fourthScore=0x7f080014;
         public static final int highScores_button=0x7f080006;
-        public static final int highscoresTitle=0x7f080008;
-        public static final int imageView1=0x7f080018;
+        public static final int imageView1=0x7f080009;
         public static final int menuScreenBackground=0x7f080001;
         public static final int newGame_button=0x7f080003;
         public static final int options_button=0x7f080005;
-        public static final int second=0x7f08003a;
-        public static final int secondName=0x7f08000d;
-        public static final int secondScore=0x7f08000e;
-        public static final int tableRow1=0x7f080009;
-        public static final int tableRow2=0x7f08000c;
-        public static final int tableRow3=0x7f08000f;
-        public static final int tableRow4=0x7f080012;
-        public static final int tableRow5=0x7f080015;
-        public static final int tempTextView=0x7f080019;
-        public static final int thirdName=0x7f080010;
-        public static final int thirdScore=0x7f080011;
+        public static final int second=0x7f080008;
     }
     public static final class layout {
         public static final int activity_game_start=0x7f030000;
         public static final int activity_gameplay=0x7f030001;
-        public static final int activity_high_scores=0x7f030002;
-        public static final int activity_level_selection=0x7f030003;
-        public static final int activity_options=0x7f030004;
+        public static final int activity_tutorial=0x7f030002;
     }
     public static final class menu {
         public static final int game_start=0x7f070000;

@@ -1,5 +1,11 @@
+/**
+ * @author Schuyler Goodwin
+ * @author Thomas Robbins
+ * @author Matthew McKenzie 
+ * 
+ * A class that models an acorn. 
+ */
 package edu.elon.cs.squirrelgame;
-
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -25,6 +31,10 @@ public class Acorn {
 	protected boolean eaten = false;
 	protected float randX, randY;
 	Random generator;
+	
+	/*
+	 * Constructor that sets up the image and properties
+	 */
 	public Acorn(Context context, ArrayList<Rect> obstacles){
 		this.context = context;
 
@@ -42,6 +52,9 @@ public class Acorn {
 
 	}
 
+	/*
+	 * generates a random location
+	 */
 	private void randomLocation(){
 
 		centerX = generator.nextFloat()*(screenHeight - (height*5));
@@ -50,11 +63,20 @@ public class Acorn {
 			
 	}
 
+	/*
+	 * Helper method to tell what to do with the acorn
+	 * once it has been eaten by the squirrel 
+	 */
 	private void eaten(){
 		centerX = screenWidth * -2;
 		centerY = screenHeight * -2;  
 		eaten = true;
 	}
+	
+	/*
+	 * The Draw method for the acorn. 
+	 * Draws the appropriate entities.
+	 */
 	public void doDraw(Canvas canvas) {
 		screenHeight = canvas.getHeight();
 		screenWidth = canvas.getWidth();
@@ -72,6 +94,10 @@ public class Acorn {
 		
 	}
 
+	/*
+	 * Update method
+	 * contains the collision detection for the squirrel and itself 
+	 */
 	public void update(float sX, float sY) {	
 
 		/*
@@ -84,7 +110,7 @@ public class Acorn {
 				&& (sY >= centerY-40 && sY <= centerY+40))
 			eaten();
 
-		//DONT SPAWN ON BILLDINGS
+		//DONT SPAWN ON BUILDINGS
 				for(Rect r : obs){
 					//left side of the building
 					if(centerX > r.left - width && centerX < r.centerX() && centerY > r.top && centerY < r.bottom){

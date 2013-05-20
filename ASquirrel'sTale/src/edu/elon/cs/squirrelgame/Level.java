@@ -1,3 +1,10 @@
+/**
+ * @author Schuyler Goodwin
+ * @author Thomas Robbins
+ * @author Matthew McKenzie
+ * 
+ * Models a level in the game. 
+ */
 package edu.elon.cs.squirrelgame;
 
 
@@ -159,14 +166,21 @@ public class Level {
 	public String getMapSrc(){
 		return mapSrc;
 	}
-	
+	/*
+	 * Sets the boolean that tells if the level
+	 * is finished
+	 */
 	public void finishLevel(){
 		this.levelFinished = true; 
 	}
 	
+	/*
+	 * Draw Method
+	 * Draws all the objects that the level needs
+	 */
 	protected void doDraw(Canvas canvas){
 		if(canvas != null){
-			//canvas.drawBitmap(board, 0, 0, null);
+			
 			canvas.drawBitmap(gMapBackground, null,
 					new Rect(0, 0, (int)screenSizeX, (int)screenSizeY),
 							null);
@@ -220,15 +234,6 @@ public class Level {
 			}
 			pedsToRemove = null;
 			
-//			Paint rect = new Paint(); 
-//			paint.setColor(Color.GREEN);
-//			paint.setAlpha(255); 
-//			
-//			
-//			for(Rect r : obstacles){
-//				canvas.drawRect(r, paint); 
-//			}
-//			
 			squirrel.doDraw(canvas);
 			healthBar.doDraw(canvas); 
 			}
@@ -236,8 +241,11 @@ public class Level {
 		}
 	}
 	
+	/*
+	 * Update Method
+	 * Updates all the objects that the level has
+	 */
 	protected void update(double elapsed, float yAccel, float xAccel) {
-		//System.out.println("acorns: "+acornCount);
 	
 		levelTime += elapsed; 
 		timeSinceSpawn += elapsed; 
@@ -265,8 +273,7 @@ public class Level {
 			corn.update(sX, sY);	
 		
 		}
-		
-//		ArrayList<Pedestrian> pedsToRemove = new ArrayList<Pedestrian>();
+
 		for(Pedestrian ped : peds){
 			int hit = ped.update(sX, sY, acornCount); 
 			
@@ -302,6 +309,7 @@ public class Level {
 		//our objective is: Peds have been all killed 
 
 		if(peds.size() == 0){
+			
 			//displaying the scoring screen 
 			if(!alreadySet){
 				scoreScreen.setProperties(score, (int) levelTime); 

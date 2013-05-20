@@ -1,3 +1,8 @@
+/**
+ * @author Schuyler Goodwin
+ * 
+ * A class that displays a game over message to the screen
+ */
 package edu.elon.cs.squirrelgame;
 
 import edu.cs.elon.squirrelstale.R;

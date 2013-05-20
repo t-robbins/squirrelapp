@@ -1,3 +1,10 @@
+/**
+ * @author Schuyler Goodwin
+ * @author Thomas Robbins; 
+ * 
+ * Class that models a health bar, 
+ * with the abilities to increase and decrease health 
+ */
 package edu.elon.cs.squirrelgame;
 
 import edu.cs.elon.squirrelstale.R;
@@ -26,20 +33,21 @@ public class HealthBar {
 		
 	}
 	
+	/*
+	 * Method to modify health based on a hit taken
+	 */
 	public void Hit(double decreaseBy){
 		currentHealth = currentHealth - decreaseBy; 
 	}
 	
-	public void regainHealth(double increaseBy){
-		currentHealth += increaseBy; 
-	}
-	
+	/*
+	 * Getter for the health amount 
+	 */
 	public double getHealth(){
 		return  currentHealth; 
 	}
 	
 	public void doDraw(Canvas canvas){
-		//System.out.println("health scale - draw: "+healthScale);
 		Rect bar = new Rect((int)locationX, (int)locationY, (int) (locationX + (healthScale*healthBarWidth)), (int)(locationY + height)); 
 		Paint paint = new Paint(); 
 		

@@ -1,3 +1,16 @@
+/**
+ * @author Schuyler Goodwin
+ * @author Thomas Robbins
+ * @author Matthew McKenzie; 
+ * @author Rex Renolds
+ * 
+ * Modified Code given by Joel Hollingsworth
+ * 
+ * A class that is the basis for all the levels in the game.
+ * A game loop (thread) is used to update and draw the level. 
+ * The levels are accessed through LevelLibrary 
+ * which holds all the levels that exist in the game 
+ */
 package edu.elon.cs.squirrelgame;
 
 
@@ -52,9 +65,8 @@ public class BoardView extends SurfaceView implements SurfaceHolder.Callback {
 		
 		levelIterator = new LevelLibrary(context);
 
-		//tutorial here
 		
-		//---------------------THREAD HERE------------------------------------------------
+		//---------------------THREAD CREATED HERE-----------------------------------
 		boardViewThread = new BoardViewThread(context);
 		
 		
@@ -114,10 +126,8 @@ public class BoardView extends SurfaceView implements SurfaceHolder.Callback {
 		private long lastTime;
 		private ArrayList<Level> levels; 
 		private WinScreen winScreen; 
-
 		private int currentLevel = 0;  
 
-//		private ArrayList<Pedestrian> currentPeds;  
 		
 
 		public BoardViewThread(Context context){
@@ -135,6 +145,7 @@ public class BoardView extends SurfaceView implements SurfaceHolder.Callback {
 
 		private void doDraw(Canvas canvas){ 
 			if(canvas != null){
+				//gets the current level from levelLibrary 
 				levels.get(currentLevel).doDraw(canvas);
 				
 				if(winScreen.display){
@@ -150,22 +161,14 @@ public class BoardView extends SurfaceView implements SurfaceHolder.Callback {
 			}
 
 			if (!levels.get(currentLevel).levelFinished) {
+				//if the level isn't done, update
 				levels.get(currentLevel).update(elapsed, yAccel, xAccel);
 				
 			} else {
 				if (currentLevel < levelIterator.getNumLevels()-1) {
 					// the level has ended
-					// increment what level looking at
-					System.out.println("progress to the next level ---->");
-					
-					currentLevel++;
-					
-//					int healthLevel = levels.get(currentLevel).getHealth();
-//					System.out.println("CURRENT HEALTH FOR THIS GAME IS " + healthLevel);
-//					currentLevel++;
-//					levelIterator.loadNextLevel(currentLevel, healthLevel);
-					
-					
+					// increment what level looking at					
+					currentLevel++;					
 				} else {
 					//Game is finished
 					winScreen.displayScreen(); 

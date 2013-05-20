@@ -1,3 +1,9 @@
+/**
+ * @author Schuyler Goodwin 
+ * 
+ * A class that models an sprite that can flip through different image
+ * so that the sprite looks animated. 
+ */
 package edu.elon.cs.squirrelgame;
 
 import android.graphics.Bitmap;
@@ -32,6 +38,9 @@ public class AnimatedSprite {
 		frameTicker = 01; 
 	}
 	
+	/*
+	 * update method 
+	 */
 	public void update(long gameTime) {
 		if (gameTime > frameTicker + framePeriod){
 			frameTicker = gameTime; 
@@ -46,7 +55,10 @@ public class AnimatedSprite {
 		this.sourceRect.right = this.sourceRect.left + spriteWidth; 
 	}
 	
-	public void draw(Canvas canvas /*, int x, int y*/, float factor){
+	/*
+	 * draw method 
+	 */
+	public void draw(Canvas canvas, float factor){
 		//where to draw the sprite 
 		Rect destRect = new Rect((int)x,(int)y,(int)(x + spriteWidth / factor),(int)( y + spriteHeight / factor)); 
 		canvas.drawBitmap(spriteSheet, sourceRect, destRect, null);

@@ -1,3 +1,11 @@
+/**
+ * @author Schuyler Goodwin
+ * @author Thomas Robbins
+ * @author Matthew McKenzie;
+ * @author Rex Renolds 
+ * 
+ * Activity that models a beginning menu to the game 
+ */
 package edu.elon.cs.squirrelgame;
 
 
@@ -18,30 +26,11 @@ public class GameStartActivity extends Activity {
 	
 	public void intentLevelOne(View v){
 		Intent beginLevelOne = new Intent(GameStartActivity.this, GameplayActivity.class);
-		/* Create bundle?  or put extra*/
-		/* Put things in it */
 		startActivity(beginLevelOne);
 	}
-	
-	public void intentContinue(View v){
-		Intent continueGame = new Intent(GameStartActivity.this, LevelSelectionActivity.class);
-		/* Create bundle? or put extra*/
-		/* Put things in it */
-		startActivity(continueGame);
-		
-	}
 
-	public void intentOptions(View v){
-		Intent optionsMenu = new Intent(GameStartActivity.this, OptionsActivity.class);
-		/* Create bundle? or put extra*/
-		/* Put things in it */
+	public void intentTutorial(View v){
+		Intent optionsMenu = new Intent(GameStartActivity.this, TutorialActivity.class);
 		startActivity(optionsMenu);
-	}
-	
-	public void intentHighScores(View v){
-		Intent viewHighScores = new Intent(GameStartActivity.this, HighScoresActivity.class);
-		/* Create bundle? or put extra*/
-		/* Put things in it */
-		startActivity(viewHighScores);
 	}
 }

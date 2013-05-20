@@ -1,3 +1,12 @@
+/**
+ * @author Schuyler Goodwin
+ * @author Thomas Robbins 
+ * @author Matthew McKenzie
+ * @author Rex Renolds
+ * 
+ * Activity that displays the tutorial
+ *  
+ */
 package edu.elon.cs.squirrelgame;
 
 import edu.cs.elon.squirrelstale.R;
@@ -9,12 +18,12 @@ import android.support.v4.app.NavUtils;
 import android.annotation.TargetApi;
 import android.os.Build;
 
-public class OptionsActivity extends Activity {
+public class TutorialActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_options);
+		setContentView(R.layout.activity_tutorial);
 	}
 
 

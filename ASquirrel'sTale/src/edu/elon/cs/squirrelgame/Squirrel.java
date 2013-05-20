@@ -1,3 +1,11 @@
+/**
+ * @author Schuyler Goodwin
+ * @author Thomas Robbins 
+ * @author Matthew McKenzie
+ * 
+ * Models a Squirrel Object 
+ *  
+ */
 package edu.elon.cs.squirrelgame;
 
 import java.util.ArrayList;
@@ -24,7 +32,6 @@ public class Squirrel {
 	protected float currentY;
 	protected float width, height;
 	private Bitmap spriteSheetExample;
-	//private Bitmap board;
 	private int screenHeight, screenWidth;
 	private float radiusWidth, radiusHeight;
 	private static final int SPEED_VARIABLE = 2;
@@ -50,7 +57,6 @@ public class Squirrel {
 		height = animatedSpriteShown.spriteHeight / FACTOR;
 		
 		radiusWidth = (animatedSpriteShown.spriteWidth / 2);
-		//System.out.println(radiusWidth + " radiusWidth");
 		radiusHeight = (animatedSpriteShown.spriteHeight / 2);
 		
 		spriteWidth = animatedSpriteShown.spriteWidth;

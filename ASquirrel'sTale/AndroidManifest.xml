@@ -28,7 +28,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="edu.elon.cs.squirrelgame.OptionsActivity"
+            android:name="edu.elon.cs.squirrelgame.TutorialActivity"
             android:label="@string/title_activity_options"
             android:parentActivityName="edu.elon.cs.squirrelgame.GameStartActivity"
             android:screenOrientation="portrait"
