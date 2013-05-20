@@ -14,9 +14,9 @@ public class HealthBar {
 	private double healthBarWidth, height; 
 	protected boolean empty = false; 
 	
-	public HealthBar(float x, float y, int maximum, Context context){
+	public HealthBar(float x, float y, int maximum, int current, Context context){
 		this.maxHealth = maximum;
-		this.currentHealth = maxHealth; 
+		this.currentHealth = current; 
 		//this.currentHealth = 2;
 		this.locationX = x;
 		this.locationY = y; 
@@ -58,6 +58,7 @@ public class HealthBar {
 		healthScale = currentHealth / maxHealth; 
 		
 		if(currentHealth == 0.0){
+			System.out.println("EMPTYYYYYYYYY"); 
 			empty = true; 
 		}
 	}

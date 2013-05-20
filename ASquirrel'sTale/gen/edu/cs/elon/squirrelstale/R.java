@@ -11,6 +11,7 @@ public final class R {
     public static final class attr {
     }
     public static final class dimen {
+        public static final int acornDistFromRight=0x7f040010;
         /**  Default screen margins, per the Android Design guidelines. 
 
          Customize dimensions originally defined in res/values/dimens.xml (such as
@@ -22,17 +23,17 @@ public final class R {
         public static final int barHeight=0x7f040004;
         public static final int barWidth=0x7f040003;
         public static final int myFontSize=0x7f040002;
-        public static final int scoreDistFromRight=0x7f040005;
-        public static final int scoreDistFromTop=0x7f040006;
-        public static final int scoreFontSize=0x7f040007;
-        public static final int scoreScreenMainDistFromLeft=0x7f040008;
-        public static final int scoreScreenMainDistTop=0x7f040009;
-        public static final int scoreScreenOutput2DistFromLeft=0x7f04000c;
-        public static final int scoreScreenOutput2DistTop=0x7f04000d;
-        public static final int scoreScreenOutputDistFromLeft=0x7f04000a;
-        public static final int scoreScreenOutputDistTop=0x7f04000b;
-        public static final int scoreScreenWaitDistFromLeft=0x7f04000e;
-        public static final int scoreScreenWaitDistTop=0x7f04000f;
+        public static final int scoreDistFromRight=0x7f04000f;
+        public static final int scoreDistFromTop=0x7f040005;
+        public static final int scoreFontSize=0x7f040006;
+        public static final int scoreScreenMainDistFromLeft=0x7f040007;
+        public static final int scoreScreenMainDistTop=0x7f040008;
+        public static final int scoreScreenOutput2DistFromLeft=0x7f04000b;
+        public static final int scoreScreenOutput2DistTop=0x7f04000c;
+        public static final int scoreScreenOutputDistFromLeft=0x7f040009;
+        public static final int scoreScreenOutputDistTop=0x7f04000a;
+        public static final int scoreScreenWaitDistFromLeft=0x7f04000d;
+        public static final int scoreScreenWaitDistTop=0x7f04000e;
     }
     public static final class drawable {
         public static final int acorn=0x7f020000;

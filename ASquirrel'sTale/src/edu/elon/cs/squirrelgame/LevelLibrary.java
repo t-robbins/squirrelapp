@@ -20,6 +20,11 @@ public class LevelLibrary {
 	private ArrayList<Rect> obstacles1, obstacles2, obstacles3;
 	
 	private float screenSizeX, screenSizeY;
+	
+	private int healthLevel = 100;
+	private int background1, background2, background3;
+	
+	private int numLevels = 3;
 	public LevelLibrary(Context context){
 		
 		this.context = context; 
@@ -27,9 +32,9 @@ public class LevelLibrary {
 		library = new ArrayList<Level>();
 		
 		
-		int background1 = R.drawable.levelone;
-		int background2 = R.drawable.leveltwo;
-		int background3 = R.drawable.levelthree;
+		background1 = R.drawable.levelone;
+		background2 = R.drawable.leveltwo;
+		background3 = R.drawable.levelthree;
 		
 		obstacles1 = new ArrayList<Rect>();
 		obstacles2 = new ArrayList<Rect>();
@@ -47,6 +52,13 @@ public class LevelLibrary {
 		 * =======================================
 		 */
 		//sX = 480 sY = 320
+		Rect menuBar = new Rect(
+				/*LEFT*/(int)(0), 
+				/*TOP*/(int)(screenSizeY / 1.072026801), 
+				/*RIGHT*/(int)(screenSizeX), 
+				/*BOTTOM*/(int)(screenSizeY));
+		obstacles1.add(menuBar);
+				
 		Rect lakesideBottom = new Rect(
 				/*LEFT*/(int)(screenSizeX / 3.310344828), 
 				/*TOP*/(int)(screenSizeY / 2.935779817), 
@@ -72,9 +84,8 @@ public class LevelLibrary {
 				/*BOTTOM*/(int)(screenSizeY / 1.0));
 		obstacles1.add(lakesideMainDiningRight);
 
-		levelOne = new Level(5, 5,0, 0, 0, obstacles1, context, background1);
+		levelOne = new Level(5, 1,0, 0, 0, obstacles1, context, background1, healthLevel);
 		library.add(levelOne);
-		
 
 		/*
 		 * =======================================
@@ -83,6 +94,13 @@ public class LevelLibrary {
 		 * =======================================
 		 */
 		//sX = 480 sY = 320
+		Rect menuBar2 = new Rect(
+				/*LEFT*/(int)(0), 
+				/*TOP*/(int)(screenSizeY / 1.072026801), 
+				/*RIGHT*/(int)(screenSizeX), 
+				/*BOTTOM*/(int)(screenSizeY));
+		obstacles2.add(menuBar2);
+				
 		Rect oaksC = new Rect(
 				/*LEFT*/(int)(screenSizeX / 9.320388350), 
 				/*TOP*/(int)(screenSizeY / 3.832335329), 
@@ -101,9 +119,9 @@ public class LevelLibrary {
 				/*RIGHT*/(int)(screenSizeX / 1.145584726), 
 				/*BOTTOM*/(int)(screenSizeY /2.539682540));
 		obstacles2.add(oaksE);
-		levelTwo = new Level(10, 2, 0, 0, 0, obstacles2, context, background2);
-		library.add(levelTwo);
 		
+		levelTwo = new Level(5, 3,0,0, 0, obstacles2, context, background2, healthLevel);
+		library.add(levelTwo);
 		/*
 		 * =======================================
 		 * |									 |
@@ -111,97 +129,58 @@ public class LevelLibrary {
 		 * =======================================
 		 */
 		//sX = 480 sY = 320
-		Rect belkPavLeft = new Rect(
-				/*LEFT*/(int)(screenSizeX / 5.245901639), 
-				/*TOP*/(int)(screenSizeY / 5.470085470), 
-				/*RIGHT*/(int)(screenSizeX / 3.950617284), 
-				/*BOTTOM*/(int)(screenSizeY / 3.232323232));
-		obstacles3.add(belkPavLeft);
+		Rect menuBar3 = new Rect(
+				/*LEFT*/(int)(0), 
+				/*TOP*/(int)(screenSizeY / 1.072026801), 
+				/*RIGHT*/(int)(screenSizeX), 
+				/*BOTTOM*/(int)(screenSizeY));
+		obstacles3.add(menuBar3);
 		
 		Rect belkPavRight = new Rect(
-				/*LEFT*/(int)(screenSizeX / 3.950617284), 
+				/*LEFT*/(int)(screenSizeX / 5.245901639), 
 				/*TOP*/(int)(screenSizeY / 5.663716814), 
 				/*RIGHT*/(int)(screenSizeX / 3.157894737), 
 				/*BOTTOM*/(int)(screenSizeY / 3.047619048));
 		obstacles3.add(belkPavRight);
 		
-		Rect spencePavLeft = new Rect(
-				/*LEFT*/(int)(screenSizeX / 2.696629213), 
-				/*TOP*/(int)(screenSizeY / 5.565217391), 
-				/*RIGHT*/(int)(screenSizeX / 2.302158273), 
-				/*BOTTOM*/(int)(screenSizeY /3.265306122));
-		obstacles3.add(spencePavLeft);
-		
 		Rect spencePavRight = new Rect(
-				/*LEFT*/(int)(screenSizeX / 2.302158273), 
+				/*LEFT*/(int)(screenSizeX / 2.696629213), 
 				/*TOP*/(int)(screenSizeY / 5.765765766), 
 				/*RIGHT*/(int)(screenSizeX / 2.016806723), 
 				/*BOTTOM*/(int)(screenSizeY / 3.047619048));
 		obstacles3.add(spencePavRight);
-		
-		Rect kenanPavLeft = new Rect(
-				/*LEFT*/(int)(screenSizeX / 1.801125704), 
-				/*TOP*/(int)(screenSizeY / 5.765765766), 
-				/*RIGHT*/(int)(screenSizeX / 1.613445378), 
-				/*BOTTOM*/(int)(screenSizeY / 3.137254902));
-		obstacles3.add(kenanPavLeft);
-		
+				
 		Rect kenanPavRight = new Rect(
-				/*LEFT*/(int)(screenSizeX / 1.613445378), 
+				/*LEFT*/(int)(screenSizeX / 1.801125704), 
 				/*TOP*/(int)(screenSizeY / 5.765765766), 
 				/*RIGHT*/(int)(screenSizeX / 1.479198767), 
 				/*BOTTOM*/(int)(screenSizeY /3.333333333));
 		obstacles3.add(kenanPavRight);
 		
-		Rect lindnerWalkway = new Rect(
-				/*LEFT*/(int)(screenSizeX / 1.401459854), 
-				/*TOP*/(int)(screenSizeY / 3.878787879), 
-				/*RIGHT*/(int)(screenSizeX / 1.333333333), 
-				/*BOTTOM*/(int)(screenSizeY / 1.382289417));
-		obstacles3.add(lindnerWalkway);
-		
 		Rect lindnerBuilding = new Rect(
 				/*LEFT*/(int)(screenSizeX / 1.346423562), 
 				/*TOP*/(int)(screenSizeY / 3.368421053), 
-				/*RIGHT*/(int)(screenSizeX / 1.170731707), 
+				/*RIGHT*/(int)(screenSizeX / 1.153846154), 
 				/*BOTTOM*/(int)(screenSizeY / 1.415929204));
 		obstacles3.add(lindnerBuilding);
-		
-		Rect lindnerBack = new Rect(
-				/*LEFT*/(int)(screenSizeX / 1.170731707), 
-				/*TOP*/(int)(screenSizeY / 2.253521127), 
-				/*RIGHT*/(int)(screenSizeX / 1.153846154), 
-				/*BOTTOM*/(int)(screenSizeY /1.802816901));
-		obstacles3.add(lindnerBack);
+
 		
 		Rect isabellaPavLeft = new Rect(
 				/*LEFT*/(int)(screenSizeX / 1.777777778), 
 				/*TOP*/(int)(screenSizeY / 1.441441441), 
-				/*RIGHT*/(int)(screenSizeX / 1.600000000), 
+				/*RIGHT*/(int)(screenSizeX / 1.461187215), 
 				/*BOTTOM*/(int)(screenSizeY / 1.185185185));
 		obstacles3.add(isabellaPavLeft);
 		
-		Rect isabellaPavRight = new Rect(
-				/*LEFT*/(int)(screenSizeX / 1.600000000), 
-				/*TOP*/(int)(screenSizeY / 1.403508772), 
-				/*RIGHT*/(int)(screenSizeX / 1.461187215), 
-				/*BOTTOM*/(int)(screenSizeY / 1.207547170));
-		obstacles3.add(isabellaPavRight);
-		
 		Rect grayPavRight = new Rect(
-				/*LEFT*/(int)(screenSizeX / 2.269503546), 
+				/*LEFT*/(int)(screenSizeX / 2.644628099), 
 				/*TOP*/(int)(screenSizeY / 1.438202247), 
 				/*RIGHT*/(int)(screenSizeX / 1.979381443), 
 				/*BOTTOM*/(int)(screenSizeY /1.182994455));
 		obstacles3.add(grayPavRight);
+
 		
-		Rect grayPavLeft = new Rect(
-				/*LEFT*/(int)(screenSizeX / 2.644628099), 
-				/*TOP*/(int)(screenSizeY / 1.391304348), 
-				/*RIGHT*/(int)(screenSizeX / 2.269503546), 
-				/*BOTTOM*/(int)(screenSizeY / 1.203007519));
-		obstacles3.add(grayPavLeft);		
-		levelThree = new Level(10, 2, 0, 0, 0, obstacles3, context, background3);
+		levelThree = new Level(5, 1,0, 0, 0, obstacles3, context, background3, healthLevel);
 		library.add(levelThree);
 	}
 	
@@ -209,5 +188,25 @@ public class LevelLibrary {
 		System.out.println("level list gotten"); 	
 		return library;
 		
+	}
+
+	public void loadNextLevel(int currentLevel, int healthLevel) {
+		
+		if(currentLevel == 1){
+
+			levelTwo = new Level(5, 1,0,0, 0, obstacles2, context, background2, healthLevel);
+			library.add(levelTwo);
+		}
+			
+		if(currentLevel == 2){
+			levelThree = new Level(5, 1,0, 0, 0, obstacles3, context, background3, healthLevel);
+			library.add(levelThree);
+		}
+		
+		
+	}
+	
+	public int getNumLevels(){
+		return numLevels;
 	}
 }

@@ -65,12 +65,11 @@ public class ScoreScreen {
 	
 	public void doDraw(Canvas canvas){
 		canvas.drawBitmap(background, null, new Rect(0,0,canvas.getWidth(),canvas.getHeight()), null);  
-		String sucess = "Sucess!!"; 
-		String message = "You have managed to take revenge on those pesky students"; 
+		String sucess = "Success!!"; 
 		String scoreStr = "Your Score is: "+score; 
-		String timeStr = "Time for level: "+ levelTime+" secs"; 
+		String timeStr = "Time for level: "+ levelTime+" seconds"; 
 		//String output = "Your Score is: "+score+"\nThe time it took to complete the level: "+ levelTime;
-		String wait = "Please wait "+DISPLAY_TIME+" secs for the next level to load"; 
+		String wait = "Please wait "+DISPLAY_TIME+" seconds for the next level to load"; 
 		
 		canvas.drawText(sucess, textMainX, textMainY, mainPaint); 
 		//canvas.drawText(output, textOutputX, textOutputY, outputPaint);

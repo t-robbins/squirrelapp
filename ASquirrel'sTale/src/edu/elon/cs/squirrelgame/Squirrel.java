@@ -105,23 +105,26 @@ public class Squirrel {
 			currentY = 0;
 		}
 		
+		
+		
 		for(Rect r : obs){
-			//left side of the building
-			if(currentX > r.left - width && currentX < r.centerX() && currentY > r.top && currentY < r.bottom)
-				currentX = r.left - width;
 			
+			//left side of the building
+			if(currentX > r.left-(width) && currentX < r.centerX() && currentY > r.top && currentY < r.bottom)
+				currentX = r.left-(width);
+	
 			//right side of the building
-			if(currentX < r.right + width && currentX > r.centerX() && currentY > r.top && currentY < r.bottom){
-				//System.out.println("currentX: " + currentX  + "r.right: " + r.right);
-				currentX = r.right + width;
+			if(currentX < r.right && currentX > r.centerX() && currentY > r.top && currentY < r.bottom){
+				currentX = r.right;
 			}
 			
 			//top side of the building
 			if(currentY > r.top - height && currentY < r.centerY() && currentX > r.left && currentX < r.right)
 				currentY = r.top - height;
 			
-			if(currentY < r.bottom + height && currentY > r.centerY() && currentX > r.left && currentX < r.right)
-				currentY = r.bottom + height;
+			//bottom side of building
+			if(currentY < r.bottom +(height/8)&& currentY > r.centerY() && currentX > r.left && currentX < r.right)
+				currentY = r.bottom+(height/8);
 		}
 		
 		

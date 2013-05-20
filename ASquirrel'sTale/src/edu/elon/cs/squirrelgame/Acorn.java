@@ -44,8 +44,8 @@ public class Acorn {
 
 	private void randomLocation(){
 
-		centerX = generator.nextFloat()*(screenHeight - (height*2));
-		centerY = generator.nextFloat()*((screenWidth) - (width*2));
+		centerX = generator.nextFloat()*(screenHeight - (height*5));
+		centerY = generator.nextFloat()*((screenWidth) - (width*5));
 		
 			
 	}
@@ -61,8 +61,8 @@ public class Acorn {
 		
 		if(centerX < 0.0 && centerY < 0.0){
 			generator = new Random();
-			centerX = generator.nextFloat()*(Math.abs(screenWidth - width));
-			centerY = generator.nextFloat()*(Math.abs(screenHeight - height));
+			centerX = generator.nextFloat()*(Math.abs(screenWidth - (width*5)));
+			centerY = generator.nextFloat()*(Math.abs(screenHeight - (height*5)));
 		}
 		
 		canvas.drawBitmap(image, null, 
@@ -80,8 +80,8 @@ public class Acorn {
 		 * ==================================
 		 */
 
-		if((sX >= centerX-20 && sX <= centerX+20) 
-				&& (sY >= centerY-20 && sY <= centerY+20))
+		if((sX >= centerX-40 && sX <= centerX+40) 
+				&& (sY >= centerY-40 && sY <= centerY+40))
 			eaten();
 
 		//DONT SPAWN ON BILLDINGS

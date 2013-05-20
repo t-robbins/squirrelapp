@@ -55,11 +55,13 @@ public class Level {
 	private boolean alreadyDisplayed = false; 
 	private boolean alreadySet = false; 
 
-	private Paint paint;
-	private int textX, textY;
+	private Paint paint, menuBar;
+	private int acornTextX, acornTextY, scoreTextX, scoreTextY;
+	
+	private int hp;
 	
 	public Level(double acornSpawnRate,
-			int freshCount, int sophCount, int junCount, int senCount, ArrayList<Rect> obstacles, Context context, int background){
+			int freshCount, int sophCount, int junCount, int senCount, ArrayList<Rect> obstacles, Context context, int background, int healthLevel){
 		
 		DisplayMetrics dm = context.getResources().getDisplayMetrics(); 
 		screenSizeX = dm.widthPixels;
@@ -69,8 +71,15 @@ public class Level {
 		this.gameOverScreen = new GameOverScreen(context); 
 		this.obstacles = obstacles;
 		this.context = context; 
-		this.acornSpawnRate = acornSpawnRate; 
-		this.healthBar = new HealthBar(0, 0, 100, context); 
+		this.acornSpawnRate = acornSpawnRate;
+		
+		hp =healthLevel;
+		
+		this.healthBar = new HealthBar(0, 
+				(float) ((screenSizeY / 1.085)), 
+				100,
+				healthLevel,
+				context); 
 		
 		gMapBackground = BitmapFactory.decodeResource(context.getResources(), background);
 		
@@ -102,12 +111,25 @@ public class Level {
 		
 		paint.setTextSize(context.getResources().getDimensionPixelSize(R.dimen.myFontSize));
 		
-		textX = (int) (screenSizeX - context.getResources().getDimensionPixelSize(R.dimen.scoreDistFromRight));
-		textY = context.getResources().getDimensionPixelSize(R.dimen.scoreDistFromTop); 
+		scoreTextX = (int) (screenSizeX - context.getResources().getDimensionPixelSize(R.dimen.scoreDistFromRight));
+		scoreTextY = (int) ((screenSizeY / 1.085) + (context.getResources().getDimensionPixelSize(R.dimen.myFontSize)/1.072026801)); 
+		acornTextX = (int) (screenSizeX - context.getResources().getDimensionPixelSize(R.dimen.acornDistFromRight));
+		acornTextY = (int) ((screenSizeY / 1.085) + (context.getResources().getDimensionPixelSize(R.dimen.myFontSize)/1.072026801));
+
+		menuBar = new Paint();
+		menuBar.setColor(Color.DKGRAY);
+		menuBar.setStyle(Style.FILL);
+		menuBar.setAlpha(255);
+		
 	}
 	
 	public int getCorns(){
 		return acornCount;
+	}
+	
+	
+	public int getHealth(){
+		return hp;
 	}
 	
 	//populating an array of instantiated pedestrian objects that will exist on the level 
@@ -116,18 +138,17 @@ public class Level {
 		peds = new ArrayList<Pedestrian>();
 	
 		for(int f = 0; f < freshCount; f++){
-			System.out.println("Creating freshman number :" + f);
 			peds.add(new Pedestrian(context, R.drawable.freshman_ped, 1, obstacles));
 		}
 		
 		for(int so = 0; so < sophCount; so++){ 
-			peds.add(new Pedestrian(context, R.drawable.sophomore_ped, 1, obstacles));
+			peds.add(new Pedestrian(context, R.drawable.sophomore_ped, 2, obstacles));
 		}
 		for(int j = 0; j < junCount; j++){
-			peds.add(new Pedestrian(context, R.drawable.junior_ped, 1, obstacles));
+			peds.add(new Pedestrian(context, R.drawable.junior_ped, 3, obstacles));
 		}
 		for(int se = 0; se < senCount; se++){
-			peds.add(new Pedestrian(context, R.drawable.senior_ped, 1, obstacles));
+			peds.add(new Pedestrian(context, R.drawable.senior_ped, 4, obstacles));
 		}
 	}
 	
@@ -143,24 +164,6 @@ public class Level {
 		this.levelFinished = true; 
 	}
 	
-//	public String calculateScore(double time){
-//		//score is based on time taken to complete the level
-//		//if the squirrel gets "hit" (didn't have enough acorns to kill a ped)
-//		//it counts as 5 secs 
-//		double score = time + (hitCount*5); 
-//		String scoreStr = "";
-//		if(score <= 60){
-//			scoreStr = "Gold"; 
-//		}
-//		if(score > 60 && score <=120){
-//			scoreStr = "Silver";
-//		}
-//		if(score > 120){
-//			scoreStr = "Bronze";
-//		}
-//		return scoreStr; 
-//	}
-	
 	protected void doDraw(Canvas canvas){
 		if(canvas != null){
 			//canvas.drawBitmap(board, 0, 0, null);
@@ -171,6 +174,14 @@ public class Level {
 			ArrayList<Pedestrian> pedsToRemove = new ArrayList<Pedestrian>();
 			ArrayList<Acorn> cornsToRemove = new ArrayList<Acorn>();
 			
+			
+			if(gameOverScreen.display)
+				gameOverScreen.doDraw(canvas); 
+			else if (scoreScreen.display){
+				scoreScreen.doDraw(canvas);  
+			}
+			else{
+
 			for(Acorn corn : acorns){
 				if(corn.eaten){
 					acornCount++;
@@ -185,6 +196,13 @@ public class Level {
 				acorns.remove(rmA);
 			}
 			cornsToRemove = null;
+			
+			
+			canvas.drawRect(obstacles.get(0), menuBar);
+			canvas.drawText("Score: " + String.valueOf(score), scoreTextX, scoreTextY, paint);
+			canvas.drawText("Acorns: " + String.valueOf(acornCount), acornTextX, acornTextY, paint);
+			
+			
 			
 			for(Pedestrian ped : peds){
 
@@ -202,33 +220,19 @@ public class Level {
 			}
 			pedsToRemove = null;
 			
-			
+//			Paint rect = new Paint(); 
+//			paint.setColor(Color.GREEN);
+//			paint.setAlpha(255); 
+//			
+//			
+//			for(Rect r : obstacles){
+//				canvas.drawRect(r, paint); 
+//			}
+//			
 			squirrel.doDraw(canvas);
 			healthBar.doDraw(canvas); 
-			
-			canvas.drawText(String.valueOf(score), textX, textY, paint);
-			
-			
-			if(scoreScreen.display){
-				scoreScreen.doDraw(canvas);  
 			}
-			  
-			if(gameOverScreen.display)
-				gameOverScreen.doDraw(canvas); 
 			
-	
-
-//			Paint paint = new Paint();
-//			paint.setStyle(Style.FILL);
-//			paint.setAlpha(255);
-//			//draw obstacles
-//			
-//			System.out.println(obstacles.get(0).flattenToString());
-//			for(Rect obs : obstacles){
-//				canvas.drawRect(obs, paint);
-//			}
-			
-
 		}
 	}
 	
@@ -239,10 +243,7 @@ public class Level {
 		timeSinceSpawn += elapsed; 
 		timeSinceHit += elapsed; 
 	
-		if(timeSinceSpawn > acornSpawnRate){
-			//System.out.println((System.currentTimeMillis()/1000));
-			
-			
+		if(timeSinceSpawn > acornSpawnRate && acorns.size()<6){
 			acorns.add(new Acorn(context, obstacles));
 			timeSinceSpawn = 0; 
 		}		
@@ -272,12 +273,15 @@ public class Level {
 			if(ped.dead){
 				acornCount = acornCount - ped.acornCost;
 				pedKilledCount++;
-				score+=100;
+				score+=100*ped.acornCost;
 			}else if(hit > acornCount){
 				healthBar.Hit(1);
 				hitCount++;
+				
 				if(score>0)
-					score-=2;
+					score-=2*ped.acornCost;
+				if(score<0)
+					score=0;
 				
 			}
 		}
@@ -285,7 +289,7 @@ public class Level {
 		squirrel.update(yAccel, xAccel); 
 		
 		healthBar.update(elapsed); 
-		
+		hp = (int) healthBar.getHealth(); 
 		if(scoreScreen.display){
 			scoreScreen.update(elapsed); 
 		}

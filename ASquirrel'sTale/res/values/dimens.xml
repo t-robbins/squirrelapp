@@ -3,10 +3,9 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
-	<dimen name="myFontSize">30sp</dimen>
-	<dimen name="barWidth">200sp</dimen>
+	<dimen name="myFontSize">25sp</dimen>
+	<dimen name="barWidth">100sp</dimen>
 	<dimen name="barHeight">30sp</dimen>
-	<dimen name="scoreDistFromRight">100sp</dimen>
 	<dimen name="scoreDistFromTop">100sp</dimen>
 	<dimen name="scoreFontSize">20sp</dimen>
 	<dimen name="scoreScreenMainDistFromLeft">200sp</dimen>
@@ -17,4 +16,6 @@
 	<dimen name="scoreScreenOutput2DistTop">180sp</dimen>
 	<dimen name="scoreScreenWaitDistFromLeft">50sp</dimen>
 	<dimen name="scoreScreenWaitDistTop">250sp</dimen>
+	<dimen name="scoreDistFromRight">200sp</dimen>
+	<dimen name="acornDistFromRight">350sp</dimen>
 </resources>

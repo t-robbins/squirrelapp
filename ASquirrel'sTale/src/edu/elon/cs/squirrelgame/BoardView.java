@@ -54,10 +54,6 @@ public class BoardView extends SurfaceView implements SurfaceHolder.Callback {
 
 		//tutorial here
 		
-		
-		
-		
-		
 		//---------------------THREAD HERE------------------------------------------------
 		boardViewThread = new BoardViewThread(context);
 		
@@ -128,6 +124,7 @@ public class BoardView extends SurfaceView implements SurfaceHolder.Callback {
 			this.winScreen = new WinScreen(context); 
 			isRunning = false;
 			levels = levelIterator.getLevelList(); 
+			
 			System.out.println("current level" + levels.get(currentLevel).name); 
 		}
 		
@@ -156,11 +153,19 @@ public class BoardView extends SurfaceView implements SurfaceHolder.Callback {
 				levels.get(currentLevel).update(elapsed, yAccel, xAccel);
 				
 			} else {
-				if (currentLevel < levels.size() - 1) {
+				if (currentLevel < levelIterator.getNumLevels()-1) {
 					// the level has ended
 					// increment what level looking at
 					System.out.println("progress to the next level ---->");
+					
 					currentLevel++;
+					
+//					int healthLevel = levels.get(currentLevel).getHealth();
+//					System.out.println("CURRENT HEALTH FOR THIS GAME IS " + healthLevel);
+//					currentLevel++;
+//					levelIterator.loadNextLevel(currentLevel, healthLevel);
+					
+					
 				} else {
 					//Game is finished
 					winScreen.displayScreen(); 
@@ -186,6 +191,7 @@ public class BoardView extends SurfaceView implements SurfaceHolder.Callback {
 						lastTime = now;
 						update(elapsed);
 						doDraw(canvas);
+						
 						
 						}
 					} finally {

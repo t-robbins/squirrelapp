@@ -30,13 +30,15 @@ public class Pedestrian {
 	//make speed dependent on resolution
 	private static final float SPEED_VARIABLE = 5;
 	private ArrayList<Rect> obs;
+	
+	
 	public Pedestrian(Context context, int imageID, int acornCost, ArrayList<Rect> obstacles){
 		
 		image = BitmapFactory.decodeResource(context.getResources(), imageID);
 		width = image.getWidth()/FACTOR;
 		height = image.getHeight()/FACTOR;
 		
-		generator = new Random();
+		generator = new Random(System.currentTimeMillis());
 		centerX = generator.nextFloat()*(Math.abs(screenWidth - width))+ 50;
 		centerY = generator.nextFloat()*(Math.abs(screenHeight - height))+ 50;
 		System.out.println("START X:" + centerX + " and Y: " + centerY);
@@ -48,6 +50,9 @@ public class Pedestrian {
 		angleX = Math.cos((generator.nextInt()*360)*(Math.PI/180.0));
 		angleY = Math.sin((generator.nextInt()*360)*(Math.PI/180.0));
 		
+		centerX = 1000;
+		centerY = 1000;
+		System.out.println("FORCED X:" + centerX + " and Y: " + centerY);
 		
 	} 
 	
@@ -63,10 +68,15 @@ public class Pedestrian {
 		
 		//initiates starting position
 		if(centerX < 0.0 && centerY < 0.0){
-			generator = new Random();
-			centerX = generator.nextFloat()*(Math.abs(screenWidth - width));
-			centerY = generator.nextFloat()*(Math.abs(screenHeight - height));
+			generator = new Random(System.currentTimeMillis());
+			centerX = generator.nextFloat()*(Math.abs(screenWidth - width) + (screenWidth/2));
+			centerY = generator.nextFloat()*(Math.abs(screenHeight - height)+ (screenHeight/2));
+			
+			
 		}
+		
+
+		//System.out.println("AFTER DO DRAW X:" + centerX + " and Y: " + centerY);
 		
 		canvas.drawBitmap(image, null, 
 				new Rect((int)(centerX-width/FACTOR),(int)(centerY-height/FACTOR),
@@ -93,16 +103,17 @@ public class Pedestrian {
 			centerX = screenWidth - width/FACTOR;
 			billiardsBounce(true, false);
 			
-		} else if (centerX < 0) {
-			centerX = 0 + (width/FACTOR)/8;
+		} else if (centerX < 0+(width/FACTOR)) {
+			centerX = 0 + (width/FACTOR);
 			billiardsBounce(true, false);
 		}
 		if (centerY > screenHeight - (height/FACTOR)) {
 
 			centerY = screenHeight - (height/FACTOR);
 			billiardsBounce(false, true);
-		} else if (centerY < 0) {
-			centerY = 0 + (height/FACTOR)/8;
+			
+		} else if (centerY < 0+(height/FACTOR)) {
+			centerY = 0 + (height/FACTOR);
 			billiardsBounce(false, true);
 		}
 		
@@ -113,26 +124,26 @@ public class Pedestrian {
 		
 		for(Rect r : obs){
 			//left side of the building
-			if(centerX > r.left - width && centerX < r.centerX() && centerY > r.top && centerY < r.bottom){
-				centerX = r.left - width;
+			if(centerX > r.left - (width/FACTOR) && centerX < r.centerX() && centerY > r.top && centerY < r.bottom){
+				centerX = r.left - (width/FACTOR);
 				billiardsBounce(true, false);
 				}
 			
 			//right side of the building
-			if(centerX < r.right + width && centerX > r.centerX() && centerY > r.top && centerY < r.bottom){
+			if(centerX < r.right + (width/FACTOR) && centerX > r.centerX() && centerY > r.top && centerY < r.bottom){
 				//System.out.println("centerX: " + centerX  + "r.right: " + r.right);
-				centerX = r.right + width;
+				centerX = r.right + (width/FACTOR);
 				billiardsBounce(true, false);
 				}
 			
 			//top side of the building
-			if(centerY > r.top - height && centerY < r.centerY() && centerX > r.left && centerX < r.right){
-				centerY = r.top - height;
+			if(centerY > r.top-(height/FACTOR) && centerY < r.centerY() && centerX > r.left && centerX < r.right){
+				centerY = r.top - (height/FACTOR);
 				billiardsBounce(false, true);
 				}
-			
-			if(centerY < r.bottom + height && centerY > r.centerY() && centerX > r.left && centerX < r.right){
-				centerY = r.bottom + height;
+			//bottom of building
+			if(centerY < r.bottom + (height/FACTOR) && centerY > r.centerY() && centerX > r.left && centerX < r.right){
+				centerY = r.bottom + (height/FACTOR);
 				billiardsBounce(false, true);
 				}
 		}
@@ -142,8 +153,8 @@ public class Pedestrian {
 		 *|	      SQUIRREL       |
 		 *~~~~~~~~~~~~~~~~~~~~~~~~
 		 */
-		if((sX >= centerX-20 && sX <= centerX+20) 
-				&& (sY >= centerY-20 && sY <= centerY+20)){
+		if((sX >= centerX-40 && sX <= centerX+40) 
+				&& (sY >= centerY-40 && sY <= centerY+40)){
 			
 			if(acornCount >= acornCost){
 				die();
