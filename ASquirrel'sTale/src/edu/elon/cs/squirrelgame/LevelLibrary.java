@@ -94,7 +94,7 @@ public class LevelLibrary {
 				/*BOTTOM*/(int)(screenSizeY / 1.0));
 		obstacles1.add(lakesideMainDiningRight);
 
-		levelOne = new Level(4, 5,2, 1, 0, obstacles1, context, background1, healthLevel);
+		levelOne = new Level(4, 2,1, 0, 0, obstacles1, context, background1, healthLevel);
 		library.add(levelOne);
 
 		/*
@@ -130,7 +130,7 @@ public class LevelLibrary {
 				/*BOTTOM*/(int)(screenSizeY /2.539682540));
 		obstacles2.add(oaksE);
 		
-		levelTwo = new Level(4, 3,3,2, 1, obstacles2, context, background2, healthLevel);
+		levelTwo = new Level(4, 1,1,1, 0, obstacles2, context, background2, healthLevel);
 		library.add(levelTwo);
 		/*
 		 * =======================================
@@ -190,7 +190,7 @@ public class LevelLibrary {
 		obstacles3.add(grayPavRight);
 
 		
-		levelThree = new Level(3, 6,2, 3, 5, obstacles3, context, background3, healthLevel);
+		levelThree = new Level(3, 1,1, 1, 1, obstacles3, context, background3, healthLevel);
 		library.add(levelThree);
 	}
 	

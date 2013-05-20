@@ -57,8 +57,8 @@ public class Acorn {
 	 */
 	private void randomLocation(){
 
-		centerX = generator.nextFloat()*(screenHeight - (height*5));
-		centerY = generator.nextFloat()*((screenWidth) - (width*5));
+		centerX = generator.nextFloat()*(screenHeight - (height*2));
+		centerY = generator.nextFloat()*((screenWidth) - (width*2));
 		
 			
 	}
@@ -83,8 +83,8 @@ public class Acorn {
 		
 		if(centerX < 0.0 && centerY < 0.0){
 			generator = new Random();
-			centerX = generator.nextFloat()*(Math.abs(screenWidth - (width*5)));
-			centerY = generator.nextFloat()*(Math.abs(screenHeight - (height*5)));
+			centerX = generator.nextFloat()*(Math.abs(screenWidth - (width*2)));
+			centerY = generator.nextFloat()*(Math.abs(screenHeight - (height*2)));
 		}
 		
 		canvas.drawBitmap(image, null, 

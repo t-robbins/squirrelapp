@@ -37,40 +37,16 @@
             tools:ignore="ContentDescription" />
 
         <ImageButton
-            android:id="@+id/cont_button"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:adjustViewBounds="true"
-            android:onClick="intentContinue"
-            android:padding="0dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/continue_1"
-            tools:ignore="ContentDescription" />
-
-        <ImageButton
             android:id="@+id/options_button"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
             android:cropToPadding="true"
-            android:onClick="intentOptions"
+            android:onClick="intentTutorial"
             android:padding="0dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/options_final"
+            android:src="@drawable/howtoplay"
             tools:ignore="ContentDescription" />
-
-        <ImageButton
-            android:id="@+id/highScores_button"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:layout_weight=".10"
-            android:adjustViewBounds="true"
-            android:cropToPadding="true"
-            android:onClick="intentHighScores"
-            android:padding="0dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/high_scores"
-            tools:ignore="InefficientWeight,ContentDescription" />
     </LinearLayout>
 
 </RelativeLayout>
