@@ -20,5 +20,15 @@ public class LevelSelectionActivity extends Activity {
 		/* Create bundle?  or put extra*/
 		/* Put things in it */
 		startActivity(beginLevelOne);
+		
+		Intent beginLevelTwo = new Intent(LevelSelectionActivity.this, GameplayActivity.class);
+		/* Create bundle?  or put extra*/
+		/* Put things in it */
+		startActivity(beginLevelTwo);
+		
+		Intent beginLevelThree = new Intent(LevelSelectionActivity.this, GameplayActivity.class);
+		/* Create bundle?  or put extra*/
+		/* Put things in it */
+		startActivity(beginLevelThree);
 	}
 }
