@@ -17,13 +17,6 @@ import android.graphics.Canvas;
 import android.graphics.Rect;
 import edu.cs.elon.squirrelstale.R;
 
-
-/**
- * 
- * TEST EDIT FROM LINUX PUSH TO GITHUB
- * @author trobbins
- *
- */
 public class Acorn {
 	private Context context; 
 	private float centerX, centerY;
